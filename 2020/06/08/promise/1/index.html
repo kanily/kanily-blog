@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="Front-end Js Css">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Promise 详解 |
+    
+    Kanily&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-promise/1" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      Promise 详解
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/06/08/promise/1/" class="article-date">
+  <time datetime="2020-06-08T06:47:16.113Z" itemprop="datePublished">2020-06-08</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+                            
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <p>new Promise时， 需要传递一个 executor 执行器， 执行器立即执行</p>
+<a id="more"></a>
+
+<p>/**</p>
+<ul>
+<li><ol>
+<li>new Promise时， 需要传递一个 executor 执行器， 执行器立即执行</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>executor 接受两个参数 分别是 resolve 和 reject</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>promise 只能从 pending 到 rejected， 或者 从 pending 到 resolved</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>promise 的状态一旦确认， 就不会再改变</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>promise 都有 then 方法， then方法接收两个参数， </li>
+</ol>
+</li>
+<li>分别是 promise 成功回调的 onFulfilled 和 失败回调的 onRejected</li>
+<li><ol start="6">
+<li>如果调用 then 时，promise已经成功，则执行 onFulfilled 并将 promise的值作为参数传进去</li>
+</ol>
+</li>
+<li>如果promise已经失败， 那么执行 onRejected 并将 promise失败的原因作为参数传递进去</li>
+<li>如果promise是pending状态，则把 onFulfilled 和 onRejected 函数存起来， 等到状态确定后，</li>
+<li>再按照相应的对象执行（发布-订阅模式）</li>
+<li><ol start="7">
+<li>onFulfilled 和 onRejected 的参数可以缺省</li>
+</ol>
+</li>
+<li><ol start="8">
+<li>promise 可以 then 多次，promise的then 返回一个promise</li>
+</ol>
+</li>
+<li><ol start="9">
+<li>如果then返回的是一个结果， 那么可以把这个结果作为参数，传递下一个then 的 onFulfilled成功的回调</li>
+</ol>
+</li>
+<li><ol start="10">
+<li>如果then 返回的是一个异常， 那么可以把这个异常作为参数， 传递给下一个then 的 onRejected 失败回调</li>
+</ol>
+</li>
+<li><ol start="11">
+<li>如果 then 返回的是一个promise, 那么需要等这个promise 那么等到这个promise 执行完</li>
+</ol>
+</li>
+<li>promise执行成功就走下一个then成功， promise执行失败就走下一个then的失败</li>
+<li>/</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PENDING = <span class="string">"pending"</span>;</span><br><span class="line"><span class="keyword">const</span> FULFILLED = <span class="string">"fulfilled"</span>;</span><br><span class="line"><span class="keyword">const</span> REJECTED = <span class="string">'rejected'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Promise</span>(<span class="params">excutor</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> that = <span class="keyword">this</span>; <span class="comment">//缓存当前promise 实例对象</span></span><br><span class="line">  that.status = PENDING; <span class="comment">// 初始状态</span></span><br><span class="line">  that.value = <span class="literal">undefined</span>; <span class="comment">// fulfilled状态时 返回的信息</span></span><br><span class="line">  that.reason = <span class="literal">undefined</span>; <span class="comment">// rejected状态时 拒绝的原因</span></span><br><span class="line">  that.onFulfilledCallbacks = []; <span class="comment">//存储fulfilled 状态对应的onFulfilled函数</span></span><br><span class="line">  that.onRejectedCallbacks = []; <span class="comment">//存储rejected 状态对应的onRejected 函数</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">resovle</span> (<span class="params">value</span>) </span>&#123; <span class="comment">//value 成功态时接受的终值</span></span><br><span class="line">    <span class="keyword">if</span>(value <span class="keyword">instanceof</span> <span class="built_in">Promise</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> value.then(resovle, reject)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//实践中要确保 onFulfilled 和 onRejected方法异步执行，</span></span><br><span class="line">    <span class="comment">//且应该在then 方法调用的时候那一轮事件循环的执行栈执行结束之后</span></span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 调用resovle 回调对应的onFulfilled函数</span></span><br><span class="line">      <span class="keyword">if</span> (that.status === PENDING) &#123;</span><br><span class="line">        <span class="comment">// 只能由pending状态 =》 fulfilled 状态（避免多次调用resovle reject）</span></span><br><span class="line">        that.status = FULFILLED;</span><br><span class="line">        that.value = value;</span><br><span class="line">        that.onFulfilledCallbacks.forEach(<span class="function"><span class="params">callback</span> =&gt;</span> &#123;</span><br><span class="line">          callback(that.value)</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">reject</span>(<span class="params">reason</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 调用reject 回调对应onRejected 函数</span></span><br><span class="line">        <span class="keyword">if</span> (that.status === PENDING) &#123;</span><br><span class="line">          <span class="comment">// 只能由 pending =》 rejected （避免多次调用resovle reject）</span></span><br><span class="line">          that.status = REJECTED;</span><br><span class="line">          that.reason = reason;</span><br><span class="line">          that.onRejectedCallbacks.forEach(<span class="function"><span class="params">callback</span> =&gt;</span> &#123;</span><br><span class="line">            callback(that.reason)</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//捕获在excutor执行期炮数的异常</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    excutor(resovle, reject)</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    reject(e)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Promise.prototype.then = function(onFulfilled, onRejected) {<br>  const that = this;<br>  let newPromise;<br>  onFulfilled =<br>    typeof onFulfilled === “function” ? onFulfilled : value =&gt; value;<br>  onRejected =<br>   typeof onRejected === “function” ? onRejected : reason =&gt; {<br>     throw reason<br>   }</p>
+<p>   if(that.status === FULFILLED) {<br>     return newPromise = new Promise((resovle, reject) =&gt; {<br>       setTimeout(() =&gt; {<br>         try {<br>           let x = onFulfilled(that.value)<br>           resovlePromise(newPromise, x, resovle, reject);<br>         } catch (error) {<br>           reject(error)<br>         }<br>       })<br>     })<br>   }</p>
+<p>   if(that.status === REJECTED) {<br>     return newPromise = new Promise(() =&gt; {<br>       setTimeout(() =&gt; {<br>         try {<br>           let x = onRejected(that.reason)<br>           resovlePromise(newPromise, x, resovle, reject)<br>         } catch (error) {<br>           reject(error)<br>         }<br>       })<br>     })<br>   }</p>
+<p>   if(that.status === PENDING) {<br>     that.onFulfilledCallbacks.push(() =&gt; {<br>        setTimeout(() =&gt; {<br>          try {<br>            let x = onFulfilled(that.value)<br>            resovlePromise(newPromise, x, resovle, reject)<br>          } catch (error) {<br>            reject(error)<br>          }<br>        })<br>     })</p>
+<pre><code>that.onRejectedCallbacks.push(() =&gt;{
+  setTimeout(() =&gt; {
+    try {
+      let x = onRejected(that.reason)
+      resovlePromise(newPromise, x, resovle, reject)
+    } catch (error) {
+      reject(error)
+    }
+  })
+})</code></pre><p>  }</p>
+<p>}</p>
+<p>function resovlePromise (newPromise, x, resolve, reject) {<br>  let that = this;<br>  if(newPromise === x) {<br>    reject(new TypeError(‘Chaining cycle’));<br>  }<br>  if(x &amp; typeof x === ‘object’ || typeof x === ‘function’) {<br>    let used;<br>    try {<br>      let then = x.then;<br>      if(typeof then === ‘function’) {<br>        then.call(x, (y) =&gt; {<br>          if(used) return;<br>          used === true;<br>          resovlePromise(newPromise, y, resolve, reject);<br>        }, (reason) =&gt; {<br>          if(used) return;<br>          used === true;<br>          reject(reason);<br>        })<br>      }else {<br>        if(used) return;<br>        used = true;<br>        resolve(x);<br>      }<br>    } catch (error) {<br>      if(used) return;<br>      used = true;<br>      reject(error);<br>    }<br>  }else{<br>    resolve(x);<br>  }<br>}</p>
+<p>// promise.finally<br>// 不管成功 or 失败 最终都会走到finally 还可以继续 then 且可以把值原封不动的传给后面的then<br>Promise.prototype.finally = function (callback) {<br>  return this.then((value) =&gt; {<br>    return Promise.resolve(callback()).then(() =&gt; {<br>      return value<br>    })<br>  }, (err) =&gt; {<br>    return Promise.resolve(callback().then(() =&gt; {<br>      throw err<br>    }))<br>  })<br>}</p>
+<p>//promise.all（promises） 返回一个promise对象<br>/**</p>
+<ul>
+<li><ol>
+<li>如果传入的是一个空的可迭代对象，那么此promise对象回调完成（resolve），</li>
+</ol>
+</li>
+<li><p>只有这种情况是同步执行的，其他的都是返回一个异步完成</p>
+</li>
+<li><ol start="2">
+<li>如果传入参数不包含任何一个promise， 则返回一个异步完成</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>promises 所有的promise都完成时，或参数中不包含promise时 回调完成</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>如果一个 promise 失败，那么promise.all 返回的promise对象失败</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>在任何情况下，promises返回的promise的完成状态结果都是一个数组</li>
+</ol>
+</li>
+<li><p>/</p>
+<p>Promise.prototype.all = function (promises) {<br> return new Promise((resolve, rejected) =&gt; {<br>  let index = 0;<br>  let result = [];<br>  if (promises.length === 0) {</p>
+<pre><code>resolve(result)</code></pre><p>  } else {</p>
+<pre><code>function processValue (idx, data) {
+  result[i] = data;
+  if (++index === promises.length) {
+    resolve(result)
+  }
+}
+for (let i = 0; i &lt; promises.length; i++) {
+  //promises[i]可能是个普通值
+  Promise.resolve(promises[i]).then((data) =&gt; {
+    processValue(i, data)
+  }, (err) =&gt; {
+    rejected(err);
+    return;
+  })
+}</code></pre><p>  }<br> })<br>}</p>
+</li>
+</ul>
+<p> //Promise.race()<br> /**</p>
+<ul>
+<li>返回一个promise函数，他将与第一个传递的promise相同的方式被完成，他可以是完成也可以是失败，</li>
+<li>取决于第一个完成的方式是两个中的哪一个</li>
+<li>如果传递的是一个空数组，那么primise将处于永远等待</li>
+<li>如果迭代中包含一个或多个 非promise/resolve/reject的promise，那么promise.race将解析为迭代中找到的第一个值</li>
+<li>/<br>Promise.prototype.race = function(promises) {<br>return new Promise((resovle, reject) =&gt; {<br> if(promises.length === 0) {<br>   return;<br> }else {<br>   for (let i = 0; i &lt; promises.length; i++) {<pre><code>Promise.resolve(promises[i]).then((data)=&gt; {
+  resolve(data);
+  return;
+}, (err) =&gt; {
+  reject(err);
+  return;
+})</code></pre>   }<br> }<br>})<br>}</li>
+</ul>
+<p>//Promise.allSettled<br>/**</p>
+<ul>
+<li><p>将一组promise实例作为参数，包装成一个新的promise实例，只有等到所有的promise都执行完成后</p>
+</li>
+<li><p>不管是fulfilled 或是 rejected 包装实例才会结束</p>
+</li>
+<li><p>/</p>
+<p>//Promise.any<br>/**</p>
+</li>
+<li><p>将一组promise实例作为参数，包装成一个新的promise实例，实例参数只要有一个promise是resolve状态</p>
+</li>
+<li><p>包装的实例则返回resolve状态，如果实例参数都返回rejected状态，实例才返回 rejected</p>
+</li>
+<li><p>/</p>
+</li>
+</ul>
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://kanily.github.io/2020/06/08/promise/1/" data-id="ckb64v1x2000a0ox82nlqayps" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2020/06/08/prototype/prototype/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            prototype/prototype
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/06/08/algorithm/Array/index/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">algorithm/Array/index</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 Kanily&#39;s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="Kanily&#39;s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>

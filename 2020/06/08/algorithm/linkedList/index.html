@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    Hello World |
+    algorithm/linkedList |
     
     Kanily&#39;s Blog</title>
   
@@ -31,7 +31,7 @@
 <body>
 <main class="content">
   <section class="outer">
-  <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  <article id="post-algorithm/linkedList" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
     <div class="article-inner">
         
@@ -39,7 +39,7 @@
                 
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      algorithm/linkedList
     </h1>
   
   
@@ -52,8 +52,8 @@
 
                 
                     <div class="article-meta">
-                        <a href="/2020/05/28/hello-world/" class="article-date">
-  <time datetime="2020-05-28T11:45:43.239Z" itemprop="datePublished">2020-05-28</time>
+                        <a href="/2020/06/08/algorithm/linkedList/" class="article-date">
+  <time datetime="2020-06-08T06:47:16.113Z" itemprop="datePublished">2020-06-08</time>
 </a>
                             
                     </div>
@@ -61,8 +61,6 @@
 
                         
                             
-    <div class="tocbot"></div>
-
 
 
 
@@ -76,24 +74,149 @@
                                             
 
                                                 
-                                                                    <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+                                                                    /**
+ * 链表——一种基础数据结构
+ * 自身就是一个指针，指向头结点，相应的这个头节点又有个指针指向下一个节点，以此类推。
+ * 每个节点包含两块区域，数据区域包含该位置的值，另一个区域包含一个指针指向下一个节点
+ */
+function LinkList() {
+    this._length = 0;  // 长度属性
+    this._head = null; // 链表指向的第一个元素，一开始的链表为空
+}
+LinkList.prototype = {
+    add: function(data) {
+        var node = {
+            data: data,
+            next: null
+        },
+        current;
+        if (this._head === null) {
+            this._head = node
+        } else {
+            current = this._head;
+            while (current.next) {
+                current = current.next
+            }
+            current.next = node
+        }
+        this._length++
+    },
+    item: function(index) {
+        if (index > -1 && index < this._length) {
+            var current = this._head,
+            i = 0;
+            while (i++ < index) {
+                current = current.next;
+            }
+            return current.data;
+        } else {
+            return null;
+        }
+    },
+    remove: function(index) {
+        if (index > -1 && index < this._length) {
+            var current = this._head,
+                previous,
+                i = 0;
+            if (index === 0) {
+                this._head = current.next
+            } else {
+                // 找到正确的位置进行删除
+                while (i++ < index) {
+                    previous = current;
+                    current = current.next
+                }
+                previous.next = current.next
+            }
+            this._length--;
+            return current.data;
+        } else {
+            return null;
+        }
+    }
+}
+// 使用
+var list = new LinkedList();
+list.add('red')
+list.add('orange')
+list.add('yellow')
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+function showStudent(ssn) {
+    var student = db.get(ssn);
+    if(student !== null) {
+        document.querySelector(`#{elementId}`).innerHTML = `${student.ssn}, ${student.firstname}, ${student.lastname}`;
+    } else {
+        throw  new Error('student is not found')
+    }
+}
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+var find = curry(function (db, id) {
+    var obj = bd.get(id);
+    if(obj === null) {
+        throw new Error('Object not found');
+    }
+    return obj;
+})
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+var csv = (student) {
+    return `${student.ssn}, ${student.firstname}, ${student.lastname}`;
+}
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+var append = curry(function (elementId, info) {
+    document.querySelector(elementId).innerHTML = info;
+})
+
+var showStudent = run(append('#student-info'), csv, find(db));
+
+class Person {
+    constructor(firstname, lastname, ssn) {
+        this._firstname = firstname;
+        this._lastname = lastname;
+        this._ssn = ssn;
+        this._address = null;
+        this._birthYear = null;
+    }
+
+    get ssn() {
+        return this._ssn;
+    }
+
+    get firstname() {
+        return this._firstname;
+    }
+
+    get address() {
+        return this._address;
+    }
+
+    get birthYear() {
+        return this._birthYear;
+    }
+
+    set address(addr) {
+        this._address = addr;
+    }
+
+    toString() {
+        return `Person(${this._firstname}, ${this._lastname})`
+    }
+}
+
+class Student extends Person {
+    constructor(firtname, lastname, ssn, school) {
+        super(firtname, lastname, ssn);
+        this._school = school
+    }
+
+    get school() {
+        return this._school;
+    }
+}
 
                                                                         
                                     </div>
                                     <footer class="article-footer">
-                                        <a data-url="http://kanily.github.io/2020/05/28/hello-world/" data-id="ckaqpoh1h000030oo13nv471s" class="article-share-link">
+                                        <a data-url="http://kanily.github.io/2020/06/08/algorithm/linkedList/" data-id="ckb64v1ww00050ox8hi0xc9jb" class="article-share-link">
                                             Share
                                         </a>
                                         
@@ -103,6 +226,25 @@
 
     
         
+  <nav class="article-nav">
+    
+      <a href="/2020/06/08/algorithm/base64/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            algorithm/base64
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/06/08/algorithm/throttle/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">algorithm/throttle</div>
+      </a>
+    
+  </nav>
+
 
             
 

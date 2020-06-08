@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="Front-end Js Css">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    prototype/prototype |
+    
+    Kanily&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-prototype/prototype" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+  
+    <h1 class="article-title" itemprop="name">
+      prototype/prototype
+    </h1>
+  
+  
+
+
+
+
+            </header>
+            
+
+                
+                    <div class="article-meta">
+                        <a href="/2020/06/08/prototype/prototype/" class="article-date">
+  <time datetime="2020-06-08T06:47:16.113Z" itemprop="datePublished">2020-06-08</time>
+</a>
+                            
+                    </div>
+                    
+
+                        
+                            
+    <div class="tocbot"></div>
+
+
+
+
+
+                                
+
+                                    <div class="article-entry" itemprop="articleBody">
+                                        
+
+
+                                            
+
+                                                
+                                                                    <h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><hr>
+<p><strong>constructor</strong> 返回实例对象构造函数的引用，此值是对函数本身的引用</p>
+<pre>
+function Person (name) {
+    this.name = name;
+}
+
+var p = new Person(name);
+p.constructor === Person
+</pre>
+<p>构造函数本身就是函数，不过为了规范都会首字母大写， 主要<code>区别</code>在于使用 <em>new</em> 生成的实例函数就是构造函数，直接调用的就是普通函数 </p>
+<h3 id="constructor-是只读的吗？"><a href="#constructor-是只读的吗？" class="headerlink" title="constructor 是只读的吗？"></a>constructor 是只读的吗？</h3><p>对引用类型来是可以修改的，对基本数据类型是 只读的</p>
+<pre>
+function Parent() {
+    this.name = 'xiaoming';
+    this.age = '18';
+}
+Parent.prototype = {
+    method: funtion () {}
+}
+
+function Children() {
+
+}
+
+Children.prototype = new Parent();
+Children.prototype.foo = 'Hello world'
+//此时constructor 指向 Object
+Children.prototype.constructor === Object //true
+//修正constructor
+
+Children.prototype.constructor = Children
+</pre>
+
+<h3 id="new-到底是如果实现的呢"><a href="#new-到底是如果实现的呢" class="headerlink" title="new 到底是如果实现的呢"></a>new 到底是如果实现的呢</h3><pre>
+function create () {
+    // 创建一个空对象
+    var obj = new Object(),
+    //2. 获得构造函数，同时删除arguments 里的第一个参数
+    Con = [].shift.call(arguments);
+    //3. 链接到原型，obj可以访问到构造函数的属性
+    Object.setPrototypeOf(obj, Con.prototype)
+    //4.绑定this实现继承，让其可以访问构造函数的属性
+    var result = Con.apply(obj, arguments)
+    //优先返回构造函数的对象
+    return result instanceof Object ? result : obj
+}
+</pre>
+<h2 id="原型-prototype"><a href="#原型-prototype" class="headerlink" title="原型 prototype"></a>原型 prototype</h2><p>每个构造函数对象拥有一个<strong>原型对象</strong>，对象以原型为模板，从原型继承方法和属性，这些属性和方法定义在构造器函数的 <strong>prototype</strong> 属性上，而非本身</p>
+<h2 id="proto"><a href="#proto" class="headerlink" title="_proto_"></a>_<em>proto_</em></h2><p>构造函数的 prototype 属性有个 _<em>proto__属性，这是一个访问器属性（即getter 函数和 setter函数），通过他可以访问到对象内部的 [[Prototype]](一个对象或null)<br>##<br><em>_prototype</em></em> 属性在es6后才被标准化，获取或者设置可以用</p>
+<pre>
+    Object.setPrototypeOf()
+    Object.getPrototypeOf()
+</pre>
+
+<p>##原型链<br>每个对象拥有原型对象，通过<strong>proto</strong>指针指向该对象的原型，并从中集成方法和属性， 同时原型对象也可能拥有原型，这样一层一层，最终会指向null；这种关系被称作原型链</p>
+<h2 id="实现-instanceOf"><a href="#实现-instanceOf" class="headerlink" title="实现 instanceOf"></a>实现 instanceOf</h2><pre>
+function _instanceOf (instance, object){
+    // 获取对象的原型
+    const prototype = object.prototype;
+    //获取要检查对象的原型
+    let proto = instance.__proto__;
+    //遍历要检查的原型链，until the end of instance
+    while (__proto__ !== null) {
+        if (__proto__ === prototype) {
+            return true;
+        }
+        proto =  proto.__proto__;
+    }
+    return false;
+}
+</pre>
+
+
+
+
+                                                                        
+                                    </div>
+                                    <footer class="article-footer">
+                                        <a data-url="http://kanily.github.io/2020/06/08/prototype/prototype/" data-id="ckb64v1wz00090ox84w9tflj4" class="article-share-link">
+                                            Share
+                                        </a>
+                                        
+                                    </footer>
+
+    </div>
+
+    
+        
+  <nav class="article-nav">
+    
+      <a href="/2020/06/08/http/http/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer</strong>
+        <div class="article-nav-title">
+          
+            http/http
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/06/08/promise/1/" class="article-nav-link">
+        <strong class="article-nav-caption">Older</strong>
+        <div class="article-nav-title">Promise 详解</div>
+      </a>
+    
+  </nav>
+
+
+            
+
+                
+                    
+                        
+                            
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 Kanily&#39;s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="Kanily&#39;s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>
