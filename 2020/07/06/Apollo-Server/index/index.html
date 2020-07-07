@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Kanily">
+  <meta name="keywords" content="Front-end Js Css">
+  <title>Apollo-Server - Kanily&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              Home</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              Archives</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              Categories</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              Tags</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-07-06 17:42">
+                    July 6, 2020 pm
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    5.3k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    61
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><h4 id="Apollo-Server-是什么"><a href="#Apollo-Server-是什么" class="headerlink" title="Apollo Server 是什么"></a>Apollo Server 是什么</h4><p> <a href="http://www.baidu.com" target="_blank" rel="noopener">Apollo Server</a> 是一种符合规范的开源 GraphQL服务器，能与任何GraphQL客户端（包括Apollo Client）兼容。并且可以使用任何来源数据去构建生产预发环境、生成 GraphQL API 文档的最佳方法。</p>
+<p> 您可以将<strong>Apollo Server</strong>用作：</p>
+<ul>
+<li><p>独立的GraphQL服务器，包括在serverless环境中</p>
+</li>
+<li><p>现有应用的Node.js中间件的扩展（例如Express或Fastify）的附件</p>
+</li>
+<li><p>Federated data graph的网关</p>
+<p><strong>Apollo Server</strong> 提供：</p>
+</li>
+<li><p>简单易用的设置，因此您的客户端开发人员可以快速开始获取数据</p>
+</li>
+<li><p>渐进式采用，使您可以根据需要添加功能</p>
+</li>
+<li><p>可以兼容任何数据源、构建工具、GraphQL客户端</p>
+</li>
+<li><p>生产就绪，使您能够更快地发布功能</p>
+</li>
+</ul>
+<h3 id="开始使用-Apollo-Server"><a href="#开始使用-Apollo-Server" class="headerlink" title="开始使用 Apollo Server"></a>开始使用 Apollo Server</h3><blockquote>
+<p>本教程主要引导你安装和配置Apollo Server。如果您刚刚开始使用GraphQL 或者 Apollo平台，我们推荐您先完成<a href="https://www.apollographql.com/docs/tutorial/introduction" target="_blank" rel="noopener">full-stack-tutorial</a>。</p>
+</blockquote>
+<p>本教程可以帮助您：</p>
+<ul>
+<li>对GraphQL原理有基本了解</li>
+<li>定义一个代表数据集结构的GraphQL <strong>schema</strong></li>
+<li>运行Apollo Server实例，使您可以依照你的schema执行查询</li>
+</ul>
+<p>本教程假定您熟悉命令行和JavaScript，并且已安装了最新版本的Node.js（8+）。</p>
+<h4 id="第一步：创建一个新的项目"><a href="#第一步：创建一个新的项目" class="headerlink" title="第一步：创建一个新的项目"></a>第一步：创建一个新的项目</h4><p>1.在您首选的开发目录中，为新项目创建目录并 <code>cd</code> 进入该目录：</p>
+<pre><code class="hljs plain">mkdir graphql-server-example
+cd graphql-server-example</code></pre>
+<p>2.使用<code>npm</code>（或您喜欢的另一个包管理器，例如Yarn）初始化一个新的Node.js项目：</p>
+<pre><code class="hljs plain">npm init --yes</code></pre>
+<p>您的项目目录现在包含一个<code>package.json</code>文件。</p>
+<h4 id="第二步：安装依赖项"><a href="#第二步：安装依赖项" class="headerlink" title="第二步：安装依赖项"></a>第二步：安装依赖项</h4><p>运行Apollo Server的应用程序需要两个顶级依赖项：</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/apollo-server" target="_blank" rel="noopener">apollo-server</a> 是Apollo Server本身的核心库，可帮助您定义数据的形状以及如何获取数据。</li>
+<li><a href="https://www.npmjs.com/package/graphql" target="_blank" rel="noopener">graphql</a> 是用于构建GraphQL Schema并对其执行查询的库。</li>
+</ul>
+<p>运行以下命令以安装这两个依赖项并将它们保存在项目的<code>node_modules</code>目录中：</p>
+<pre><code class="hljs plain">npm install apollo-server graphql</code></pre>
+<p>还要<code>index.js</code>在项目的根目录中创建一个空文件：</p>
+<pre><code class="hljs plain">touch index.js</code></pre>
+<p>为简单起见，<code>index.js</code>将包含此示例应用程序的所有代码。</p>
+<h4 id="第三步：定义您的GraphQL-Schema"><a href="#第三步：定义您的GraphQL-Schema" class="headerlink" title="第三步：定义您的GraphQL Schema"></a>第三步：定义您的GraphQL Schema</h4><p>每个GraphQL服务器（包括Apollo服务器）都使用一种<strong>Schema</strong>来定义客户端可以查询的数据结构。在此示例中，我们将创建一个服务器，用于按书名和作者查询书籍集合。</p>
+<p><code>index.js</code>在您喜欢的编辑器中打开并将以下内容粘贴到其中：</p>
+<pre><code class="hljs plain">const &#123; ApolloServer, gql &#125; &#x3D; require(&#39;apollo-server&#39;);
+
+&#x2F;&#x2F; A schema is a collection of type definitions (hence &quot;typeDefs&quot;)
+&#x2F;&#x2F; that together define the &quot;shape&quot; of queries that are executed against
+&#x2F;&#x2F; your data.
+const typeDefs &#x3D; gql&#96;
+  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
+
+  # This &quot;Book&quot; type defines the queryable fields for every book in our data source.
+  type Book &#123;
+    title: String
+    author: String
+  &#125;
+
+  # The &quot;Query&quot; type is special: it lists all of the available queries that
+  # clients can execute, along with the return type for each. In this
+  # case, the &quot;books&quot; query returns an array of zero or more Books (defined above).
+  type Query &#123;
+    books: [Book]
+  &#125;
+&#96;;</code></pre>
+
+<p>此代码段定义了一个简单有效的GraphQL Schema。客户将能够执行名为的查询books，并且我们的服务器将返回零个或多个Books 的数组。</p>
+<h4 id="第四步：定义您的数据集"><a href="#第四步：定义您的数据集" class="headerlink" title="第四步：定义您的数据集"></a>第四步：定义您的数据集</h4><p>现在我们已经定义了数据的结构，我们可以定义数据本身了。Apollo服务器可以从您连接到的任何源（包括数据库，REST API，静态对象存储服务，甚至另一个GraphQL服务器）中获取数据。出于本教程的目的，我们将对一些示例数据进行硬编码。</p>
+<p>将以下内容添加到的底部<code>index.js</code>：</p>
+<pre><code class="hljs plain">const books &#x3D; [
+  &#123;
+    title: &#39;Harry Potter and the Chamber of Secrets&#39;,
+    author: &#39;J.K. Rowling&#39;,
+  &#125;,
+  &#123;
+    title: &#39;Jurassic Park&#39;,
+    author: &#39;Michael Crichton&#39;,
+  &#125;,
+];</code></pre>
+<p>此代码段定义了客户端可以查询的简单数据集。注意，数组中的两个对象均与Book我们在架构中定义的类型的结构匹配。</p>
+<h4 id="第五步：定义解析器"><a href="#第五步：定义解析器" class="headerlink" title="第五步：定义解析器"></a>第五步：定义解析器</h4><p>我们已经定义了数据集，但是Apollo Server不知道在执行查询时应该如何使用该数据集。为了解决这个问题，我们创建了一个 resolver。</p>
+<p>让解析器告诉Apollo Server 如何获取与特定类型关联的数据。因为我们的Book数组是硬编码的，所以相应的解析器很简单。</p>
+<p>将以下内容添加到的底部<code>index.js</code>：</p>
+<pre><code class="hljs plain">&#x2F;&#x2F; Resolvers define the technique for fetching the types defined in the
+&#x2F;&#x2F; schema. This resolver retrieves books from the &quot;books&quot; array above.
+const resolvers &#x3D; &#123;
+  Query: &#123;
+    books: () &#x3D;&gt; books,
+  &#125;,
+&#125;;</code></pre>
+<h4 id="第六步：创建ApolloServer实例"><a href="#第六步：创建ApolloServer实例" class="headerlink" title="第六步：创建ApolloServer实例"></a>第六步：创建ApolloServer实例</h4><p>我们已经定义了架构，数据集和解析器。现在，我们只需要在初始化时向Apollo Server提供此信息即可。</p>
+<p>将以下内容添加到的底部index.js：</p>
+<pre><code class="hljs plain">&#x2F;&#x2F; The ApolloServer constructor requires two parameters: your schema
+&#x2F;&#x2F; definition and your set of resolvers.
+const server &#x3D; new ApolloServer(&#123; typeDefs, resolvers &#125;);
+
+&#x2F;&#x2F; The &#96;listen&#96; method launches a web server.
+server.listen().then((&#123; url &#125;) &#x3D;&gt; &#123;
+  console.log(&#96;🚀  Server ready at $&#123;url&#125;&#96;);
+&#125;);</code></pre>
+<h4 id="第七步：启动服务器"><a href="#第七步：启动服务器" class="headerlink" title="第七步：启动服务器"></a>第七步：启动服务器</h4><p>我们已经准备好启动服务器！从项目的根目录运行以下命令：</p>
+<pre><code class="hljs plain">node index.js</code></pre>
+<p>您应该看到以下输出：</p>
+<pre>
+🚀 Server ready at http://localhost:4000/
+</pre>
+
+<h4 id="第八步：执行第一个查询"><a href="#第八步：执行第一个查询" class="headerlink" title="第八步：执行第一个查询"></a>第八步：执行第一个查询</h4><p>现在，我们可以在服务器上执行GraphQL查询。要执行查询时，我们将使用一个名为GraphQL Playground的工具。</p>
+<div class="note note-info">
+            <p>注意：如果将服务器部署到NODE_ENV设置为的环境，则production默认情况下将禁用GraphQL Playground和自省功能。要启用它们，您需要显式设置，playground: true并 introspection: true在的Constructor 选项ApolloServer内。</p>
+          </div>
+
+
+<p>在服务器仍在运行的情况下，<a href="http://localhost:4000在浏览器中访问以打开GraphQL">http://localhost:4000在浏览器中访问以打开GraphQL</a> Playground。（在开发中运行GraphQL Playground时，Apollo Server会自动托管它。</p>
+<p>GraphQL Playground UI包括</p>
+<ul>
+<li>用于编写查询的文本区域（左侧）</li>
+<li>用于执行查询的“播放”按钮（中间的三角形按钮）</li>
+<li>用于查看查询结果的文本区域（右侧）</li>
+<li>查看架构检查和生成的文档的视图（通过右侧的选项卡）</li>
+</ul>
+<p>我们的服务器支持一个名为的查询<code>books</code>。让我们执行它！</p>
+<p>这是用于执行查询的GraphQL 查询字符串<code>books</code>。</p>
+<pre>
+{
+  books {
+    title
+    author
+  }
+}
+</pre>
+<p>将此字符串粘贴到左侧文本区域，然后单击“播放”按钮。结果（来自我们的硬编码数据集）显示在右侧：</p>
+<p>GraphQL的最重要概念之一是我们可以选择仅查询 所需的字段。<code>author</code>从查询字符串中删除并再次执行。响应更新为仅包括<code>title</code>每本书的字段！</p>
+<h3 id="定义一个Schema"><a href="#定义一个Schema" class="headerlink" title="定义一个Schema"></a>定义一个Schema</h3><h4 id="schema基础"><a href="#schema基础" class="headerlink" title="schema基础"></a>schema基础</h4><p>GraphQL服务器使用<strong>Schema</strong>描述数据图的形状。Schema用来源于后端的数据字段来定义不同层级类型层次，schema还精确指定了能针对您的数据图、可用于客户端执行的query和mutation。<br>本文旨在介绍schema的基本构成以及如何为您的GraphQL服务器创建一个Schema。</p>
+<h5 id="schema定义语言"><a href="#schema定义语言" class="headerlink" title="schema定义语言"></a>schema定义语言</h5><p>GraphQL规范包含一种人类可读的架构定义语言（或SDL），可用于定义Schema并将其存储为字符串</p>
+<p>我们来定义两个对象类型：<code>Author</code> 和 <code>Book</code></p>
+<pre>
+type Book {
+  title: String
+  author: Author
+}
+
+type Author {
+  name: String
+  books: [Book]
+}
+</pre>
+
+<p>Schema 定义了类型的集合和类型的关系。在上面的例子中，每一个<code>Book</code>有一个<code>author</code>，每一个<code>Author</code>有<code>books</code>的列表。通过在整合的Schema中定义这些类型的关系，我们可以确保每一个客户端开发者可以准确查看可用数据，<br>并且通过单个优化查询请求该数据的特定子集</p>
+<p>注意Schema并不关注数据的来源或者如何存储。它完全与实现无关。</p>
+<h5 id="支持的类型"><a href="#支持的类型" class="headerlink" title="支持的类型"></a>支持的类型</h5><ul>
+<li>标量类型</li>
+<li>对象类型</li>
+<li>Query 类型</li>
+<li>Mutation 类型</li>
+<li>输入类型<br>下面分别详细介绍这些内容。</li>
+</ul>
+<h6 id="标量类型"><a href="#标量类型" class="headerlink" title="标量类型"></a>标量类型</h6><p>标量类型类似于编程语言中的基本类型。他们总是解析具体的数据。</p>
+<p>GraphQL的默认标量类型为：</p>
+<ul>
+<li><code>Int</code>：有符号的32位整数</li>
+<li><code>Float</code>：带符号的双精度浮点值</li>
+<li><code>String</code>：UTF-8字符序列</li>
+<li><code>Boolean</code>：true或false</li>
+<li><code>ID（序列化为String）</code>：唯一标识符，通常用于重新获取对象或用作缓存的键。尽管将其序列化为String，但<code>ID</code>并不旨在使其易于理解。</li>
+</ul>
+<p>这些原始类型涵盖了大多数用例。对于更特定的用例，您可以创建自定义标量类型。</p>
+<h6 id="对象类型"><a href="#对象类型" class="headerlink" title="对象类型"></a>对象类型</h6><p>在GraphQL模式中定义的大多数类型都是对象类型。对象类型包含字段的集合，每个字段可以是标量类型或其他对象类型。</p>
+<p>两种对象类型可以彼此包含为字段，就像前面的示例Schema中那样：</p>
+<pre>
+type Book {
+  title: String
+  author: Author
+}
+
+type Author {
+  name: String
+  books: [Book]
+}
+</pre>
+<h6 id="Query-类型"><a href="#Query-类型" class="headerlink" title="Query 类型"></a>Query 类型</h6><p>Query类型定义根据您的数据图执行查询的入口点。它类似于对象类型，但其名称始终为Query。</p>
+<p>Query类型的每个字段定义不同入口点的名称和返回类型。Query我们的Schema类型可能类似于以下内容：</p>
+<pre>
+type Query {
+  books: [Book]
+  authors: [Author]
+}
+</pre>
+<p>这个查询类型定义了两个字段：<code>books</code> 和 <code>authors</code>。每个字段都返回一个列表<br>基于RestFul API，books 和 authors 很可能从不同的端点返回（eg： <code>/api/books</code> 和 <code>/api/authors</code>。而GraphQL的灵活性能保证通过一个请求返回这两个数据。</p>
+<p><strong>构造一个query</strong><br>当你开始根据你的数据图来创建查询时，这些查询必须与你在Schema中定义好的结构相匹配。</p>
+<p>基于我们例子中Schema，客户端执行下面的查询操作，将会返回所有的books和author 的列表</p>
+<pre>
+query GetBooksAndAuthors {
+  books {
+    title
+  }
+
+  authors {
+    name
+  }
+}
+</pre>
+<p>服务端会根据查询结构，将查询到的结果做如下返回</p>
+<pre>
+{
+  "data": {
+    "books": [
+      {
+        "title": "Jurassic Park"
+      },
+      ...
+    ],
+    "authors": [
+      {
+        "name": "Michael Crichton"
+      },
+      ...
+    ]
+  }
+}
+</pre>
+<p>尽管在某些情况下获取这两个单独的列表可能很有用，但是客户可能更喜欢获取一个图书列表，其中每本书的作者都包含在结果中。<br>因为我们的Schema的Book类型具有type的author字段Author，所以客户端可以改为这样构造其查询：</p>
+<pre>
+query GetBooks {
+  books {
+    title
+    author {
+      name
+    }
+  }
+}
+</pre>
+<p>再一次，我们的服务器将响应与查询结构匹配的结果：</p>
+<pre>
+{
+  "data": {
+    "books": [
+      {
+        "title": "Jurassic Park",
+        "author": {
+          "name": "Michael Crichton"
+        }
+      },
+      ...
+    ]
+  }
+}
+</pre>
+<h6 id="Mutation-类型"><a href="#Mutation-类型" class="headerlink" title="Mutation 类型"></a>Mutation 类型</h6><p>Mutation类型在结构和目的与Query类型类似。Query类型定义了读操作的入口点，而Mutation类型定义了写操作的入口点。</p>
+<p>Mutation类型的每个字段定义不同入口点的标志和返回类型。Mutation我们的示例Schema的类型可能类似于以下内容：</p>
+<pre>
+type Mutation {
+  addBook(title: String, author: String): Book
+}
+</pre>
+
+<p>这个mutation类型定义了一个可用的mutation，<code>addBook</code>。这个mutation接收两个参数（title和author）并且返回一个新的<code>Book</code>对象。正如你所期望的，这个<code>Book</code>对象遵循我们在schema中定义的结构。</p>
+<p><strong>构造一个mutation</strong><br>和query一样，mutations也应与我们的schema 定义的类型相匹配。下面的mutation 创建了一个新的<code>Book</code>而且请求已创建的对象的特定字段作为返回值。</p>
+<pre>
+mutation CreateBook {
+  addBook(title: "Fox in Socks", author: "Dr. Seuss") {
+    title
+    author {
+      name
+    }
+  }
+}
+</pre>
+<p>服务端将根据我们设计的mutation结构返回结果</p>
+<pre>
+{
+  "data": {
+    "addBook": {
+      "title": "Fox in Socks",
+      "author": {
+        "name": "Dr. Seuss"
+      }
+    }
+  }
+}
+</pre>
+<p>一个客户端请求可能包含多个需要执行的mutation。为了避免出现竞态，mutations的执行是线性的（根据列出的顺序）</p>
+<p>学习更多关于mutations的设计</p>
+<h6 id="输入类型"><a href="#输入类型" class="headerlink" title="输入类型"></a>输入类型</h6><p>输入类型是特殊的对象类型，它允许你传递一个对象作为参数进行query和mutation操作（与仅支持传标量类型相对）。输入类型可以帮助保持操作标识的整洁，就像在JavaScript函数中接受单个<code>options</code>对象比重复添加参数更干净一样。</p>
+<p>看一下这个提交创建blog的mutation操作：</p>
+<pre>
+type Mutation {
+  createPost(title: String, body: String, mediaUrls: [String]): Post
+}
+</pre>
+
+<p>与接收三个参数相对，下面这个mutation只接受一个输入类型（包含这三个参数）。如果我们在将来决定增加一个参数会显得格外的方便，例如 <code>author</code></p>
+<p>定义输入类型和对象类型很相似， 唯一不同就是我们需要使用 <code>input</code>关键字</p>
+<pre>
+type Mutation {
+  createPost(post: PostAndMediaInput): Post
+}
+
+input PostAndMediaInput {
+  title: String
+  body: String
+  mediaUrls: [String]
+}
+</pre>
+
+<p>输入类型不仅促进了PostAndMediaInput类型在我们Schema中的传递，而且提供了给字段增加注释空间，该描述可以自动的暴露给GraphQL可用工具。</p>
+<pre>
+input PostAndMediaInput {
+  "A main title for the post"
+  title: String
+  "The text body of the post."
+  body: String
+  "A list of URLs to render in the post."
+  mediaUrls: [String]
+}
+</pre>
+
+<p>当多个操作需要完全相同的数据集合时，输入类型有时会很有用，但是您应该谨慎地复用它们。操作最终可能会在其所需的参数之间产生分歧。</p>
+<p><strong>不要对query和mutation使用相同</strong>的输入类型。在许多情况下，mutation所需的参数对于相应的query是可选的。</p>
+<h5 id="Schema的扩大"><a href="#Schema的扩大" class="headerlink" title="Schema的扩大"></a>Schema的扩大</h5><p>随着你的组织成长与演变，你的数据图也会相应的成长。新的产品和特性会引入新的Schema类型和字段。为了追踪这段时间的变化，你应该用版本控制去维护你的定义的Schema。</p>
+<p>大多数的Schema的增加是安全且向后兼容的。但是，发生的变化产生的删除和修改行为对于一个或更多已存在的应用可能是破坏性的改变。下面的schema改变会具有潜在的破坏性：</p>
+<ul>
+<li>删除一个类型或字段</li>
+<li>重命名一个类型或字段</li>
+<li>增加一个可为空字段</li>
+<li>删除一个字段参数</li>
+</ul>
+<p>诸如Apollo Studio[<a href="https://studio.apollographql.com/]之类的图形管理工具可帮助您了解潜在的Schema更改是否会影响您的正在使用客户端。Studio还通过操作安全列表提供字段级性能指标，Schema历史记录跟踪和高级安全性。" target="_blank" rel="noopener">https://studio.apollographql.com/]之类的图形管理工具可帮助您了解潜在的Schema更改是否会影响您的正在使用客户端。Studio还通过操作安全列表提供字段级性能指标，Schema历史记录跟踪和高级安全性。</a></p>
+<h5 id="文档字符串"><a href="#文档字符串" class="headerlink" title="文档字符串"></a>文档字符串</h5><p>GraphQL的Schema定义语言（SDL）支持启用markdown的文档字符串。这些可帮助数据图的使用者发现字段并学习如何使用它们。</p>
+<p>以下代码段显示了如何同时使用单行字符串文字和多行块：</p>
+<pre>
+"Description for the type"
+type MyObjectType {
+  """
+  Description for field
+  Supports **multi-line** description for your [API](http://example.com)!
+  """
+  myField: String!
+
+  otherField(
+    "Description for argument"
+    arg: Int
+  )
+}
+</pre>
+<p>文档完善的schema可以提升开发者体验，因为GraphQL开发者工具（例如Apollo VS Code extension 和 GraphQL Playground）可以根据我们提供的描述自动填写字段名。而且 Apollo Studio在使用其指标报告和客户端感知功能时，会在字段使用情况和性能详细信息的旁边显示说明</p>
+<h5 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h5><p>GraphQL规范是很灵活的而且不强制特定的命名规范。但是在组织中建立一个约定集合确保持续集成是很有用的。我们推荐如下：</p>
+<ul>
+<li>字段名 使用<code>camelCase</code>命名。大部分GraphQL客户端都使用 JavaScript, Java, Kotlin, or Swift，我们都推荐使用<code>camelCase</code>命名变量名</li>
+<li>类型名 使用<code>PascalCase</code>命名。这与上述语言中定义类的方式匹配</li>
+<li>枚举名 使用<code>PascalCase</code></li>
+<li>枚举值 使用<code>ALL_CAPS</code>，因为它们类似于常量</li>
+</ul>
+<p>这些约定有助于确保大多数客户端不需要定义额外的逻辑即可转换服务器返回的结果</p>
+<h5 id="query-驱动的Schema设计"><a href="#query-驱动的Schema设计" class="headerlink" title="query 驱动的Schema设计"></a>query 驱动的Schema设计</h5><p>当GraphQL schema的执行操作是依据客户端的需求而设计时，其功能最为强大。尽管您可以构造类型，使它们与后端数据存储的结构匹配，但您duck不必这样！单个对象类型的字段可以许多不同来源的数据所填充。<strong>根据数据的使用方式（而不是数据的存储方式）设计Schema</strong>。</p>
+<p>如果您的数据存储区包含客户尚不需要的字段或关系，请从您的模式中将其忽略。向架构中添加新字段比删除某些客户端正在使用的现有字段更加容易和安全。</p>
+<p><strong>query 驱动的Schema设计示例</strong><br>假设我们正在创建一个Web应用程序，其中列出了我们区域内的近期活动。我们希望该应用程序显示每个事件的名称，日期和位置，以及天气预报。</p>
+<p>在这种情况下，我们希望Web应用程序能够执行具有类似于以下内容的结构的查询</p>
+<pre>
+query EventList {
+  upcomingEvents {
+    name
+    date
+    location {
+      name
+      weather {
+        temperature
+        description
+      }
+    }
+  }
+}
+</pre>
+<p>因为我们知道这是对我们的客户有帮助的数据结构，所以可以通知我们架构的结构：</p>
+<pre>
+type Query {
+  upcomingEvents: [Event]
+}
+
+type Event {
+  name: String
+  date: String
+  location: Location
+}
+
+type Location {
+  name: String
+  weather: WeatherInfo
+}
+
+type WeatherInfo {
+  temperature: Float
+  description: String
+}
+</pre>
+<p>如上所述，可以使用来自不同数据源（或多个数据源）的数据填充这些类型中的每一个。例如，该Event类型的name和date可能会填充有我们后端数据库中的数据，而该WeatherInfo类型的可能会填充有来自第三方Weather API的数据。</p>
+<h5 id="设计mutation"><a href="#设计mutation" class="headerlink" title="设计mutation"></a>设计mutation</h5><p>在GraphQL中，建议每个突变的响应都包含该突变修改的数据。这使客户端无需发送后续查询即可获取最新的持久化数据。</p>
+<p>一个模式，支持更新email的User会包括以下内容：</p>
+<pre>
+ type Mutation {
+   # This mutation takes id and email parameters and responds with a User
+   updateUserEmail(id: ID!, email: String!): User
+ }
+
+ type User {
+   id: ID!
+   name: String!
+   email: String!
+ }
+</pre>
+<p>然后，客户端可以针对具有以下结构的架构执行变异：</p>
+<pre>
+mutation updateMyUser {
+  updateUserEmail(id: 1, email: "jane@example.com"){
+    id
+    name
+    email
+  }
+}
+</pre>
+<p>GraphQL服务器执行更改并为用户存储新的电子邮件地址后，它将使用以下内容响应客户端：</p>
+<pre>
+{
+  "data": {
+    "updateUserEmail": {
+      "id": "1",
+      "name": "Jane Doe",
+      "email": "jane@example.com"
+    }
+  }
+}
+</pre>
+<p>虽然它不是强制性的突变的响应包括修改的对象，这样大大提高了客户端代码的效率。与查询一样，确定哪些突变对您的客户有用，这有助于告知架构的结构。</p>
+<h6 id="构建突变反应"><a href="#构建突变反应" class="headerlink" title="构建突变反应"></a>构建突变反应</h6><p>单个突变可以修改多种类型，或同一类型的多个实例。例如，使用户能够“喜欢”博客文章的突变可能会增加a的likes计数Post 并更新的likedPosts列表User。这使得突变响应的结构看起来像什么不太明显。</p>
+<p>此外，由于突变会修改数据，因此比查询引起错误的可能性要高得多。变异甚至可能导致部分错误，在该错误中，成功修改了一条数据而没有修改另一条数据。无论错误的类型如何，以一致的方式将错误传达回客户端都是很重要的。</p>
+<p>为帮助解决这两个问题，建议MutationResponse您在架构中定义一个接口，以及实现该接口的对象类型的集合（每个突变一个）。</p>
+<p>下面是什么MutationResponse接口的样子：</p>
+<pre>
+interface MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+}
+</pre>
+
+<p>这是一个实现对象类型：</p>
+<pre>
+type UpdateUserEmailMutationResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  user: User
+}
+</pre>
+<p>我们的updateUserEmail突变将指定UpdateUserEmailMutationResponse为返回类型（而不是User），其响应的结构如下：</p>
+<pre>
+{
+  "data": {
+    "updateUser": {
+      "code": "200",
+      "success": true,
+      "message": "User email was successfully updated",
+      "user": {
+        "id": "1",
+        "name": "Jane Doe",
+        "email": "jane@example.com"
+      }
+    }
+  }
+}
+</pre>
+
+<p>让我们按字段细分此字段：<br>code是代表数据传输状态的字符串。可以将其视为HTTP状态代码。<br>success是一个布尔值，指示突变是否成功。这允许客户端进行粗略检查，以了解是否存在故障。<br>message是描述突变结果的人类可读字符串。它打算在产品的UI中使用。<br>user由实现类型添加，UpdateUserEmailMutationResponse以将新更新的用户返回给客户端。</p>
+<p>如果变异修改多种类型（例如我们前面的“喜欢”博客文章的示例），则其实现类型可以为每个被修改的类型包括一个单独的字段：</p>
+<pre>
+type LikePostMutationResponse implements MutationResponse {
+  code: String!
+  success: Boolean!
+  message: String!
+  post: Post
+  user: User
+}
+</pre>
+<p>由于我们的假设likePost突变会同时修改a Post和a 上的字段User，因此其响应对象包括这两种类型的字段。响应具有以下结构：</p>
+<pre>
+{
+  "data": {
+    "likePost": {
+      "code": "200",
+      "success": true,
+      "message": "Thanks!",
+      "post": {
+        "id": "123",
+        "likes": 5040
+      },
+      "user": {
+        "likedPosts": ["123"]
+      }
+    }
+  }
+}
+</pre>
+<p>遵循此模式可为客户提供有关每个请求的操作结果的有用的详细信息。有了这些信息，开发人员可以更好地应对其客户端代码中的操作失败。</p>
+<h4 id="自定义标量类型和枚举类型"><a href="#自定义标量类型和枚举类型" class="headerlink" title="自定义标量类型和枚举类型"></a>自定义标量类型和枚举类型</h4><h4 id="联合与接口"><a href="#联合与接口" class="headerlink" title="联合与接口"></a>联合与接口</h4><h4 id="使用schema指令"><a href="#使用schema指令" class="headerlink" title="使用schema指令"></a>使用schema指令</h4><h4 id="执行指令"><a href="#执行指令" class="headerlink" title="执行指令"></a>执行指令</h4>
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/07/07/algorithm/Function/curry/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">algorithm/Function/curry</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Apollo-Server&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

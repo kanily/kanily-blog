@@ -1,276 +1,225 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
+
+
+
+
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
-  
-    <meta name="keywords" content="Front-end Js Css">
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>
-    
-    Kanily&#39;s Blog</title>
-  
-    <link rel="shortcut icon" href="/favicon.ico">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Kanily">
+  <meta name="keywords" content="Front-end Js Css">
+  <title>Kanily&#39;s Blog</title>
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
 
-  
-  
-<script src="/js/pace.min.js"></script>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
 
 <meta name="generator" content="Hexo 4.2.1"></head>
 
+
 <body>
-<main class="content">
-  <section class="jumbotron">
-  <div class="video">
-    
-      <div class="video-frame">
-        <img src="/images/ocean/overlay-hero.png" alt="Decorative image frame">
-      </div>
-    
-    <div class="video-media">
-      <video playsinline="" autoplay="" loop="" muted="" data-autoplay=""
-             poster="/images/ocean/ocean.png" x5-video-player-type="h5">
-        <source src="/images/ocean/ocean.mp4" type="video/mp4">
-        <source src="/images/ocean/ocean.ogv" type="video/ogg">
-        <source src="/images/ocean/ocean.webm" type="video/webm">
-        <p>Your user agent does not support the HTML5 Video element.</p>
-      </video>
-      <div class="video-overlay"></div>
-    </div>
-    <div class="video-inner text-center text-white">
-      <h1><a href="/">Kanily&#39;s Blog</a></h1>
-      <p></p>
-      <div><img src="/images/hexo-inverted.svg" class="brand" alt="Kanily&#39;s Blog"></div>
-    </div>
-    <div class="video-learn-more">
-      <a class="anchor" href="#landingpage"><i class="fe fe-mouse"></i></a>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              Home</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              Archives</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              Categories</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              Tags</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              About</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-</section>
+</nav>
 
-<div id="landingpage">
-  <section class="outer">
-    <article class="articles">
-      
-      <h1 class="page-type-title"></h1>
-      
-        
-          <article id="post-css/mobile" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
 
-    <div class="article-inner">
-        
-            <header class="article-header">
-                
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/06/08/css/mobile/">移动端适配方案</a>
-    </h2>
-  
-  
-
-
-
-
-            </header>
             
+          </div>
 
-                
-                    <div class="article-meta">
-                        <a href="/2020/06/08/css/mobile/" class="article-date">
-  <time datetime="2020-06-08T06:47:16.113Z" itemprop="datePublished">2020-06-08</time>
-</a>
-                            
-                    </div>
-                    
-
-                        
-
-                                    <div class="article-entry" itemprop="articleBody">
-                                        
-
-
-                                            
-
-                                                
-                                                                    <p>###像素</p>
-<h4 id="物理像素（设备像素）"><a href="#物理像素（设备像素）" class="headerlink" title="物理像素（设备像素）"></a>物理像素（设备像素）</h4><p>屏幕的物理像素，又被成为设备像素，是现实设备中最微小的物理部件，任何设备的屏幕的物理像素出厂时就确定了，且固定不变</p>
-<h4 id="设备独立像素"><a href="#设备独立像素" class="headerlink" title="设备独立像素"></a>设备独立像素</h4><p>设备独立像素也成为密度无关像素，可以认为是计算机坐标的一个点，这个点可以代表一个可由程序使用的虚拟像素（例如css像素），然后有相关系统转换为物理像素</p>
-<h4 id="设备像素比（devicePixelRatio）"><a href="#设备像素比（devicePixelRatio）" class="headerlink" title="设备像素比（devicePixelRatio）"></a>设备像素比（devicePixelRatio）</h4><p>简称dpr ，定义了物理像素和设备独立像素的对应关50系</p>
-<pre>
-设备像素比 = 物理像素 / 独立设备像素
-以iphone6 为例  设备固有像素为 750 * 1334，设备宽度是 375 * 667，其 dpr 就是2
-
-可以通过 window.devicePixelRatio 获得
-dpr > 1 就是高清屏，一般dpr为整数
-</pre>
-<h4 id="css像素"><a href="#css像素" class="headerlink" title="css像素"></a>css像素</h4><p>css、js中使用的一个长度单位。单位 px</p>
-<p>注意：pc端1物理像素 等于1px，但是移动端1物理像素不等于 1px，1物理像素与 px的关系与以下因素有关</p>
-<pre>
-1.屏幕布局的视口大小
-2.屏幕的分辨率（物理像素）
-</pre>
-<p>对于一块屏幕，其物理像素是确定的。视觉视口尺寸是继承与布局视口的，而视觉视口里的宽度即是css的px数。故一块屏幕上的物理像素与px的关系就是物理像素与布局视口的px数的关系</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">比如 iPhone6 它的物理像素是750px， 如果没有设置布局视口 viewport 为 980px</span><br><span class="line">此时: 1物理像素长度 &#x3D; 980px &#x2F; 750px &#x3D; 1.3076px 的长度</span><br><span class="line">由于像素都是点阵的 一个物理像素点相当度 1.3076px * 1.3076px 方格</span><br><span class="line"></span><br><span class="line">当在meta中设置了如下配置时</span><br><span class="line"></span><br><span class="line"> &lt;meta name &#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width&quot;&gt;</span><br><span class="line"> </span><br><span class="line">相当于把布局视口设置为设备的宽度（即上面讲到的设备独立像素）， 对于iphone6就是375</span><br><span class="line">此时： 1物理像素长度 &#x3D; 375px &#x2F; 750px &#x3D; 0.5 的长度，相当于 0.5px * 0.5px 方格</span><br></pre></td></tr></table></figure>
-
-<h3 id="视口"><a href="#视口" class="headerlink" title="视口"></a>视口</h3><h4 id="1-布局视口"><a href="#1-布局视口" class="headerlink" title="1.布局视口"></a>1.布局视口</h4><p> 在html中一般在meta中的name为viewport 字段就是控制的布局视口，布局视口一般都是浏览器厂商给的一个值。但是浏览器厂商一般为了能小屏幕也能友好的展示，把布局视口设置很大，一般在768px~1024ox之间，最常用的就是980px。这样用户就能看大绝大部分的内容，根据内容去缩放</p>
-<p> 故布局视口是看不见的，浏览器厂商设置的固定值，eg：980px，并将980px内容缩放到手机屏幕内</p>
-<p> 布局视口可以通过</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.documentElement.clientWidth</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-视觉视口"><a href="#2-视觉视口" class="headerlink" title="2.视觉视口"></a>2.视觉视口</h4><p>浏览器可视区域的大小，即用户可以看到的区域。（其宽度继承于布局视口的宽度）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.innerwidth</span><br></pre></td></tr></table></figure>
-<h4 id="3-理想视口"><a href="#3-理想视口" class="headerlink" title="3.理想视口"></a>3.理想视口</h4><p>布局视口虽然解决了移动端 查看pc网页的问题，但是完全忽略的手机本身的尺寸。所以苹果引入了理想视口，它对于设备来说就是最理想的布局视口,用户不需要缩放就可以完美展示整个页面</p>
-<p>可以通过</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.screen.width</span><br></pre></td></tr></table></figure>
-<p>移动端到底如何适配呢 最简单就是设置如下视口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width,initial-scale&#x3D;1,minimum-scale&#x3D;1,user-scalable&#x3D;no&quot;&gt;</span><br></pre></td></tr></table></figure>
-<p>使用上述方案定义布局视时，即布局视口等于理想视口，屏幕没有滚动条，不存在高清屏下，字体较小的问题。但是在不同的屏幕上，视觉宽度是不同的，不能简单的将所有的尺寸都设置为px，</p>
-<h4 id="viewport缩放"><a href="#viewport缩放" class="headerlink" title="viewport缩放"></a>viewport缩放</h4><p>对于上面设置，在不同的屏幕上，css像素对应的物理像素具体的数值是不一致的</p>
-<p>在普通屏幕上 dpr = 1 时，<br>1个css像素长度对应一个物理像素长度，1个css像素对应一个物理像素</p>
-<p>在retina屏幕， dpr = 2</p>
-<p>1个css像素长度对应 2个物理像素长度， 一个css像素 对应 4个物理像素</p>
-<h4 id="适配方案"><a href="#适配方案" class="headerlink" title="适配方案"></a>适配方案</h4><p>#####方案一<br>固定高度 宽度自适应</p>
-<p>使用理想视口的方案</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width,initial-scale&#x3D;1,minumum-scale&#x3D;1,user-scalable&#x3D;no&quot; &gt;</span><br></pre></td></tr></table></figure>
-
-<p>垂直方向使用固定的值，水平方向使用弹性布局，元素使用定值 百分比 flex 布局</p>
-<h5 id="方案二："><a href="#方案二：" class="headerlink" title="方案二："></a>方案二：</h5><p>固定布局视口宽度，使用viewport 缩放</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">if(&#x2F;Android (\d+\.\d+)&#x2F;.test(navigator.userAgent))&#123;</span><br><span class="line">  var version &#x3D; parseFloat(RegExp.$1);</span><br><span class="line">  if(version&gt;2.3)&#123;</span><br><span class="line">    var phoneScale &#x3D; parseInt(window.screen.width)&#x2F;640;</span><br><span class="line">    if(&#x2F;MZ-M571C&#x2F;.test(navigator.userAgent))&#123;</span><br><span class="line">      document.write(&#39;&lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;640, minimum-scale &#x3D; 0.5, maximum-scale&#x3D; 0.5&quot;&gt;&#39;);</span><br><span class="line">    &#125;else if(&#x2F;M571C&#x2F;.test(navigator.userAgent)&amp;&amp;&#x2F;LizhiFM&#x2F;.test(navigator.userAgent))&#123;</span><br><span class="line">      document.write(&#39;&lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;640, minimum-scale &#x3D; 0.5, maximum-scale&#x3D; 0.5&quot;&gt;&#39;);</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      document.write(&#39;&lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;640, minimum-scale &#x3D; &#39;+ phoneScale +&#39;, maximum-scale &#x3D; &#39;+ phoneScale +&#39;, target-densitydpi&#x3D;device-dpi&quot;&gt;&#39;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    document.write(&#39;&lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;640, target-densitydpi&#x3D;device-dpi&quot;&gt;&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">  document.write(&#39;&lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;640, user-scalable&#x3D;no, target-densitydpi&#x3D;device-dpi&quot;&gt;&#39;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>方案三：</p>
-<p>根据不同的屏幕动态写入font-size， 以rem作为宽度单位， 固定布局视口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name&#x3D;&quot;viewport&quot; content&#x3D;&quot;width&#x3D;device-width,initial-scale&#x3D;1,minimum-scale&#x3D;1,maxmum-scale&#x3D;1,user-scalable&#x3D;no&quot; &gt;</span><br></pre></td></tr></table></figure>
-
-<p>以640px 设计稿 或者 750px 设计稿，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var width &#x3D; document.document.clientWidth;</span><br><span class="line">var rem &#x3D; width &#x2F; 7.5</span><br><span class="line">var rem width &#x2F; 6.4</span><br></pre></td></tr></table></figure>
-
-<p>方案四 </p>
-<p>以rem作为宽度单位，动态写入viewport 和 font-size 进行缩放</p>
-
-                                                                        
-                                    </div>
-                                    <footer class="article-footer">
-                                        <a data-url="http://kanily.github.io/2020/06/08/css/mobile/" data-id="ckb64v1wx00070ox87c07cuyg" class="article-share-link">
-                                            Share
-                                        </a>
-                                        
-                                    </footer>
-
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
     </div>
+  </header>
 
+  <main>
     
-
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
                 
 
-</article>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/07/css/mobile/">移动端适配方案</a>
+
+      <a href="/2020/07/07/css/mobile/" class="index-excerpt">
         
-          <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-    <div class="article-inner">
         
-            <header class="article-header">
-                
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/06/08/hello-world/">Gallery</a>
-    </h2>
-  
-  
+          
+        
+        <div>###像素
+物理像素（设备像素）屏幕的物理像素，又被成为设备像素，是现实设备中最微小的物理部件，任何设备的屏幕的物理像素出厂时就确定了，且固定不变
+设备独立像素设备独立像素也成为密度无关像素，可以认为是计算机坐标的一个点，这个点可以代表一个可由程序使用的虚拟像素（例如css像素），然后有相关系统转换为物理像素
+设备像素比（devicePixelRatio）简称dpr ，定义了物理像素和设备独立像素</div>
+      </a>
 
-
-
-
-            </header>
-            
-
-                
-                    <div class="article-meta">
-                        <a href="/2020/06/08/hello-world/" class="article-date">
-  <time datetime="2020-06-08T06:47:16.113Z" itemprop="datePublished">2020-06-08</time>
-</a>
-                            
-                    </div>
-                    
-
-                        
-
-                                    <div class="article-entry" itemprop="articleBody">
-                                        
-
-
-                                            
-
-                                                
-                                                    <p>摘要…</p>
-                                                        
-                                                            <a class="article-more-link" href="/2020/06/08/hello-world/">
-                                                                Read More...
-                                                            </a>
-                                                            
-                                                                
-                                    </div>
-                                    <footer class="article-footer">
-                                        <a data-url="http://kanily.github.io/2020/06/08/hello-world/" data-id="ckb64v1vm00000ox8663r5lvs" class="article-share-link">
-                                            Share
-                                        </a>
-                                        
-                                    </footer>
-
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-07
+          </div>
+        
+        
+        
+      </div>
     </div>
+  </div>
 
+  <div class="row mx-auto index-card">
     
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/07/hello-world/">Gallery</a>
 
-                
-
-</article>
+      <a href="/2020/07/07/hello-world/" class="index-excerpt">
         
-          <article id="post-algorithm/BinarySearchTree" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-    <div class="article-inner">
         
-            <header class="article-header">
-                
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/06/08/algorithm/BinarySearchTree/">algorithm/BinarySearchTree</a>
-    </h2>
-  
-  
+          
+        
+        <div>摘要…</div>
+      </a>
 
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-07
+          </div>
+        
+        
+        
+      </div>
+    </div>
+  </div>
 
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/07/algorithm/BinarySearchTree/">algorithm/BinarySearchTree</a>
 
-
-            </header>
-            
-
-                
-                    <div class="article-meta">
-                        <a href="/2020/06/08/algorithm/BinarySearchTree/" class="article-date">
-  <time datetime="2020-06-08T06:47:16.113Z" itemprop="datePublished">2020-06-08</time>
-</a>
-                            
-                    </div>
-                    
-
-                        
-
-                                    <div class="article-entry" itemprop="articleBody">
-                                        
-
-
-                                            
-
-                                                
-                                                                    /**
+      <a href="/2020/07/07/algorithm/BinarySearchTree/" class="index-excerpt">
+        
+        
+          
+        
+        <div>/**
  * 二叉搜索树
  * 每个节点都有数据，另外含有两个指针，指向其他节点
  * 特点：节点顺序基于节点值的大小，所有左节点的值都小于右节点的值
@@ -284,222 +233,33 @@ var node = {
 function BinarySearchTree() {
     this._root = null
 }
-BinarySearchTree.prototype = {
-    constructor: BinarySearchTree,
-    add: function (value) {
-        var node = {
-            value: value,
-            left: null,
-            right: null
-        },
-        current;
-        if (this._root === null) {
-            this._root = node;
-        } else {
-            current = this._root
-            while (true) {
-                if(value < current.value) {
-                    if (current.left === null) {
-                        current.left = node
-                        break;
-                    } else {
-                        current = current.left
-                    }
-                } else if (value >  current.right) {
-                    if (current.right === null) {
-                        current.right = node
-                        break
-                    } else {
-                        current = current.right
-                    }
-                } else {
-                    break
-                }
-            }
-        }
-    },
-    contains: function (value) {
-        var found = false,
-            current = this._root;
-        while (!found && current) {
-            if (value < current.value) {
-                current = current.right
-            } else if (value > current.value) {
-                current = current.left
-            } else {
-                found = true
-            }
-        }
-        return found    
-    },
-    remove: function (value) {
-        var found = false,
-            parent = null,
-            current = this._root,
-            childCount,
-            replacement,
-            replacementParent;
-       // 定位要删除的节点 父节点要被记录      
-        while(!found && current) {
-            if(value < current.value) {
-                parent = current
-                current = current.left
-            }else if (value > current.value) {
-                parent = current
-                current = current.right
-            } else {
-                found = true
-            }
-        }
-        if (found) {
-          // 计算节点数量
-            childCount = (current.left === null ? 0 : 1) + (current.right === null ? 0 : 1)
-            if(current === this._root) {
-                switch(childCount){
-                    case 0:
-                        this._root = null;
-                        break;
-                    case 1:
-                        this._root = current.right === null ? current.left : current.right
-                        break;
-                    case 2:
-                        //新的根节点是源根节点的做子节点
-                        //左子树的最右节点 直接前驱
-                        replacement = this._root.left
-                        while (replacement.right !== null) {
-                            replacementParent = replacement
-                            replacement = replacement.right
-                        }
-                        if(replacementParent !== null) {
-                            replacementParent.right = replacement.left
-                            replacement.right = this._root.right
-                            replacement.left = this._root.left
-                        }
-                        this._root = replacement
-                }
-            } else {
-                switch(childCount){
-                    case 0:
-                        if(current.value > parent.value) {
-                            parent.left = null;
-                        } else {
-                            parent.right = null
-                        }
-                        break;
-                    case 1:
-                        if(current.value > parent.value) {
-                        parent.left = current.left ? current.left.value : current.right.value
-                    } else {
-                        parent.right = current.left ? current.left.value : current.right.value
-                    }
-                    case 2:
-                      //TODO
-                        replacement = current.left
-                        replacementParent = current
-                        while (replacement.right !== null) {
-                            replacementParent = replacement
-                            replacement = replacement.right
-                        }
-                        replacementParent = replacement.left 
-                        replacementParent.right = current.right
-                        replacementParent.left = current.left
-                        if (parent.value > replacement.value) {
-                            parent.left = replacement
-                        } else {
-                            parent.right = replacement
-                        }
-                }
-            }
-        }
-    },
-    size: function () {
-        var length = 0;
-        this.traverse(function(node){
-            length++;
-        })
-        return length
-    },
-    traverse: function (process) {
-        // 辅助函数遍历节点
-        function inOrder(node) {
-            if(node.left !== null) {
-                inOrder(node.left)
-            }
-            // call 使用指定的this 和单独给出的一个或多个参数调用一个函数，再次此处调用process
-            process.call(this, node);
-            if (node.right !== null) {
-                inOrder(node.right)
-            }
-        }
-        inOrder(this._root)
-    },
-    toArray: function () {
-        var result = [];
-        this.traverse(function(node){
-            result.push(node.value)
-        })
-        return result
-    },
-    toString: function () {
-        return this.toArray().toString();
-    },
+B</div>
+      </a>
 
-}
-                                                                        
-                                    </div>
-                                    <footer class="article-footer">
-                                        <a data-url="http://kanily.github.io/2020/06/08/algorithm/BinarySearchTree/" data-id="ckb64v1wu00020ox8bc59fryj" class="article-share-link">
-                                            Share
-                                        </a>
-                                        
-                                    </footer>
-
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-07
+          </div>
+        
+        
+        
+      </div>
     </div>
+  </div>
 
+  <div class="row mx-auto index-card">
     
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/07/algorithm/BubbleSort/">algorithm/BubbleSort</a>
 
-                
-
-</article>
+      <a href="/2020/07/07/algorithm/BubbleSort/" class="index-excerpt">
         
-          <article id="post-algorithm/BubbleSort" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-    <div class="article-inner">
         
-            <header class="article-header">
-                
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/06/08/algorithm/BubbleSort/">algorithm/BubbleSort</a>
-    </h2>
-  
-  
-
-
-
-
-            </header>
-            
-
-                
-                    <div class="article-meta">
-                        <a href="/2020/06/08/algorithm/BubbleSort/" class="article-date">
-  <time datetime="2020-06-08T06:47:16.113Z" itemprop="datePublished">2020-06-08</time>
-</a>
-                            
-                    </div>
-                    
-
-                        
-
-                                    <div class="article-entry" itemprop="articleBody">
-                                        
-
-
-                                            
-
-                                                
-                                                                    /**
+          
+        
+        <div>/**
  * 冒泡排序
  * 比较前两个元素 -> 如果第一个元素应该排在第二个后面，则两者交换 -> 比较第二个与第三个元素 
  * 如果第二个元素应该在第三个后面，两者交换 -> 重复以上过程知道末尾
@@ -507,808 +267,366 @@ BinarySearchTree.prototype = {
  * 空间复杂度 O(1)
  * 稳定性 稳定
  */
-function swap(items, firstIndex, secondIndex) {
-    var temp = items[firstIndex];
-    items[firstIndex] = items[secondIndex]
-    items[secondIndex] = temp
-}
-/**
- * 外层循环负责遍历，内层循环负责数组的元素比较
- * 
- */
-function bubbleSort(items) {
-    var len = items.length,
-            i,
-            j,
-            stop;
-    for (i = 0; i < len; i++) {
-        var done = true
-        for(j = 0, stop = len-i-1; j < stop; j++) {
-            if(items[j] < item[j+1]) {
-                swap(items, j, j+1)
-                done = false
-            }
-        }
-        if (done) {
-            break;
-        }
-    }
-    return items
-}
-                                                                        
-                                    </div>
-                                    <footer class="article-footer">
-                                        <a data-url="http://kanily.github.io/2020/06/08/algorithm/BubbleSort/" data-id="ckb64v1wv00030ox86x3sd3up" class="article-share-link">
-                                            Share
-                                        </a>
-                                        
-                                    </footer>
+function swap(items, firstI</div>
+      </a>
 
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-07
+          </div>
+        
+        
+        
+      </div>
     </div>
+  </div>
 
+  <div class="row mx-auto index-card">
     
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/07/algorithm/base64/">algorithm/base64</a>
 
-                
-
-</article>
+      <a href="/2020/07/07/algorithm/base64/" class="index-excerpt">
         
-          <article id="post-algorithm/base64" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-    <div class="article-inner">
         
-            <header class="article-header">
-                
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/06/08/algorithm/base64/">algorithm/base64</a>
-    </h2>
-  
-  
-
-
-
-
-            </header>
-            
-
-                
-                    <div class="article-meta">
-                        <a href="/2020/06/08/algorithm/base64/" class="article-date">
-  <time datetime="2020-06-08T06:47:16.113Z" itemprop="datePublished">2020-06-08</time>
-</a>
-                            
-                    </div>
-                    
-
-                        
-
-                                    <div class="article-entry" itemprop="articleBody">
-                                        
-
-
-                                            
-
-                                                
-                                                                    function generateArray(length, arr = []) {
+          
+        
+        <div>function generateArray(length, arr = []) {
   let randomNum = Math.floor((Math.random()*30)+2);
   if(arr.indexOf(randomNum) === -1) {
     arr.push(randomNum);
   }
-  return arr.length < length ? generateArray(length, arr) : arr ;
-}
+  return arr.length < length ? generat</div>
+      </a>
 
-function toFlat(arr, newArr = []) {
-  for (let key in arr) {
-    console.log(arr[key])
-    typeof arr[key] === 'number' ? newArr.push(arr[key]) : toFlat(arr[key], newArr);
-  }
-  return Array.from(new Set(newArr)).sort((a, b) =>{ return a - b});
-}
-
-// class LazyMan {
-//   constructor(name) {
-//     this.name = name
-//     console.log(`Hi I am ${name}`)
-//   }
-//   sleep(time) {
-//     setTimeout(() => {
-//       console.log(`等待了${time}`)
-//     }, time)
-//   }
-//   eat(some) {
-//     console.log(`I am eating ${some}`)
-//   }
-// }
-
-function LazyMan(name) {
-  if(! (this instanceof  LazyMan)) {
-    return  new LazyMan(name)
-  }
-  this.taskList = [];
-  this.next();
-  console.log(`Hi I am ${name}`);
-}
-LazyMan.prototype.sleep = function(time) {
-  let that = this
-  that.taskList.push({
-    delayTime: time * 1000,
-    callback() {
-      console.log(`等待了${time}s ...`)
-      that.next()
-    }
-  })
-  return this;
-}
-
-LazyMan.prototype.eat = function(food) {
-  let that = this
-  that.taskList.push({
-    delayTime: 0,
-    callback() {
-      console.log(`I am eating ${food}`)
-      that.next()
-    }
-  })
-  return that;
-}
-LazyMan.prototype.next = function() {
-  const taskList = this.taskList;
-  if ( taskList.length === 0 ) return;
-  const {delayTime, callback} = taskList[0]
-  setTimeout(() => {
-    callback && callback()
-    taskList.shift()
-    this.next()
-  },delayTime)
-}
-LazyMan('Tony').sleep(10).eat('lunch');
-
-function add() {
-  let args = [].slice.call(arguments);
-  let addArgs = args.length === 1 ? args[0] : args.reduce((pre, item) => {
-    return pre + item
-  })
-  function sumF() {
-    let addArgs2 = args.length === 1 ? args[0] : args.reduce((pre, item) => {
-      return pre + item
-    })
-    return addArgs += addArgs2
-  }
-  sumF.toString = function () {
-    return addArgs
-  }
-  return sumF;
-}
-
-                                                                        
-                                    </div>
-                                    <footer class="article-footer">
-                                        <a data-url="http://kanily.github.io/2020/06/08/algorithm/base64/" data-id="ckb64v1wv00040ox8e9ni2faa" class="article-share-link">
-                                            Share
-                                        </a>
-                                        
-                                    </footer>
-
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-07
+          </div>
+        
+        
+        
+      </div>
     </div>
+  </div>
 
+  <div class="row mx-auto index-card">
     
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/07/algorithm/linkedList/">algorithm/linkedList</a>
 
-                
-
-</article>
+      <a href="/2020/07/07/algorithm/linkedList/" class="index-excerpt">
         
-          <article id="post-algorithm/linkedList" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-    <div class="article-inner">
         
-            <header class="article-header">
-                
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/06/08/algorithm/linkedList/">algorithm/linkedList</a>
-    </h2>
-  
-  
-
-
-
-
-            </header>
-            
-
-                
-                    <div class="article-meta">
-                        <a href="/2020/06/08/algorithm/linkedList/" class="article-date">
-  <time datetime="2020-06-08T06:47:16.113Z" itemprop="datePublished">2020-06-08</time>
-</a>
-                            
-                    </div>
-                    
-
-                        
-
-                                    <div class="article-entry" itemprop="articleBody">
-                                        
-
-
-                                            
-
-                                                
-                                                                    /**
+          
+        
+        <div>/**
  * 链表——一种基础数据结构
  * 自身就是一个指针，指向头结点，相应的这个头节点又有个指针指向下一个节点，以此类推。
  * 每个节点包含两块区域，数据区域包含该位置的值，另一个区域包含一个指针指向下一个节点
  */
 function LinkList() {
     this._length = 0;  // 长度属性
-    this._head = null; // 链表指向的第一个元素，一开始的链表为空
-}
-LinkList.prototype = {
-    add: function(data) {
-        var node = {
-            data: data,
-            next: null
-        },
-        current;
-        if (this._head === null) {
-            this._head = node
-        } else {
-            current = this._head;
-            while (current.next) {
-                current = current.next
-            }
-            current.next = node
-        }
-        this._length++
-    },
-    item: function(index) {
-        if (index > -1 && index < this._length) {
-            var current = this._head,
-            i = 0;
-            while (i++ < index) {
-                current = current.next;
-            }
-            return current.data;
-        } else {
-            return null;
-        }
-    },
-    remove: function(index) {
-        if (index > -1 && index < this._length) {
-            var current = this._head,
-                previous,
-                i = 0;
-            if (index === 0) {
-                this._head = current.next
-            } else {
-                // 找到正确的位置进行删除
-                while (i++ < index) {
-                    previous = current;
-                    current = current.next
-                }
-                previous.next = current.next
-            }
-            this._length--;
-            return current.data;
-        } else {
-            return null;
-        }
-    }
-}
-// 使用
-var list = new LinkedList();
-list.add('red')
-list.add('orange')
-list.add('yellow')
+    this._head = null; // 链表指向的第一</div>
+      </a>
 
-function showStudent(ssn) {
-    var student = db.get(ssn);
-    if(student !== null) {
-        document.querySelector(`#{elementId}`).innerHTML = `${student.ssn}, ${student.firstname}, ${student.lastname}`;
-    } else {
-        throw  new Error('student is not found')
-    }
-}
-
-var find = curry(function (db, id) {
-    var obj = bd.get(id);
-    if(obj === null) {
-        throw new Error('Object not found');
-    }
-    return obj;
-})
-
-var csv = (student) {
-    return `${student.ssn}, ${student.firstname}, ${student.lastname}`;
-}
-
-var append = curry(function (elementId, info) {
-    document.querySelector(elementId).innerHTML = info;
-})
-
-var showStudent = run(append('#student-info'), csv, find(db));
-
-class Person {
-    constructor(firstname, lastname, ssn) {
-        this._firstname = firstname;
-        this._lastname = lastname;
-        this._ssn = ssn;
-        this._address = null;
-        this._birthYear = null;
-    }
-
-    get ssn() {
-        return this._ssn;
-    }
-
-    get firstname() {
-        return this._firstname;
-    }
-
-    get address() {
-        return this._address;
-    }
-
-    get birthYear() {
-        return this._birthYear;
-    }
-
-    set address(addr) {
-        this._address = addr;
-    }
-
-    toString() {
-        return `Person(${this._firstname}, ${this._lastname})`
-    }
-}
-
-class Student extends Person {
-    constructor(firtname, lastname, ssn, school) {
-        super(firtname, lastname, ssn);
-        this._school = school
-    }
-
-    get school() {
-        return this._school;
-    }
-}
-
-                                                                        
-                                    </div>
-                                    <footer class="article-footer">
-                                        <a data-url="http://kanily.github.io/2020/06/08/algorithm/linkedList/" data-id="ckb64v1ww00050ox8hi0xc9jb" class="article-share-link">
-                                            Share
-                                        </a>
-                                        
-                                    </footer>
-
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-07
+          </div>
+        
+        
+        
+      </div>
     </div>
+  </div>
 
+  <div class="row mx-auto index-card">
     
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/07/algorithm/throttle/">algorithm/throttle</a>
 
-                
-
-</article>
+      <a href="/2020/07/07/algorithm/throttle/" class="index-excerpt">
         
-          <article id="post-algorithm/throttle" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-    <div class="article-inner">
         
-            <header class="article-header">
-                
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/06/08/algorithm/throttle/">algorithm/throttle</a>
-    </h2>
-  
-  
+          
+        
+        <div>##节流函数 throttle###方案一
+function throttle(fn, time) &#123;
+    let previous &#x3D; 0
+    return function(...args) &#123;
+        const temp &#x3D; +new Date();
+        if(temp - previous &gt; time) &#12</div>
+      </a>
 
-
-
-
-            </header>
-            
-
-                
-                    <div class="article-meta">
-                        <a href="/2020/06/08/algorithm/throttle/" class="article-date">
-  <time datetime="2020-06-08T06:47:16.113Z" itemprop="datePublished">2020-06-08</time>
-</a>
-                            
-                    </div>
-                    
-
-                        
-
-                                    <div class="article-entry" itemprop="articleBody">
-                                        
-
-
-                                            
-
-                                                
-                                                                    <p>##节流函数 throttle<br>###方案一</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function throttle(fn, time) &#123;</span><br><span class="line">    let previous &#x3D; 0</span><br><span class="line">    return function(...args) &#123;</span><br><span class="line">        const temp &#x3D; +new Date();</span><br><span class="line">        if(temp - previous &gt; time) &#123;</span><br><span class="line">            previous &#x3D; temp</span><br><span class="line">            fn.apply(this, args);</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="防抖函数-debounce"><a href="#防抖函数-debounce" class="headerlink" title="防抖函数 debounce"></a>防抖函数 debounce</h4><h3 id="方案一"><a href="#方案一" class="headerlink" title="方案一"></a>方案一</h3><pre><code>function debounce(fn, time){
-    let timer = null;
-    return function(...args) {
-        if(!timer) {
-            timer = setTimeout(() =&gt; {
-                fn.call(this, args)
-            }, time)   
-        }
-        clearTimeout(timer)
-    }
-
-}</code></pre>
-                                                                        
-                                    </div>
-                                    <footer class="article-footer">
-                                        <a data-url="http://kanily.github.io/2020/06/08/algorithm/throttle/" data-id="ckb64v1wx00060ox858m0fe2k" class="article-share-link">
-                                            Share
-                                        </a>
-                                        
-                                    </footer>
-
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-07
+          </div>
+        
+        
+        
+      </div>
     </div>
+  </div>
 
+  <div class="row mx-auto index-card">
     
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/07/prototype/this/">prototype/this</a>
 
-                
-
-</article>
+      <a href="/2020/07/07/prototype/this/" class="index-excerpt">
         
-          <article id="post-prototype/this" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-    <div class="article-inner">
         
-            <header class="article-header">
-                
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/06/08/prototype/this/">prototype/this</a>
-    </h2>
-  
-  
+          
+        
+        <div></div>
+      </a>
 
-
-
-
-            </header>
-            
-
-                
-                    <div class="article-meta">
-                        <a href="/2020/06/08/prototype/this/" class="article-date">
-  <time datetime="2020-06-08T06:47:16.113Z" itemprop="datePublished">2020-06-08</time>
-</a>
-                            
-                    </div>
-                    
-
-                        
-
-                                    <div class="article-entry" itemprop="articleBody">
-                                        
-
-
-                                            
-
-                                                
-                                                                    
-                                                                        
-                                    </div>
-                                    <footer class="article-footer">
-                                        <a data-url="http://kanily.github.io/2020/06/08/prototype/this/" data-id="ckb64v1wt00010ox8e2mfg3ug" class="article-share-link">
-                                            Share
-                                        </a>
-                                        
-                                    </footer>
-
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-07
+          </div>
+        
+        
+        
+      </div>
     </div>
+  </div>
 
+  <div class="row mx-auto index-card">
     
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/07/http/http/">http/http</a>
 
-                
-
-</article>
+      <a href="/2020/07/07/http/http/" class="index-excerpt">
         
-          <article id="post-http/http" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-    <div class="article-inner">
         
-            <header class="article-header">
-                
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/06/08/http/http/">http/http</a>
-    </h2>
-  
-  
+          
+        
+        <div>http 简介http 超文本传输协议，主要规定浏览器和服务器相互通信规则，它是基于TCP/IP通信协议来进行传递数据浏览器发起一http请求， 首先建立TCP连接  也就是常说的三次握手， 接下来发起Http请求一个http请求主要包括 请求行 请求头 请求正文请求行：请求地址、请求的方法（get， post、put、delete）、请求状态2** 成功#excerpt_link: Read M</div>
+      </a>
 
-
-
-
-            </header>
-            
-
-                
-                    <div class="article-meta">
-                        <a href="/2020/06/08/http/http/" class="article-date">
-  <time datetime="2020-06-08T06:47:16.113Z" itemprop="datePublished">2020-06-08</time>
-</a>
-                            
-                    </div>
-                    
-
-                        
-
-                                    <div class="article-entry" itemprop="articleBody">
-                                        
-
-
-                                            
-
-                                                
-                                                                    <h2 id="http-简介"><a href="#http-简介" class="headerlink" title="http 简介"></a>http 简介</h2><p>http 超文本传输协议，主要规定浏览器和服务器相互通信规则，它是基于TCP/IP通信协议来进行传递数据<br>浏览器发起一http请求， 首先建立TCP连接  也就是常说的三次握手， 接下来发起Http请求<br>一个http请求主要包括 请求行 请求头 请求正文<br>请求行：请求地址、请求的方法（get， post、put、delete）、请求状态<br>2** 成功<br>#excerpt_link: Read More…<br>3** 重定向<br>    301 永久重定向<br>    302 临时重定向<br>    304 not modify<br>4** 客户端错误<br>    400 Bad request 请求中有语法错误<br>    401 Unauthorize 未被授权<br>    403 forbidden<br>    404 Not found<br>5** 服务端错误<br>    500<br>    503 service unavailable<br>请求头<br> Accept<br> host<br> UserAgent<br> cookie （key value domin expires size httponly）4k 最多可以有20个 默认到浏览器关闭<br> connection keep-alive<br>请求体<br>http 响应请求<br> 响应行<br> 响应体<br>  cache-control<br>  content-type<br>  status<br>  expires<br>  date<br>  Last-Modified<br>结束<br>断开 TCP 连接 四次挥手</p>
-<h2 id="https-http-ssl"><a href="#https-http-ssl" class="headerlink" title="https = http + ssl"></a>https = http + ssl</h2>
-                                                                        
-                                    </div>
-                                    <footer class="article-footer">
-                                        <a data-url="http://kanily.github.io/2020/06/08/http/http/" data-id="ckb64v1wy00080ox816o934i9" class="article-share-link">
-                                            Share
-                                        </a>
-                                        
-                                    </footer>
-
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-07
+          </div>
+        
+        
+        
+      </div>
     </div>
+  </div>
 
+  <div class="row mx-auto index-card">
     
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/07/prototype/prototype/">prototype/prototype</a>
 
-                
-
-</article>
+      <a href="/2020/07/07/prototype/prototype/" class="index-excerpt">
         
-          <article id="post-prototype/prototype" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
-
-    <div class="article-inner">
         
-            <header class="article-header">
-                
-  
-    <h2 itemprop="name">
-      <a class="article-title" href="/2020/06/08/prototype/prototype/">prototype/prototype</a>
-    </h2>
-  
-  
+          
+        
+        <div>构造函数
+constructor 返回实例对象构造函数的引用，此值是对函数本身的引用
 
-
-
-
-            </header>
-            
-
-                
-                    <div class="article-meta">
-                        <a href="/2020/06/08/prototype/prototype/" class="article-date">
-  <time datetime="2020-06-08T06:47:16.113Z" itemprop="datePublished">2020-06-08</time>
-</a>
-                            
-                    </div>
-                    
-
-                        
-
-                                    <div class="article-entry" itemprop="articleBody">
-                                        
-
-
-                                            
-
-                                                
-                                                                    <h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><hr>
-<p><strong>constructor</strong> 返回实例对象构造函数的引用，此值是对函数本身的引用</p>
-<pre>
 function Person (name) {
     this.name = name;
 }
 
 var p = new Person(name);
 p.constructor === Person
-</pre>
-<p>构造函数本身就是函数，不过为了规范都会首字母大写， 主要<code>区别</code>在于使用 <em>new</em> 生成的实例函数就是构造函数，直接调用的就是普通函数 </p>
-<h3 id="constructor-是只读的吗？"><a href="#constructor-是只读的吗？" class="headerlink" title="constructor 是只读的吗？"></a>constructor 是只读的吗？</h3><p>对引用类型来是可以修改的，对基本数据类型是 只读的</p>
-<pre>
-function Parent() {
-    this.name = 'xiaoming';
-    this.age = '18';
-}
-Parent.prototype = {
-    method: funtion () {}
-}
 
-function Children() {
+构造函数本身就是函数，不过为了规范都会首字母大写， 主要区别在于使用 new 生成的实例函数就是构造函数，直</div>
+      </a>
 
-}
-
-Children.prototype = new Parent();
-Children.prototype.foo = 'Hello world'
-//此时constructor 指向 Object
-Children.prototype.constructor === Object //true
-//修正constructor
-
-Children.prototype.constructor = Children
-</pre>
-
-<h3 id="new-到底是如果实现的呢"><a href="#new-到底是如果实现的呢" class="headerlink" title="new 到底是如果实现的呢"></a>new 到底是如果实现的呢</h3><pre>
-function create () {
-    // 创建一个空对象
-    var obj = new Object(),
-    //2. 获得构造函数，同时删除arguments 里的第一个参数
-    Con = [].shift.call(arguments);
-    //3. 链接到原型，obj可以访问到构造函数的属性
-    Object.setPrototypeOf(obj, Con.prototype)
-    //4.绑定this实现继承，让其可以访问构造函数的属性
-    var result = Con.apply(obj, arguments)
-    //优先返回构造函数的对象
-    return result instanceof Object ? result : obj
-}
-</pre>
-<h2 id="原型-prototype"><a href="#原型-prototype" class="headerlink" title="原型 prototype"></a>原型 prototype</h2><p>每个构造函数对象拥有一个<strong>原型对象</strong>，对象以原型为模板，从原型继承方法和属性，这些属性和方法定义在构造器函数的 <strong>prototype</strong> 属性上，而非本身</p>
-<h2 id="proto"><a href="#proto" class="headerlink" title="_proto_"></a>_<em>proto_</em></h2><p>构造函数的 prototype 属性有个 _<em>proto__属性，这是一个访问器属性（即getter 函数和 setter函数），通过他可以访问到对象内部的 [[Prototype]](一个对象或null)<br>##<br><em>_prototype</em></em> 属性在es6后才被标准化，获取或者设置可以用</p>
-<pre>
-    Object.setPrototypeOf()
-    Object.getPrototypeOf()
-</pre>
-
-<p>##原型链<br>每个对象拥有原型对象，通过<strong>proto</strong>指针指向该对象的原型，并从中集成方法和属性， 同时原型对象也可能拥有原型，这样一层一层，最终会指向null；这种关系被称作原型链</p>
-<h2 id="实现-instanceOf"><a href="#实现-instanceOf" class="headerlink" title="实现 instanceOf"></a>实现 instanceOf</h2><pre>
-function _instanceOf (instance, object){
-    // 获取对象的原型
-    const prototype = object.prototype;
-    //获取要检查对象的原型
-    let proto = instance.__proto__;
-    //遍历要检查的原型链，until the end of instance
-    while (__proto__ !== null) {
-        if (__proto__ === prototype) {
-            return true;
-        }
-        proto =  proto.__proto__;
-    }
-    return false;
-}
-</pre>
-
-
-
-
-                                                                        
-                                    </div>
-                                    <footer class="article-footer">
-                                        <a data-url="http://kanily.github.io/2020/06/08/prototype/prototype/" data-id="ckb64v1wz00090ox84w9tflj4" class="article-share-link">
-                                            Share
-                                        </a>
-                                        
-                                    </footer>
-
-    </div>
-
-    
-
-                
-
-</article>
+      <div class="index-btm post-metas">
         
-    </article>
-    
-  
-    
-      <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next</a>
-      </nav>
-    
-  </section>
-</div>
-
-  <footer class="footer">
-  <div class="outer">
-    <div class="float-right">
-      <ul class="list-inline">
-  
-    <li><i class="fe fe-bar-chart"></i> <span id="busuanzi_value_site_pv"></span></li>
-  
-    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
-  
-</ul>
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-07
+          </div>
+        
+        
+        
+      </div>
     </div>
-    <ul class="list-inline">
-      <li>&copy; 2020 Kanily&#39;s Blog</li>
-      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
-      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
-    </ul>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
   </div>
 </footer>
 
-</main>
-<aside class="sidebar">
-  <button class="navbar-toggle"></button>
-<nav class="navbar">
-  
-    <div class="logo">
-      <a href="/"><img src="/images/hexo.svg" alt="Kanily&#39;s Blog"></a>
-    </div>
-  
-  <ul class="nav nav-main">
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/">Home</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/archives">Archives</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/gallery">Gallery</a>
-      </li>
-    
-      <li class="nav-item">
-        <a class="nav-item-link" href="/about">About</a>
-      </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link nav-item-search" title="Search">
-        <i class="fe fe-search"></i>
-        Search
-      </a>
-    </li>
-  </ul>
-</nav>
-<nav class="navbar navbar-bottom">
-  <ul class="nav">
-    <li class="nav-item">
-      <div class="totop" id="totop">
-  <i class="fe fe-rocket"></i>
-</div>
-    </li>
-    <li class="nav-item">
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "An elegant Material-Design theme for Hexo&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
       
-        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-          <i class="fe fe-feed"></i>
-        </a>
-      
-    </li>
-  </ul>
-</nav>
-<div class="search-form-wrap">
-  <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
-  <div id="local-search-result" class="local-search-result"></div>
-</div>
-</div>
-</aside>
-
-<script src="/js/jquery-2.0.3.min.js"></script>
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
 
 
-<script src="/js/jquery.justifiedGallery.min.js"></script>
 
-
-<script src="/js/lazyload.min.js"></script>
-
-
-<script src="/js/busuanzi-2.3.pure.min.js"></script>
-
-
-  
-<script src="/fancybox/jquery.fancybox.min.js"></script>
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
 
 
 
 
 
 
-<script src="/js/ocean.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </body>
