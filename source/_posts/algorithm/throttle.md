@@ -6,7 +6,7 @@ function throttle(fn, time) {
     return function(...args) {
         const temp = +new Date();
         if(temp - previous > time) {
-            previous = temp
+            previous = temp;
             fn.apply(this, args);
         }   
     }
@@ -27,3 +27,4 @@ function debounce(fn, time){
     }
         
 }
+````

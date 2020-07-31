@@ -171,5 +171,4 @@ BinarySearchTree.prototype = {
     toString: function () {
         return this.toArray().toString();
     },
-
 }

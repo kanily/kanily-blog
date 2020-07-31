@@ -396,7 +396,7 @@ input PostAndMediaInput {
 当多个操作需要完全相同的数据集合时，输入类型有时会很有用，但是您应该谨慎地复用它们。操作最终可能会在其所需的参数之间产生分歧。
 
 **不要对query和mutation使用相同**的输入类型。在许多情况下，mutation所需的参数对于相应的query是可选的。
-##### Schema的扩大
+##### Schema的演变
 随着你的组织成长与演变，你的数据图也会相应的成长。新的产品和特性会引入新的Schema类型和字段。为了追踪这段时间的变化，你应该用版本控制去维护你的定义的Schema。
 
 大多数的Schema的增加是安全且向后兼容的。但是，发生的变化产生的删除和修改行为对于一个或更多已存在的应用可能是破坏性的改变。下面的schema改变会具有潜在的破坏性：
@@ -405,7 +405,7 @@ input PostAndMediaInput {
 * 增加一个可为空字段
 * 删除一个字段参数
 
-诸如Apollo Studio[https://studio.apollographql.com/]之类的图形管理工具可帮助您了解潜在的Schema更改是否会影响您的正在使用客户端。Studio还通过操作安全列表提供字段级性能指标，Schema历史记录跟踪和高级安全性。
+诸如Apollo Studio[https://studio.apollographql.com]之类的图形管理工具可帮助您了解潜在的Schema更改是否会影响您的正在使用客户端。Studio还通过操作安全列表提供字段级性能指标，Schema历史记录跟踪和高级安全性。
 
 ##### 文档字符串
 GraphQL的Schema定义语言（SDL）支持启用markdown的文档字符串。这些可帮助数据图的使用者发现字段并学习如何使用它们。
@@ -440,12 +440,12 @@ GraphQL规范是很灵活的而且不强制特定的命名规范。但是在组�
 ##### query 驱动的Schema设计
 当GraphQL schema的执行操作是依据客户端的需求而设计时，其功能最为强大。尽管您可以构造类型，使它们与后端数据存储的结构匹配，但您duck不必这样！单个对象类型的字段可以许多不同来源的数据所填充。**根据数据的使用方式（而不是数据的存储方式）设计Schema**。
 
-如果您的数据存储区包含客户尚不需要的字段或关系，请从您的模式中将其忽略。向架构中添加新字段比删除某些客户端正在使用的现有字段更加容易和安全。
+如果您的数据存储区包含客户端尚不需要的字段或关系，请从您的Schema中将其忽略。向Schema中添加新字段比删除某些客户端正在使用的现有字段更加容易和安全。
 
 **query 驱动的Schema设计示例**
-假设我们正在创建一个Web应用程序，其中列出了我们区域内的近期活动。我们希望该应用程序显示每个事件的名称，日期和位置，以及天气预报。
+假设我们正在创建一个Web应用程序，其中列出了我们地区内的近期活动。我们希望该应用显示每个事件的名称，日期和位置，以及天气预报。
 
-在这种情况下，我们希望Web应用程序能够执行具有类似于以下内容的结构的查询
+在这种情况下，我们希望Web应用能够执行具有类似于以下内容的结构的查询
 <pre>
 query EventList {
   upcomingEvents {
@@ -461,7 +461,7 @@ query EventList {
   }
 }
 </pre>
-因为我们知道这是对我们的客户有帮助的数据结构，所以可以通知我们架构的结构：
+因为我们知道这是对我们的客户有帮助的数据结构，所以我们可以这样设计schema的结构：
 <pre>
 type Query {
   upcomingEvents: [Event]
@@ -483,12 +483,12 @@ type WeatherInfo {
   description: String
 }
 </pre>
-如上所述，可以使用来自不同数据源（或多个数据源）的数据填充这些类型中的每一个。例如，该Event类型的name和date可能会填充有我们后端数据库中的数据，而该WeatherInfo类型的可能会填充有来自第三方Weather API的数据。
+如上所述，可以使用来自不同数据源（或多个数据源）的数据填充每一个类型中。例如，该``Event类型``的``name``和``date``字段可能从后端数据库获取``，而该WeatherInfo类型的可能来自第三方Weather API的数据。
 
 ##### 设计mutation
-在GraphQL中，建议每个突变的响应都包含该突变修改的数据。这使客户端无需发送后续查询即可获取最新的持久化数据。
+在GraphQL中，建议每个mutation的返回值都包含该mutation修改的数据。这使客户端无需发送后续查询即可获取最新的持久化数据。
 
-一个模式，支持更新email的User会包括以下内容：
+一个Schema，支持更新email的User会包括以下内容：
 <pre>
  type Mutation {
    # This mutation takes id and email parameters and responds with a User
@@ -501,7 +501,7 @@ type WeatherInfo {
    email: String!
  }
 </pre>
-然后，客户端可以针对具有以下结构的架构执行变异：
+然后，客户端可以针对具有以下结构的schema执行mutation：
 
 <pre>
 mutation updateMyUser {
@@ -524,13 +524,13 @@ GraphQL服务器执行更改并为用户存储新的电子邮件地址后，它�
   }
 }
 </pre>
-虽然它不是强制性的突变的响应包括修改的对象，这样大大提高了客户端代码的效率。与查询一样，确定哪些突变对您的客户有用，这有助于告知架构的结构。
-###### 构建突变反应
-单个突变可以修改多种类型，或同一类型的多个实例。例如，使用户能够“喜欢”博客文章的突变可能会增加a的likes计数Post 并更新的likedPosts列表User。这使得突变响应的结构看起来像什么不太明显。
+虽然它不是强制性的mutation的返回包括修改的对象，这样大大提高了客户端代码的效率。与查询一样，确定哪些mutation对您的客户有用，这有助于告知架构的结构。
+###### 构建mutation
+单个mutation可以修改多种类型，或同一类型的多个实例。例如，使用户能够“喜欢”博客文章的mutation可能会增加``Post``的``likes``计数，并更新的``likedPosts``的``User``列表。这使得mutation返回的结构不太明晰。
 
-此外，由于突变会修改数据，因此比查询引起错误的可能性要高得多。变异甚至可能导致部分错误，在该错误中，成功修改了一条数据而没有修改另一条数据。无论错误的类型如何，以一致的方式将错误传达回客户端都是很重要的。
+此外，由于mutation会修改数据，因此比查询引起错误的可能性要高得多。mutation甚至可能导致部分错误，比如成功修改了一条数据而没有修改另一条数据。无论错误的类型如何，以一致的方式将错误传达回客户端都是很重要的。
 
-为帮助解决这两个问题，建议MutationResponse您在架构中定义一个接口，以及实现该接口的对象类型的集合（每个突变一个）。
+为帮助解决这两个问题，建议您在架构中定义一个``MutationResponse``接口，以及用对象类型的集合实现该接口（每个mutation一个）。
 
 下面是什么MutationResponse接口的样子：
 
@@ -551,7 +551,7 @@ type UpdateUserEmailMutationResponse implements MutationResponse {
   user: User
 }
 </pre>
-我们的updateUserEmail突变将指定UpdateUserEmailMutationResponse为返回类型（而不是User），其响应的结构如下：
+我们的updateUserEmail的mutation将指定UpdateUserEmailMutationResponse为返回类型（而不是User），其响应的结构如下：
 <pre>
 {
   "data": {
@@ -569,13 +569,13 @@ type UpdateUserEmailMutationResponse implements MutationResponse {
 }
 </pre>
 
-让我们按字段细分此字段：
-code是代表数据传输状态的字符串。可以将其视为HTTP状态代码。
-success是一个布尔值，指示突变是否成功。这允许客户端进行粗略检查，以了解是否存在故障。
-message是描述突变结果的人类可读字符串。它打算在产品的UI中使用。
-user由实现类型添加，UpdateUserEmailMutationResponse以将新更新的用户返回给客户端。
+让我们按字段细分：
+* code是代表数据传输状态的字符串。可以将其视为HTTP状态代码。
+* success是一个布尔值，指示mutation是否成功。这允许客户端进行粗略检查，以了解是否存在故障。
+* message是描述mutation结果的可读性字符串。可以在产品的UI中使用。
+* user由实现类型添加，UpdateUserEmailMutationResponse以将新更新的用户返回给客户端。
 
-如果变异修改多种类型（例如我们前面的“喜欢”博客文章的示例），则其实现类型可以为每个被修改的类型包括一个单独的字段：
+如果mutation修改多种类型（例如我们前面的“喜欢”博客文章的示例），则其实现类型可以为每个被修改的类型包括一个单独的字段：
 <pre>
 type LikePostMutationResponse implements MutationResponse {
   code: String!
@@ -585,7 +585,7 @@ type LikePostMutationResponse implements MutationResponse {
   user: User
 }
 </pre>
-由于我们的假设likePost突变会同时修改a Post和a 上的字段User，因此其响应对象包括这两种类型的字段。响应具有以下结构：
+由于我们的假设likePost会同时修改Post和User，因此其返回对象包括这两种类型的字段。返回值具有以下结构：
 <pre>
 {
   "data": {
@@ -604,8 +604,459 @@ type LikePostMutationResponse implements MutationResponse {
   }
 }
 </pre>
-遵循此模式可为客户提供有关每个请求的操作结果的有用的详细信息。有了这些信息，开发人员可以更好地应对其客户端代码中的操作失败。
+遵循此模式为客户端关每个请求的操作结果提供有用的详细信息。有了这些信息，开发人员可以更好地应对其客户端代码中的操作失败。
 #### 自定义标量类型和枚举类型
-#### 联合与接口
+为schema添加自定义标量和枚举类型
+---------------------------
+该GraphQL规范包括以下默认标量类型：``Int``，``Float``，``String``，``Boolean``和``ID``。尽管这涵盖了大多数用例，但有些需要支持自定义
+原子数据类型（例如Date），或向现有类型添加验证。为此，GraphQL允许自定义标量类型。枚举类似于自定义标量，其限制是它们的值只能是字符串的预定义列表之一。
+
+##### 自定义标量
+要定义自定义标量，请使用以下符号将其添加到Schema字符串：
+<pre>
+scalar MyCustomScalar
+</pre>
+然后，在resolver map中``MyCustomScalar``通过GraphQLScalarType传递类的实例，定义自定义标量的行为。可以使用依赖项或源代码定义此实例。
+
+有关GraphQL类型系统的更多信息，请参考官方文档或学习GraphQL教程。
+
+请注意，Apollo Client当前并不能自动解析自定义标量，因此无法自动在客户端上逆转序列化。
+###### 使用 package
+在这里，我们以``graphql-type-json``包为例，演示可以做什么。此npm包定义了JSON GraphQL标量类型。
+
+将graphql-type-json包添加到项目的依赖项中：
+<pre>
+$ npm install graphql-type-json
+</pre>
+在代码中，要求使用npm包中定义的类型并使用它：
+<pre>
+const { ApolloServer, gql } = require('apollo-server');
+const GraphQLJSON = require('graphql-type-json');
+
+const schemaString = gql`
+  scalar JSON
+
+  type Foo {
+    aField: JSON
+  }
+
+  type Query {
+    foo: Foo
+  }
+`;
+
+const resolveFunctions = {
+  JSON: GraphQLJSON
+};
+
+const server = new ApolloServer({ typeDefs: schemaString, resolvers: resolveFunctions });
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+});
+</pre>
+备注：``GraphQLJSON``是一个``GraphQLScalarType``实例。
+
+###### 自订执行GraphQLScalarType个体
+定义GraphQLScalarType实例可以提供对自定义标量的更多控制，并且可以通过以下方式将其添加到Apollo服务器：
+<pre>
+const { ApolloServer, gql } = require('apollo-server');
+const { GraphQLScalarType, Kind } = require('graphql');
+
+const myCustomScalarType = new GraphQLScalarType({
+  name: 'MyCustomScalar',
+  description: 'Description of my custom scalar type',
+  serialize(value) {
+    let result;
+    // Implement custom behavior by setting the 'result' variable
+    return result;
+  },
+  parseValue(value) {
+    let result;
+    // Implement custom behavior here by setting the 'result' variable
+    return result;
+  },
+  parseLiteral(ast) {
+    switch (ast.kind) {
+      case Kind.Int:
+      // return a literal value, such as 1 or 'static string'
+    }
+  }
+});
+
+const schemaString = gql`
+  scalar MyCustomScalar
+
+  type Foo {
+    aField: MyCustomScalar
+  }
+
+  type Query {
+    foo: Foo
+  }
+`;
+
+const resolverFunctions = {
+  MyCustomScalar: myCustomScalarType
+};
+
+const server = new ApolloServer({ typeDefs: schemaString, resolvers: resolverFunctions });
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+});
+</pre>
+
+##### 自定义标量示例
+让我们看几个示例，以演示如何定义自定义标量类型。
+
+##### 日期标量
+目标是定义Date用于Date从数据库返回值的数据类型。假设我们正在使用使用本机JavaScript Date数据类型的MongoDB驱动程序。Date使用getTime()方法可
+以轻松地将数据类型序列化为数字。因此，我们希望GraphQL服务器Date在序列化为JSON时以数字形式发送和接收。此数字将解析为Date服务器上代表日期值的。在
+客户端上，用户可以简单地根据接收到的数值创建一个新日期。
+
+下面是我们来实现``Date``数据类型， 首先在Schema
+<pre>
+const typeDefs = gql`
+  scalar Date
+
+  type MyType {
+    created: Date
+  }
+`
+</pre>
+
+接下来是解析器
+<pre>
+const { GraphQLScalarType } = require('graphql');
+const { Kind } = require('graphql/language');
+
+const resolvers = {
+  Date: new GraphQLScalarType({
+    name: 'Date',
+    description: 'Date custom scalar type',
+    parseValue(value) {
+      return new Date(value); // value from the client
+    },
+    serialize(value) {
+      return value.getTime(); // value sent to the client
+    },
+    parseLiteral(ast) {
+      if (ast.kind === Kind.INT) {
+        return parseInt(ast.value, 10); // ast value is always in string format
+      }
+      return null;
+    },
+  }),
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+});
+</pre>
+
+###### 验证
+在这个例子中，我们会根据[graphql]官方文档的标量类型来陈述GraphQL如何校验数据库中为奇数数字段，首先Schema，
+<pre>
+const typeDefs = gql`
+  scalar Odd
+
+  type MyType {
+    oddValue: Odd
+  }
+`
+</pre>
+下一步，resolver：
+<pre>
+const { ApolloServer, gql } = require('apollo-server');
+const { GraphQLScalarType } = require('graphql');
+const { Kind } = require('graphql/language');
+
+function oddValue(value) {
+  return value % 2 === 1 ? value : null;
+}
+
+const resolvers = {
+  Odd: new GraphQLScalarType({
+    name: 'Odd',
+    description: 'Odd custom scalar type',
+    parseValue: oddValue,
+    serialize: oddValue,
+    parseLiteral(ast) {
+      if (ast.kind === Kind.INT) {
+        return oddValue(parseInt(ast.value, 10));
+      }
+      return null;
+    },
+  }),
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+});
+</pre>
+##### 枚举类型
+枚举类型和标量类型很相似，但是枚举类型只能定义Schema中一部分值。枚举类型在比如用户需要在列表清单做选择是这种情况下很适用。除此之外，枚举类型可以提高开发速度，
+因为他们可以在像GraphQL Playground工具中自动带入。
+在 Schema 中， 一个枚举类型如下
+<pre>
+enum AllowedColor {
+  RED
+  GREEN
+  BLUE
+}
+</pre>
+枚举类型可以用在任何标量类型可以用位置
+<pre>
+type Query {
+  favoriteColor: AllowedColor # As a return value
+  avatar(borderColor: AllowedColor): String # As an argument
+}
+</pre>
+使用JSON串把枚举值作为变量传递：
+<pre>
+query GetAvatar($color: AllowedColor) {
+  avatar(borderColor: $color)
+}
+</pre>
+<pre>
+{
+  "color": "RED"
+}
+</pre>
+整合在一起
+<pre>
+const { ApolloServer, gql } = require('apollo-server');
+
+const typeDefs = gql`
+  enum AllowedColor {
+    RED
+    GREEN
+    BLUE
+  }
+
+  type Query {
+    favoriteColor: AllowedColor # As a return value
+    avatar(borderColor: AllowedColor): String # As an argument
+  }
+`;
+
+const resolvers = {
+  Query: {
+    favoriteColor: () => 'RED',
+    avatar: (parent, args) => {
+      // args.borderColor is 'RED', 'GREEN', or 'BLUE'
+    },
+  }
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+});
+</pre>
+###### 内部值
+有时后端在内部为枚举强制使用与公共API中不同的枚举值。在此示例中，API包含``RED``，但是我们在resolvers使用#f00代替。在``resolvers``ApolloServer传参时允许
+给枚举添加自定义的值：
+<pre>
+const resolvers = {
+  AllowedColor: {
+    RED: '#f00',
+    GREEN: '#0f0',
+    BLUE: '#00f',
+  }
+};
+</pre>
+这些根本不更改公共API，resolvers接受内部值而不是Schema值，如下所示：
+<pre>
+const resolvers = {
+  AllowedColor: {
+    RED: '#f00',
+    GREEN: '#0f0',
+    BLUE: '#00f',
+  },
+  Query: {
+    favoriteColor: () => '#f00',
+    avatar: (parent, args) => {
+      // args.borderColor is '#f00', '#0f0', or '#00f'
+    },
+  }
+};
+</pre>
+在大多数情况下，除非有另一个库进行互操作期望值有不同的表现形式，否则不会使用枚举的此功能。
+#### Unions 和 interfaces
+如何在Schema中添加 Unions 和 interfaces 
+
+当同一字段拥有不同类型是，Unions 和 interfaces是非常强大的
+##### Unions
+``Unions``类型认为一个字段可以返回至少一个对象类型，但是字段本身没有准确的类型。``Unions``类型对从单个字段返回的不相关数据类型非常有用。
+类型定义如下所示
+<pre>
+const { gql } = require('apollo-server');
+
+const typeDefs = gql`
+  union Result = Book | Author
+
+  type Book {
+    title: String
+  }
+
+  type Author {
+    name: String
+  }
+
+  type Query {
+    search: [Result]
+  }
+`;
+</pre>
+由于查询请求联合字段，因此对联合类型的字段进行的查询必须指定包含所需字段的对象类型。通过__resolveType解析器图中的一个额外字段解决了这种歧义。
+__resolveType定义结果的类型超出GraphQL执行环境的可用选项。
+<pre>
+const resolvers = {
+  Result: {
+    __resolveType(obj, context, info){
+      if(obj.name){
+        return 'Author';
+      }
+
+      if(obj.title){
+        return 'Book';
+      }
+
+      return null;
+    },
+  },
+  Query: {
+    search: () => { ... }
+  },
+};
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+});
+</pre>
+对于这些结果的可能查询如下所示。该查询表明需要使用__resolveType，因为它会根据类型请求不同的数据，
+<pre>
+{
+  search(contains: "") {
+    ... on Book {
+      title
+    }
+    ... on Author {
+      name
+    }
+  }
+}
+</pre>
+##### interface 类型
+interface 类型是当使用抽象类型来构建和使用GraphQL Schemas 的有效方法。抽象类型不能直接在Schema中使用，但可以用构建块来创建显式类型。
+想想当其中不同类型的书共享一组共同的属性，例如课本和涂色书。这些书可以用 interface 类型来构建：
+<pre>
+interface Book {
+  title: String
+  author: Author
+}
+</pre>
+当然，我们不能直接使用此interface类型来查询书籍，但可以使用它来实现具体类型。想象一下应用程序中页面，该页面要显示所有书籍的提要，而无需关心具体
+类型。要创建此类功能，我们可以定义以下内容：
+<pre>
+type TextBook implements Book {
+  title: String
+  author: Author
+  classes: [Class]
+}
+
+type ColoringBook implements Book {
+  title: String
+  author: Author
+  colors: [Color]
+}
+
+type Query {
+  schoolBooks: [Book]
+}
+</pre>
+在此示例中，我们已使用``Book`` interface 作为``TexBook`` 和``ColoringBook``的基础类型。schoolBooks字段表示返回一个书列表（即[Book]）。
+
+与Union 类型类似，在resolver映射中Interface类型需要一个额外的``__resolveType``字段来确定需要处理为哪种类型。
+<pre>
+const resolvers = {
+  Book: {
+    __resolveType(book, context, info){
+      if(book.classes){
+        return 'TextBook';
+      }
+
+      if(book.colors){
+        return 'ColoringBook';
+      }
+
+      return null;
+    },
+  },
+  Query: {
+    schoolBooks: () => { ... }
+  },
+};
+</pre>
+现在，我们简化了实现Book的过程，是因为消除了返回何种类型Book的疑虑。根据Schema的查询可能返回以下内容：TextBook和ColoringBook
+<pre>
+query GetBooks {
+  schoolBooks {
+    title
+    author
+  }
+}
+</pre>
+
+这对于常见内容、用户角色系统等都非常有帮助!
+此外，如果我们需要返回的字段仅由TextBooks或ColoringBooks（不是两者都提供）提供，则可以从查询中的抽象类型请求片段。这些片段要根据具体条件填写；
+如下，仅会向ColoringBook返回colors，而只有TextBook具有classes：
+<pre>
+query GetBooks {
+  schoolBooks {
+    title
+    ... on TextBook {
+      classes {
+        name
+      }
+    }
+    ... on ColoringBook {
+      colors {
+        name
+      }
+    }
+  }
+}
+</pre>
 #### 使用schema指令
+使用schema指令可以转变Schema类型、字段、参数
+
+指令是由后面的标识符@字符，任选接着命名参数，其可以几乎出现之后的任何形式在GraphQL查询或模式语言的语法的列表。这是GraphQL规范草案的示例，说明了
+其中几种可能性：
+<pre>
+directive @deprecated(
+  reason: String = "No longer supported"
+) on FIELD_DEFINITION | ENUM_VALUE
+
+type ExampleType {
+  newField: String
+  oldField: String @deprecated(reason: "Use `newField`.")
+}
+</pre>
+正如你所看到的，使用@deprecated(reason: ...) 如下的领域，它属于（oldField），但语法可能会提醒你在其他语言中“装饰”，它通常出现在上面的线。
+指令通常声明一次，使用的directive @deprecated ... on ...语法，然后使用零次或多次在整个架构文档，使用@deprecated(reason: ...)语法。
+##### 默认指令
+GraphQL提供数个指令：@deprecated，@skip，和@include。
 #### 执行指令
