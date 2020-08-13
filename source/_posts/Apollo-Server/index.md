@@ -1043,7 +1043,7 @@ query GetBooks {
 #### 使用schema指令
 使用schema指令可以转变Schema类型、字段、参数
 
-指令是由后面的标识符@字符，任选接着命名参数，其可以几乎出现之后的任何形式在GraphQL查询或模式语言的语法的列表。这是GraphQL规范草案的示例，说明了
+指令是由标识符``@``，命名参数可选，其后可出现任何符合GraphQL query或schema 语言的语法的形式。下面是 GraphQL规范草案的示例，说明了
 其中几种可能性：
 <pre>
 directive @deprecated(
@@ -1055,8 +1055,721 @@ type ExampleType {
   oldField: String @deprecated(reason: "Use `newField`.")
 }
 </pre>
-正如你所看到的，使用@deprecated(reason: ...) 如下的领域，它属于（oldField），但语法可能会提醒你在其他语言中“装饰”，它通常出现在上面的线。
-指令通常声明一次，使用的directive @deprecated ... on ...语法，然后使用零次或多次在整个架构文档，使用@deprecated(reason: ...)语法。
+正如你所看到的，使用``@deprecated(reason: ...)`` 属于（oldField），这个语法可能会让你想起其他语言中“装饰器”。
+指令通过``directive @deprecated ... on ...``声明，使用@deprecated(reason: ...)语法使用。
 ##### 默认指令
 GraphQL提供数个指令：@deprecated，@skip，和@include。
+* @deprecated(reason: String) -将字段标记为已弃用消息
+* @skip(if: Boolean!) -GraphQL将通过不调用解析器来跳过该字段（如果为true）
+* @include(if: Boolean!) -如果为true，则为带注释的字段调用解析器
+##### 使用自定义Schema指令
+要使用自定义Schema指令，请通过``schemaDirectives``参数将执行类传递给Apollo Server，该参数是一个将指令名称映射到执行指令的对象：
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require('apollo-server');
+const { defaultFieldResolver } = require('graphql');
+
+// Create (or import) a custom schema directive
+class UpperCaseDirective extends SchemaDirectiveVisitor {
+  visitFieldDefinition(field) {
+    const { resolve = defaultFieldResolver } = field;
+    field.resolve = async function (...args) {
+      const result = await resolve.apply(this, args);
+      if (typeof result === 'string') {
+        return result.toUpperCase();
+      }
+      return result;
+    };
+  }
+}
+
+// Construct a schema, using GraphQL schema language
+const typeDefs = gql`
+  directive @upper on FIELD_DEFINITION
+
+  type Query {
+    hello: String @upper
+  }
+`;
+
+// Provide resolver functions for your schema fields
+const resolvers = {
+  Query: {
+    hello: (parent, args, context) => {
+      return 'Hello world!';
+    },
+  },
+};
+
+// Add directive to the ApolloServer constructor
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  schemaDirectives: {
+    upper: UpperCaseDirective,
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+});
+</pre>
+实现UpperCaseDirective负责更改解析器并在必要时修改schema。
+##### 创建自己的指令
+先要了解应用自己Schema指令，请阅读下面文档
 #### 执行指令
+执行自定义指令去转换Schema类型，字段和参数
+在学习如何执行schema指令之前，本节将提供关于Schema指令及其使用的必要背景。
+#### Schema执行指令
+由于GraphQL规范未讨论指令的任何特定执行策略，因此由每个GraphQL服务器框架暴露用于执行新指令的API。
+
+如果使用的是Apollo Server，则使用的是``graphql-tools``npm包，该包提供了一个方便而强大的工具来实现指令语法：SchemaDirectiveVisitor类。
+
+要使用``SchemaDirectiveVisitor``来执行Schema指令，只需创建一个SchemaDirectiveVisitor子类将覆盖以下一个或多个访问器方法：
+
+* visitSchema(schema: GraphQLSchema)
+* visitScalar(scalar: GraphQLScalarType)
+* visitObject(object: GraphQLObjectType)
+* visitFieldDefinition(field: GraphQLField<any, any>)
+* visitArgumentDefinition(argument: GraphQLArgument)
+* visitInterface(iface: GraphQLInterfaceType)
+* visitUnion(union: GraphQLUnionType)
+* visitEnum(type: GraphQLEnumType)
+* visitEnumValue(value: GraphQLEnumValue)
+* visitInputObject(object: GraphQLInputObjectType)
+* visitInputFieldDefinition(field: GraphQLInputField)
+
+通过扩展``visitObject``的方法，SchemaDirectiveVisitor的子类表达了对某些schema类型（例如GraphQLObjectType的第一个参数类型visitObject）的兴趣。
+
+这些方法名称对应于schema中使用指令的所有可能位置。例如，``INPUT_FIELD_DEFINITION``位置由处理``visitInputFieldDefinition``。
+
+这是@deprecated我们在上面看到的一种执行指令：
+
+<pre>
+const { SchemaDirectiveVisitor } = require("apollo-server");
+
+class DeprecatedDirective extends SchemaDirectiveVisitor {
+  public visitFieldDefinition(field: GraphQLField<any, any>) {
+    field.isDeprecated = true;
+    field.deprecationReason = this.args.reason;
+  }
+
+  public visitEnumValue(value: GraphQLEnumValue) {
+    value.isDeprecated = true;
+    value.deprecationReason = this.args.reason;
+  }
+}
+</pre>
+
+为了将此执行应用于包含@deprecated指令的schema，只需DeprecatedDirective通过以下schemaDirectives选项将类传递给Apollo Server的构造函数即可：
+
+<pre>
+const { ApolloServer, gql } = require("apollo-server");
+
+const typeDefs = gql`
+  type ExampleType {
+    newField: String
+    oldField: String @deprecated(reason: "Use \`newField\`.")
+  }
+`;
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  schemaDirectives: {
+    deprecated: DeprecatedDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+另外，如果要修改现有的schema对象，则可以直接调用``SchemaDirectiveVisitor.visitSchemaDirectives``接口：
+<pre>
+SchemaDirectiveVisitor.visitSchemaDirectives(schema, {
+  deprecated: DeprecatedDirective
+});
+</pre>
+请注意，该``@deprecated``指令的不同次出现可能会使``SchemaDirectiveVisitor``的子类会被多次实例化。这就是为什么提供一个类而不是该类的实例的原因。
+
+如果由于某种原因您有使用schema中该``@deprecated``指令的其他名名称，但又想使用相同的执行，则可以！DeprecatedDirective只需更改schemaDirectives传递给
+Apollo Server 构造函数的对象中的键，即可使用不同的名称传递相同的类。换句话说，SchemaDirectiveVisitor实现实际上是匿名的，因此由使用它们来为其分配名称的人来决定。
+
+##### 例子
+为了了解带来的各种可能性SchemaDirectiveVisitor，让我们研究各种实际示例
+
+###### 大写字符串
+假设您要将字符串值字段转换为大写。尽管此用例很简单，但它是通过包装字段的``resolve``函数执行指令的一个很好的例子：
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+const { defaultFieldResolver } = require("graphql");
+
+const typeDefs = gql`
+  directive @upper on FIELD_DEFINITION
+
+  type Query {
+    hello: String @upper
+  }
+`;
+
+class UpperCaseDirective extends SchemaDirectiveVisitor {
+  visitFieldDefinition(field) {
+    const { resolve = defaultFieldResolver } = field;
+    field.resolve = async function (...args) {
+      const result = await resolve.apply(this, args);
+      if (typeof result === "string") {
+        return result.toUpperCase();
+      }
+      return result;
+    };
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  schemaDirectives: {
+    upper: UpperCaseDirective,
+    upperCase: UpperCaseDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+注意@upper，@upperCase使用相同的UpperCaseDirective实现来处理这两个过程非常容易。
+
+######从REST API获取数据
+假设您已经定义了一个与REST资源相对应的对象类型，并且您想要避免为每个字段实现解析器功能：
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+
+const typeDefs = gql`
+  directive @rest(url: String) on FIELD_DEFINITION
+
+  type Query {
+    people: [Person] @rest(url: "/api/v1/people")
+  }
+`;
+
+class RestDirective extends SchemaDirectiveVisitor {
+  public visitFieldDefinition(field) {
+    const { url } = this.args;
+    field.resolve = () => fetch(url);
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  schemaDirectives: {
+    rest: RestDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+在REST端点上实现真正的GraphQL包装时，还有许多其他问题需要考虑（例如，如何进行缓存或分页），但是此示例演示了一个基本思路。
+
+###### 匹配日期字符串
+假设你的解析器返回的是一个 Date对象，但是在客户端需要返回字符串类型
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+
+const typeDefs = gql`
+  directive @date(format: String) on FIELD_DEFINITION
+
+  scalar Date
+
+  type Post {
+    published: Date @date(format: "mmmm d, yyyy")
+  }
+`;
+
+class DateFormatDirective extends SchemaDirectiveVisitor {
+  visitFieldDefinition(field) {
+    const { resolve = defaultFieldResolver } = field;
+    const { format } = this.args;
+    field.resolve = async function (...args) {
+      const date = await resolve.apply(this, args);
+      return require('dateformat')(date, format);
+    };
+    // The formatted Date becomes a String, so the field type must change:
+    field.type = GraphQLString;
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  schemaDirectives: {
+    date: DateFormatDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+当然，如果Schema的维护者并没有确定具体的Date类型，你可以把这个交给客户端处理会更好一些。为了做到这一点，我们为相应的字段的指令加上参数即可
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+const formatDate = require("dateformat");
+const { defaultFieldResolver, GraphQLString } = require("graphql");
+
+const typeDefs = gql`
+  directive @date(
+    defaultFormat: String = "mmmm d, yyyy"
+  ) on FIELD_DEFINITION
+
+  scalar Date
+
+  type Query {
+    today: Date @date
+  }
+`;
+
+class FormattableDateDirective extends SchemaDirectiveVisitor {
+  public visitFieldDefinition(field) {
+    const { resolve = defaultFieldResolver } = field;
+    const { defaultFormat } = this.args;
+
+    field.args.push({
+      name: 'format',
+      type: GraphQLString
+    });
+
+    field.resolve = async function (
+      source,
+      { format, ...otherArgs },
+      context,
+      info,
+    ) {
+      const date = await resolve.call(this, source, otherArgs, context, info);
+      // If a format argument was not provided, default to the optional
+      // defaultFormat argument taken by the @date directive:
+      return formatDate(date, format || defaultFormat);
+    };
+
+    field.type = GraphQLString;
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  schemaDirectives: {
+    date: FormattableDateDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+现在，当请求``Query.today``字段，客户端可以在Schema中指定``format``参数，或者使用默认``defaultFormat``
+<pre>
+
+const { request } = require("graphql-request");
+
+server.listen().then(({ url }) => {
+  request(url, `query { today }`).then(result => {
+    // Logs with the default "mmmm d, yyyy" format:
+    console.log(result.data.today);
+  });
+
+  request(url, `query {
+    today(format: "d mmm yyyy")
+  }`).then(result => {
+    // Logs with the requested "d mmm yyyy" format:
+    console.log(result.data.today);
+  });
+})
+</pre>
+
+###### 国际化
+假设你有一个``translate`函数，该函数需要一个字符串，一个标识该字符串在应用程序中角色路径，和需要转换的目标语言环境。
+
+您可以按照以下方式确定``translate``用于本地化类型的``greeting``字段``Query``
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+
+const typeDefs = gql`
+  directive @intl on FIELD_DEFINITION
+
+  type Query {
+    greeting: String @intl
+  }
+`;
+
+class IntlDirective extends SchemaDirectiveVisitor {
+  visitFieldDefinition(field, details) {
+    const { resolve = defaultFieldResolver } = field;
+    field.resolve = async function (...args) {
+      const context = args[2];
+      const defaultText = await resolve.apply(this, args);
+      // In this example, path would be ["Query", "greeting"]:
+      const path = [details.objectType.name, field.name];
+      return translate(defaultText, path, context.locale);
+    };
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  schemaDirectives: {
+    intl: IntlDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+GraphQL很适合做国际化，因为GraphQL server 没有限制访问的翻译数据，客户端只要按需请求即可
+
+###### 访问权限
+假设我们有一个 @auth 指令，他接收``requires``参数是``Role``枚举类，默认类型是``ADMIN``。这个@auth指令作用于``OBJECT``（像``User``类型）
+对所有的User类型 或者 特定的类型 设置访问权限。
+<pre>
+directive @auth(
+  requires: Role = ADMIN,
+) on OBJECT | FIELD_DEFINITION
+
+enum Role {
+  ADMIN
+  REVIEWER
+  USER
+  UNKNOWN
+}
+
+type User @auth(requires: USER) {
+  name: String
+  banned: Boolean @auth(requires: ADMIN)
+  canPost: Boolean @auth(requires: REVIEWER)
+}
+</pre>
+
+使这个示例棘手的是，指令需要``OBJECT``的版本包装着对象的所有字段，即使其中某些字段可能``@auth``在该``FIELD_DEFINITION``级别由指令单独包装，
+并且如果我们可以自己处理的话，最好不要重新包装解析器：
+
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+
+class AuthDirective extends SchemaDirectiveVisitor {
+  visitObject(type) {
+    this.ensureFieldsWrapped(type);
+    type._requiredAuthRole = this.args.requires;
+  }
+  // Visitor methods for nested types like fields and arguments
+  // also receive a details object that provides information about
+  // the parent and grandparent types.
+  visitFieldDefinition(field, details) {
+    this.ensureFieldsWrapped(details.objectType);
+    field._requiredAuthRole = this.args.requires;
+  }
+
+  ensureFieldsWrapped(objectType) {
+    // Mark the GraphQLObjectType object to avoid re-wrapping:
+    if (objectType._authFieldsWrapped) return;
+    objectType._authFieldsWrapped = true;
+
+    const fields = objectType.getFields();
+
+    Object.keys(fields).forEach(fieldName => {
+      const field = fields[fieldName];
+      const { resolve = defaultFieldResolver } = field;
+      field.resolve = async function (...args) {
+        // Get the required Role from the field first, falling back
+        // to the objectType if no Role is required by the field:
+        const requiredRole =
+          field._requiredAuthRole ||
+          objectType._requiredAuthRole;
+
+        if (! requiredRole) {
+          return resolve.apply(this, args);
+        }
+
+        const context = args[2];
+        const user = await getUser(context.headers.authToken);
+        if (! user.hasRole(requiredRole)) {
+          throw new Error("not authorized");
+        }
+
+        return resolve.apply(this, args);
+      };
+    });
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  schemaDirectives: {
+    auth: AuthDirective,
+    authorized: AuthDirective,
+    authenticated: AuthDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+这种方法的一个缺点是，它不能保证如果在``AuthDirective``调用之后将字段添加到``Schema``中时，字段会被包装，并且整个
+``getUser(context.headers.authToken)``虚构的API仍需要充实。换句话说，虽然我们忽略了执行该指令可用于生产环境的所需要的一些细节，但是我们希望
+此处显示的基本结构能够激发您找到解决现存问题解决方案。
+
+###### 值限制
+假设您要为字符串值字段设置最大长度：
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require('apollo-server');
+const { GraphQLScalarType, GraphQLNonNull } = require('graphql');
+
+const typeDefs = gql`
+  directive @length(max: Int) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+
+  type Query {
+    books: [Book]
+  }
+
+  type Book {
+    title: String @length(max: 50)
+  }
+
+  type Mutation {
+    createBook(book: BookInput): Book
+  }
+
+  input BookInput {
+    title: String! @length(max: 50)
+  }
+`;
+
+class LengthDirective extends SchemaDirectiveVisitor {
+  visitInputFieldDefinition(field) {
+    this.wrapType(field);
+  }
+
+  visitFieldDefinition(field) {
+    this.wrapType(field);
+  }
+
+  // Replace field.type with a custom GraphQLScalarType that enforces the
+  // length restriction.
+  wrapType(field) {
+    if (
+      field.type instanceof GraphQLNonNull &&
+      field.type.ofType instanceof GraphQLScalarType
+    ) {
+      field.type = new GraphQLNonNull(
+        new LimitedLengthType(field.type.ofType, this.args.max),
+      );
+    } else if (field.type instanceof GraphQLScalarType) {
+      field.type = new LimitedLengthType(field.type, this.args.max);
+    } else {
+      throw new Error(`Not a scalar type: ${field.type}`);
+    }
+  }
+}
+
+class LimitedLengthType extends GraphQLScalarType {
+  constructor(type, maxLength) {
+    super({
+      name: `LengthAtMost${maxLength}`,
+
+      // For more information about GraphQLScalar type (de)serialization,
+      // see the graphql-js implementation:
+      // https://github.com/graphql/graphql-js/blob/31ae8a8e8312/src/type/definition.js#L425-L446
+
+      serialize(value) {
+        value = type.serialize(value);
+        assert.isAtMost(value.length, maxLength);
+        return value;
+      },
+
+      parseValue(value) {
+        return type.parseValue(value);
+      },
+
+      parseLiteral(ast) {
+        return type.parseLiteral(ast);
+      },
+    });
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  schemaDirectives: {
+    length: LengthDirective,
+  },
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+
+###### 生成唯一ID
+假设您的数据库对每种资源类型都使用递增ID，而且ID在所有资源类型中都不都是唯一的。您可以通过以下方法合成一个名为的字段uid，该字段将对象类型与各
+种字段值结合在一起，以产生一个在整个Schema中唯一的ID：
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+const { GraphQLID } = require("graphql");
+const { createHash } = require("crypto");
+
+const typeDefs = gql`
+  directive @uniqueID(
+    # The name of the new ID field, "uid" by default:
+    name: String = "uid"
+
+    # Which fields to include in the new ID:
+    from: [String] = ["id"]
+  ) on OBJECT
+
+  # Since this type just uses the default values of name and from,
+  # we don't have to pass any arguments to the directive:
+  type Location @uniqueID {
+    id: Int
+    address: String
+  }
+
+  # This type uses both the person's name and the personID field,
+  # in addition to the "Person" type name, to construct the ID:
+  type Person @uniqueID(from: ["name", "personID"]) {
+    personID: Int
+    name: String
+  }
+`;
+
+class UniqueIdDirective extends SchemaDirectiveVisitor {
+  visitObject(type) {
+    const { name, from } = this.args;
+    const fields = type.getFields();
+    if (name in fields) {
+      throw new Error(`Conflicting field name ${name}`);
+    }
+    fields[name] = {
+      name,
+      type: GraphQLID,
+      description: 'Unique ID',
+      args: [],
+      resolve(object) {
+        const hash = createHash("sha1");
+        hash.update(type.name);
+        from.forEach(fieldName => {
+          hash.update(String(object[fieldName]));
+        });
+        return hash.digest("hex");
+      }
+    };
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  schemaDirectives: {
+    uniqueID: UniqueIdDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+
+##### 声明Schema指令
+尽管上述例足以执行你在Schema中使用的任何``@directive``，但是SDL 预发还支持声明名称，参数类型，默认参数以及允许使用指令的位置
+<pre>
+directive @auth(
+  requires: Role = ADMIN,
+) on OBJECT | FIELD_DEFINITION
+
+enum Role {
+  ADMIN
+  REVIEWER
+  USER
+  UNKNOWN
+}
+
+type User @auth(requires: USER) {
+  name: String
+  banned: Boolean @auth(requires: ADMIN)
+  canPost: Boolean @auth(requires: REVIEWER)
+}
+</pre>
+该假设@auth指令参数为requires，参数类型为Role，如果``@auth``不传递显式requires参数默认值是ADMIN，。该@auth指令可以出现在像``User``这样
+的``OBJECT``上，为所有User字段设置默认访问控制，也可以在单个字段上限制。
+
+从理论上讲满足声明的要求是``SchemaDirectiveVisitor``执行本身可以完成的事情，但是SDL语法更易于读写，即使没有使用SchemaDirectiveVisitor抽象也可以提供值。
+
+但是，如果要实现可重用SchemaDirectiveVisitor的公共用途，则可能不是编写SDL语法的人，因此您可能无法控制schema开发者决定声明哪些指令以及如何声明。
+这就是为什么一个执行良好，可重用``SchemaDirectiveVisitor``的方法应该考虑重写``getDirectiveDeclaration``方法：
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+const { DirectiveLocation, GraphQLDirective, GraphQLEnumType } = require("graphql");
+
+class AuthDirective extends SchemaDirectiveVisitor {
+  public visitObject(object: GraphQLObjectType) {...}
+  public visitFieldDefinition(field: GraphQLField<any, any>) {...}
+
+  public static getDirectiveDeclaration(
+    directiveName: string,
+    schema: GraphQLSchema,
+  ): GraphQLDirective {
+    const previousDirective = schema.getDirective(directiveName);
+    if (previousDirective) {
+      // If a previous directive declaration exists in the schema, it may be
+      // better to modify it than to return a new GraphQLDirective object.
+      previousDirective.args.forEach(arg => {
+        if (arg.name === 'requires') {
+          // Lower the default minimum Role from ADMIN to REVIEWER.
+          arg.defaultValue = 'REVIEWER';
+        }
+      });
+
+      return previousDirective;
+    }
+
+    // If a previous directive with this name was not found in the schema,
+    // there are several options:
+    //
+    // 1. Construct a new GraphQLDirective (see below).
+    // 2. Throw an exception to force the client to declare the directive.
+    // 3. Return null, and forget about declaring this directive.
+    //
+    // All three are valid options, since the visitor will still work without
+    // any declared directives. In fact, unless you're publishing a directive
+    // implementation for public consumption, you can probably just ignore
+    // getDirectiveDeclaration altogether.
+
+    return new GraphQLDirective({
+      name: directiveName,
+      locations: [
+        DirectiveLocation.OBJECT,
+        DirectiveLocation.FIELD_DEFINITION,
+      ],
+      args: {
+        requires: {
+          // Having the schema available here is important for obtaining
+          // references to existing type objects, such as the Role enum.
+          type: (schema.getType('Role') as GraphQLEnumType),
+          // Set the default minimum Role to REVIEWER.
+          defaultValue: 'REVIEWER',
+        }
+      }]
+    });
+  }
+}
+</pre>
+由于``getDirectiveDeclaration``方法不仅接收指令的名称，而且还接收GraphQLSchema对象，因此它可以修改和/或重用在Schema中找到的先前的声明，作为替代方法返回
+全新GraphQLDirective对象。无论哪种方式，如果访问者返回一个非空GraphQLDirective的getDirectiveDeclaration，该声明将被用来检查参
+数和允许的位置。
+##### 查询指令
+顾名思义，该SchemaDirectiveVisitor抽象经过专门设计，可以根据SDL文本中显示的指令来转换GraphQL schema。
+
+虽然指令语法也可以出现在从客户端发送的GraphQL查询中，但是执行查询指令将需要查询文档的运行时转换。我们故意将这种实现方式限制为在服务器构造时进行转换。
+
+我们相信，将这种逻辑限制在您的schema中比负担您的客户更加可持续，尽管您可能会想到实现查询指令的类似抽象。如果这种可能性成为您的需要，请告诉我们，
+我们可能会考虑在这些工具的未来版本中支持查询指令。
