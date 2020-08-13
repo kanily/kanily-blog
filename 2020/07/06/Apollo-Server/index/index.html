@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 
 
 
@@ -16,7 +16,7 @@
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="">
   <meta name="author" content="Kanily">
-  <meta name="keywords" content="Front-end Js Css">
+  <meta name="keywords" content="Front-End Js Css">
   <title>Apollo-Server - Kanily&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
@@ -50,7 +50,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>Kanily's Blog</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -68,7 +68,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/">
               <i class="iconfont icon-home-fill"></i>
-              Home</a>
+              首页</a>
           </li>
         
           
@@ -77,7 +77,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/archives/">
               <i class="iconfont icon-archive-fill"></i>
-              Archives</a>
+              归档</a>
           </li>
         
           
@@ -86,7 +86,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/categories/">
               <i class="iconfont icon-category-fill"></i>
-              Categories</a>
+              分类</a>
           </li>
         
           
@@ -95,7 +95,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/tags/">
               <i class="iconfont icon-tags-fill"></i>
-              Tags</a>
+              标签</a>
           </li>
         
           
@@ -104,7 +104,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/about/">
               <i class="iconfont icon-user-fill"></i>
-              About</a>
+              关于</a>
           </li>
         
         
@@ -133,7 +133,7 @@
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
                   <time datetime="2020-07-06 17:42">
-                    July 6, 2020 pm
+                    2020年7月6日 下午
                   </time>
                 </div>
               
@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    5.3k 字
+                    10.9k 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    61
+                    141
                      分钟
                   </span>
                 
@@ -504,7 +504,7 @@ input PostAndMediaInput {
 
 <p>当多个操作需要完全相同的数据集合时，输入类型有时会很有用，但是您应该谨慎地复用它们。操作最终可能会在其所需的参数之间产生分歧。</p>
 <p><strong>不要对query和mutation使用相同</strong>的输入类型。在许多情况下，mutation所需的参数对于相应的query是可选的。</p>
-<h5 id="Schema的扩大"><a href="#Schema的扩大" class="headerlink" title="Schema的扩大"></a>Schema的扩大</h5><p>随着你的组织成长与演变，你的数据图也会相应的成长。新的产品和特性会引入新的Schema类型和字段。为了追踪这段时间的变化，你应该用版本控制去维护你的定义的Schema。</p>
+<h5 id="Schema的演变"><a href="#Schema的演变" class="headerlink" title="Schema的演变"></a>Schema的演变</h5><p>随着你的组织成长与演变，你的数据图也会相应的成长。新的产品和特性会引入新的Schema类型和字段。为了追踪这段时间的变化，你应该用版本控制去维护你的定义的Schema。</p>
 <p>大多数的Schema的增加是安全且向后兼容的。但是，发生的变化产生的删除和修改行为对于一个或更多已存在的应用可能是破坏性的改变。下面的schema改变会具有潜在的破坏性：</p>
 <ul>
 <li>删除一个类型或字段</li>
@@ -512,7 +512,7 @@ input PostAndMediaInput {
 <li>增加一个可为空字段</li>
 <li>删除一个字段参数</li>
 </ul>
-<p>诸如Apollo Studio[<a href="https://studio.apollographql.com/]之类的图形管理工具可帮助您了解潜在的Schema更改是否会影响您的正在使用客户端。Studio还通过操作安全列表提供字段级性能指标，Schema历史记录跟踪和高级安全性。" target="_blank" rel="noopener">https://studio.apollographql.com/]之类的图形管理工具可帮助您了解潜在的Schema更改是否会影响您的正在使用客户端。Studio还通过操作安全列表提供字段级性能指标，Schema历史记录跟踪和高级安全性。</a></p>
+<p>诸如Apollo Studio[<a href="https://studio.apollographql.com]之类的图形管理工具可帮助您了解潜在的Schema更改是否会影响您的正在使用客户端。Studio还通过操作安全列表提供字段级性能指标，Schema历史记录跟踪和高级安全性。">https://studio.apollographql.com]之类的图形管理工具可帮助您了解潜在的Schema更改是否会影响您的正在使用客户端。Studio还通过操作安全列表提供字段级性能指标，Schema历史记录跟踪和高级安全性。</a></p>
 <h5 id="文档字符串"><a href="#文档字符串" class="headerlink" title="文档字符串"></a>文档字符串</h5><p>GraphQL的Schema定义语言（SDL）支持启用markdown的文档字符串。这些可帮助数据图的使用者发现字段并学习如何使用它们。</p>
 <p>以下代码段显示了如何同时使用单行字符串文字和多行块：</p>
 <pre>
@@ -540,9 +540,9 @@ type MyObjectType {
 </ul>
 <p>这些约定有助于确保大多数客户端不需要定义额外的逻辑即可转换服务器返回的结果</p>
 <h5 id="query-驱动的Schema设计"><a href="#query-驱动的Schema设计" class="headerlink" title="query 驱动的Schema设计"></a>query 驱动的Schema设计</h5><p>当GraphQL schema的执行操作是依据客户端的需求而设计时，其功能最为强大。尽管您可以构造类型，使它们与后端数据存储的结构匹配，但您duck不必这样！单个对象类型的字段可以许多不同来源的数据所填充。<strong>根据数据的使用方式（而不是数据的存储方式）设计Schema</strong>。</p>
-<p>如果您的数据存储区包含客户尚不需要的字段或关系，请从您的模式中将其忽略。向架构中添加新字段比删除某些客户端正在使用的现有字段更加容易和安全。</p>
-<p><strong>query 驱动的Schema设计示例</strong><br>假设我们正在创建一个Web应用程序，其中列出了我们区域内的近期活动。我们希望该应用程序显示每个事件的名称，日期和位置，以及天气预报。</p>
-<p>在这种情况下，我们希望Web应用程序能够执行具有类似于以下内容的结构的查询</p>
+<p>如果您的数据存储区包含客户端尚不需要的字段或关系，请从您的Schema中将其忽略。向Schema中添加新字段比删除某些客户端正在使用的现有字段更加容易和安全。</p>
+<p><strong>query 驱动的Schema设计示例</strong><br>假设我们正在创建一个Web应用程序，其中列出了我们地区内的近期活动。我们希望该应用显示每个事件的名称，日期和位置，以及天气预报。</p>
+<p>在这种情况下，我们希望Web应用能够执行具有类似于以下内容的结构的查询</p>
 <pre>
 query EventList {
   upcomingEvents {
@@ -558,7 +558,7 @@ query EventList {
   }
 }
 </pre>
-<p>因为我们知道这是对我们的客户有帮助的数据结构，所以可以通知我们架构的结构：</p>
+<p>因为我们知道这是对我们的客户有帮助的数据结构，所以我们可以这样设计schema的结构：</p>
 <pre>
 type Query {
   upcomingEvents: [Event]
@@ -580,9 +580,9 @@ type WeatherInfo {
   description: String
 }
 </pre>
-<p>如上所述，可以使用来自不同数据源（或多个数据源）的数据填充这些类型中的每一个。例如，该Event类型的name和date可能会填充有我们后端数据库中的数据，而该WeatherInfo类型的可能会填充有来自第三方Weather API的数据。</p>
-<h5 id="设计mutation"><a href="#设计mutation" class="headerlink" title="设计mutation"></a>设计mutation</h5><p>在GraphQL中，建议每个突变的响应都包含该突变修改的数据。这使客户端无需发送后续查询即可获取最新的持久化数据。</p>
-<p>一个模式，支持更新email的User会包括以下内容：</p>
+<p>如上所述，可以使用来自不同数据源（或多个数据源）的数据填充每一个类型中。例如，该<code>Event类型</code>的<code>name</code>和<code>date</code>字段可能从后端数据库获取``，而该WeatherInfo类型的可能来自第三方Weather API的数据。</p>
+<h5 id="设计mutation"><a href="#设计mutation" class="headerlink" title="设计mutation"></a>设计mutation</h5><p>在GraphQL中，建议每个mutation的返回值都包含该mutation修改的数据。这使客户端无需发送后续查询即可获取最新的持久化数据。</p>
+<p>一个Schema，支持更新email的User会包括以下内容：</p>
 <pre>
  type Mutation {
    # This mutation takes id and email parameters and responds with a User
@@ -595,7 +595,7 @@ type WeatherInfo {
    email: String!
  }
 </pre>
-<p>然后，客户端可以针对具有以下结构的架构执行变异：</p>
+<p>然后，客户端可以针对具有以下结构的schema执行mutation：</p>
 <pre>
 mutation updateMyUser {
   updateUserEmail(id: 1, email: "jane@example.com"){
@@ -617,10 +617,10 @@ mutation updateMyUser {
   }
 }
 </pre>
-<p>虽然它不是强制性的突变的响应包括修改的对象，这样大大提高了客户端代码的效率。与查询一样，确定哪些突变对您的客户有用，这有助于告知架构的结构。</p>
-<h6 id="构建突变反应"><a href="#构建突变反应" class="headerlink" title="构建突变反应"></a>构建突变反应</h6><p>单个突变可以修改多种类型，或同一类型的多个实例。例如，使用户能够“喜欢”博客文章的突变可能会增加a的likes计数Post 并更新的likedPosts列表User。这使得突变响应的结构看起来像什么不太明显。</p>
-<p>此外，由于突变会修改数据，因此比查询引起错误的可能性要高得多。变异甚至可能导致部分错误，在该错误中，成功修改了一条数据而没有修改另一条数据。无论错误的类型如何，以一致的方式将错误传达回客户端都是很重要的。</p>
-<p>为帮助解决这两个问题，建议MutationResponse您在架构中定义一个接口，以及实现该接口的对象类型的集合（每个突变一个）。</p>
+<p>虽然它不是强制性的mutation的返回包括修改的对象，这样大大提高了客户端代码的效率。与查询一样，确定哪些mutation对您的客户有用，这有助于告知架构的结构。</p>
+<h6 id="构建mutation"><a href="#构建mutation" class="headerlink" title="构建mutation"></a>构建mutation</h6><p>单个mutation可以修改多种类型，或同一类型的多个实例。例如，使用户能够“喜欢”博客文章的mutation可能会增加<code>Post</code>的<code>likes</code>计数，并更新的<code>likedPosts</code>的<code>User</code>列表。这使得mutation返回的结构不太明晰。</p>
+<p>此外，由于mutation会修改数据，因此比查询引起错误的可能性要高得多。mutation甚至可能导致部分错误，比如成功修改了一条数据而没有修改另一条数据。无论错误的类型如何，以一致的方式将错误传达回客户端都是很重要的。</p>
+<p>为帮助解决这两个问题，建议您在架构中定义一个<code>MutationResponse</code>接口，以及用对象类型的集合实现该接口（每个mutation一个）。</p>
 <p>下面是什么MutationResponse接口的样子：</p>
 <pre>
 interface MutationResponse {
@@ -639,7 +639,7 @@ type UpdateUserEmailMutationResponse implements MutationResponse {
   user: User
 }
 </pre>
-<p>我们的updateUserEmail突变将指定UpdateUserEmailMutationResponse为返回类型（而不是User），其响应的结构如下：</p>
+<p>我们的updateUserEmail的mutation将指定UpdateUserEmailMutationResponse为返回类型（而不是User），其响应的结构如下：</p>
 <pre>
 {
   "data": {
@@ -657,8 +657,14 @@ type UpdateUserEmailMutationResponse implements MutationResponse {
 }
 </pre>
 
-<p>让我们按字段细分此字段：<br>code是代表数据传输状态的字符串。可以将其视为HTTP状态代码。<br>success是一个布尔值，指示突变是否成功。这允许客户端进行粗略检查，以了解是否存在故障。<br>message是描述突变结果的人类可读字符串。它打算在产品的UI中使用。<br>user由实现类型添加，UpdateUserEmailMutationResponse以将新更新的用户返回给客户端。</p>
-<p>如果变异修改多种类型（例如我们前面的“喜欢”博客文章的示例），则其实现类型可以为每个被修改的类型包括一个单独的字段：</p>
+<p>让我们按字段细分：</p>
+<ul>
+<li>code是代表数据传输状态的字符串。可以将其视为HTTP状态代码。</li>
+<li>success是一个布尔值，指示mutation是否成功。这允许客户端进行粗略检查，以了解是否存在故障。</li>
+<li>message是描述mutation结果的可读性字符串。可以在产品的UI中使用。</li>
+<li>user由实现类型添加，UpdateUserEmailMutationResponse以将新更新的用户返回给客户端。</li>
+</ul>
+<p>如果mutation修改多种类型（例如我们前面的“喜欢”博客文章的示例），则其实现类型可以为每个被修改的类型包括一个单独的字段：</p>
 <pre>
 type LikePostMutationResponse implements MutationResponse {
   code: String!
@@ -668,7 +674,7 @@ type LikePostMutationResponse implements MutationResponse {
   user: User
 }
 </pre>
-<p>由于我们的假设likePost突变会同时修改a Post和a 上的字段User，因此其响应对象包括这两种类型的字段。响应具有以下结构：</p>
+<p>由于我们的假设likePost会同时修改Post和User，因此其返回对象包括这两种类型的字段。返回值具有以下结构：</p>
 <pre>
 {
   "data": {
@@ -687,8 +693,1052 @@ type LikePostMutationResponse implements MutationResponse {
   }
 }
 </pre>
-<p>遵循此模式可为客户提供有关每个请求的操作结果的有用的详细信息。有了这些信息，开发人员可以更好地应对其客户端代码中的操作失败。</p>
-<h4 id="自定义标量类型和枚举类型"><a href="#自定义标量类型和枚举类型" class="headerlink" title="自定义标量类型和枚举类型"></a>自定义标量类型和枚举类型</h4><h4 id="联合与接口"><a href="#联合与接口" class="headerlink" title="联合与接口"></a>联合与接口</h4><h4 id="使用schema指令"><a href="#使用schema指令" class="headerlink" title="使用schema指令"></a>使用schema指令</h4><h4 id="执行指令"><a href="#执行指令" class="headerlink" title="执行指令"></a>执行指令</h4>
+<p>遵循此模式为客户端关每个请求的操作结果提供有用的详细信息。有了这些信息，开发人员可以更好地应对其客户端代码中的操作失败。</p>
+<h4 id="自定义标量类型和枚举类型"><a href="#自定义标量类型和枚举类型" class="headerlink" title="自定义标量类型和枚举类型"></a>自定义标量类型和枚举类型</h4><h2 id="为schema添加自定义标量和枚举类型"><a href="#为schema添加自定义标量和枚举类型" class="headerlink" title="为schema添加自定义标量和枚举类型"></a>为schema添加自定义标量和枚举类型</h2><p>该GraphQL规范包括以下默认标量类型：<code>Int</code>，<code>Float</code>，<code>String</code>，<code>Boolean</code>和<code>ID</code>。尽管这涵盖了大多数用例，但有些需要支持自定义<br>原子数据类型（例如Date），或向现有类型添加验证。为此，GraphQL允许自定义标量类型。枚举类似于自定义标量，其限制是它们的值只能是字符串的预定义列表之一。</p>
+<h5 id="自定义标量"><a href="#自定义标量" class="headerlink" title="自定义标量"></a>自定义标量</h5><p>要定义自定义标量，请使用以下符号将其添加到Schema字符串：</p>
+<pre>
+scalar MyCustomScalar
+</pre>
+<p>然后，在resolver map中<code>MyCustomScalar</code>通过GraphQLScalarType传递类的实例，定义自定义标量的行为。可以使用依赖项或源代码定义此实例。</p>
+<p>有关GraphQL类型系统的更多信息，请参考官方文档或学习GraphQL教程。</p>
+<p>请注意，Apollo Client当前并不能自动解析自定义标量，因此无法自动在客户端上逆转序列化。</p>
+<h6 id="使用-package"><a href="#使用-package" class="headerlink" title="使用 package"></a>使用 package</h6><p>在这里，我们以<code>graphql-type-json</code>包为例，演示可以做什么。此npm包定义了JSON GraphQL标量类型。</p>
+<p>将graphql-type-json包添加到项目的依赖项中：</p>
+<pre>
+$ npm install graphql-type-json
+</pre>
+<p>在代码中，要求使用npm包中定义的类型并使用它：</p>
+<pre>
+const { ApolloServer, gql } = require('apollo-server');
+const GraphQLJSON = require('graphql-type-json');
+
+const schemaString = gql`
+  scalar JSON
+
+  type Foo {
+    aField: JSON
+  }
+
+  type Query {
+    foo: Foo
+  }
+`;
+
+const resolveFunctions = {
+  JSON: GraphQLJSON
+};
+
+const server = new ApolloServer({ typeDefs: schemaString, resolvers: resolveFunctions });
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+});
+</pre>
+<p>备注：<code>GraphQLJSON</code>是一个<code>GraphQLScalarType</code>实例。</p>
+<h6 id="自订执行GraphQLScalarType个体"><a href="#自订执行GraphQLScalarType个体" class="headerlink" title="自订执行GraphQLScalarType个体"></a>自订执行GraphQLScalarType个体</h6><p>定义GraphQLScalarType实例可以提供对自定义标量的更多控制，并且可以通过以下方式将其添加到Apollo服务器：</p>
+<pre>
+const { ApolloServer, gql } = require('apollo-server');
+const { GraphQLScalarType, Kind } = require('graphql');
+
+const myCustomScalarType = new GraphQLScalarType({
+  name: 'MyCustomScalar',
+  description: 'Description of my custom scalar type',
+  serialize(value) {
+    let result;
+    // Implement custom behavior by setting the 'result' variable
+    return result;
+  },
+  parseValue(value) {
+    let result;
+    // Implement custom behavior here by setting the 'result' variable
+    return result;
+  },
+  parseLiteral(ast) {
+    switch (ast.kind) {
+      case Kind.Int:
+      // return a literal value, such as 1 or 'static string'
+    }
+  }
+});
+
+const schemaString = gql`
+  scalar MyCustomScalar
+
+  type Foo {
+    aField: MyCustomScalar
+  }
+
+  type Query {
+    foo: Foo
+  }
+`;
+
+const resolverFunctions = {
+  MyCustomScalar: myCustomScalarType
+};
+
+const server = new ApolloServer({ typeDefs: schemaString, resolvers: resolverFunctions });
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+});
+</pre>
+
+<h5 id="自定义标量示例"><a href="#自定义标量示例" class="headerlink" title="自定义标量示例"></a>自定义标量示例</h5><p>让我们看几个示例，以演示如何定义自定义标量类型。</p>
+<h5 id="日期标量"><a href="#日期标量" class="headerlink" title="日期标量"></a>日期标量</h5><p>目标是定义Date用于Date从数据库返回值的数据类型。假设我们正在使用使用本机JavaScript Date数据类型的MongoDB驱动程序。Date使用getTime()方法可<br>以轻松地将数据类型序列化为数字。因此，我们希望GraphQL服务器Date在序列化为JSON时以数字形式发送和接收。此数字将解析为Date服务器上代表日期值的。在<br>客户端上，用户可以简单地根据接收到的数值创建一个新日期。</p>
+<p>下面是我们来实现<code>Date</code>数据类型， 首先在Schema</p>
+<pre>
+const typeDefs = gql`
+  scalar Date
+
+  type MyType {
+    created: Date
+  }
+`
+</pre>
+
+<p>接下来是解析器</p>
+<pre>
+const { GraphQLScalarType } = require('graphql');
+const { Kind } = require('graphql/language');
+
+const resolvers = {
+  Date: new GraphQLScalarType({
+    name: 'Date',
+    description: 'Date custom scalar type',
+    parseValue(value) {
+      return new Date(value); // value from the client
+    },
+    serialize(value) {
+      return value.getTime(); // value sent to the client
+    },
+    parseLiteral(ast) {
+      if (ast.kind === Kind.INT) {
+        return parseInt(ast.value, 10); // ast value is always in string format
+      }
+      return null;
+    },
+  }),
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+});
+</pre>
+
+<h6 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h6><p>在这个例子中，我们会根据<a href="https://www.npmjs.com/package/graphql" target="_blank" rel="noopener">graphql</a>官方文档的标量类型来陈述GraphQL如何校验数据库中为奇数数字段，首先Schema，</p>
+<pre>
+const typeDefs = gql`
+  scalar Odd
+
+  type MyType {
+    oddValue: Odd
+  }
+`
+</pre>
+<p>下一步，resolver：</p>
+<pre>
+const { ApolloServer, gql } = require('apollo-server');
+const { GraphQLScalarType } = require('graphql');
+const { Kind } = require('graphql/language');
+
+function oddValue(value) {
+  return value % 2 === 1 ? value : null;
+}
+
+const resolvers = {
+  Odd: new GraphQLScalarType({
+    name: 'Odd',
+    description: 'Odd custom scalar type',
+    parseValue: oddValue,
+    serialize: oddValue,
+    parseLiteral(ast) {
+      if (ast.kind === Kind.INT) {
+        return oddValue(parseInt(ast.value, 10));
+      }
+      return null;
+    },
+  }),
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+});
+</pre>
+<h5 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h5><p>枚举类型和标量类型很相似，但是枚举类型只能定义Schema中一部分值。枚举类型在比如用户需要在列表清单做选择是这种情况下很适用。除此之外，枚举类型可以提高开发速度，<br>因为他们可以在像GraphQL Playground工具中自动带入。<br>在 Schema 中， 一个枚举类型如下</p>
+<pre>
+enum AllowedColor {
+  RED
+  GREEN
+  BLUE
+}
+</pre>
+<p>枚举类型可以用在任何标量类型可以用位置</p>
+<pre>
+type Query {
+  favoriteColor: AllowedColor # As a return value
+  avatar(borderColor: AllowedColor): String # As an argument
+}
+</pre>
+<p>使用JSON串把枚举值作为变量传递：</p>
+<pre>
+query GetAvatar($color: AllowedColor) {
+  avatar(borderColor: $color)
+}
+</pre>
+<pre>
+{
+  "color": "RED"
+}
+</pre>
+<p>整合在一起</p>
+<pre>
+const { ApolloServer, gql } = require('apollo-server');
+
+const typeDefs = gql`
+  enum AllowedColor {
+    RED
+    GREEN
+    BLUE
+  }
+
+  type Query {
+    favoriteColor: AllowedColor # As a return value
+    avatar(borderColor: AllowedColor): String # As an argument
+  }
+`;
+
+const resolvers = {
+  Query: {
+    favoriteColor: () => 'RED',
+    avatar: (parent, args) => {
+      // args.borderColor is 'RED', 'GREEN', or 'BLUE'
+    },
+  }
+};
+
+const server = new ApolloServer({ typeDefs, resolvers });
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+});
+</pre>
+<h6 id="内部值"><a href="#内部值" class="headerlink" title="内部值"></a>内部值</h6><p>有时后端在内部为枚举强制使用与公共API中不同的枚举值。在此示例中，API包含<code>RED</code>，但是我们在resolvers使用#f00代替。在<code>resolvers</code>ApolloServer传参时允许<br>给枚举添加自定义的值：</p>
+<pre>
+const resolvers = {
+  AllowedColor: {
+    RED: '#f00',
+    GREEN: '#0f0',
+    BLUE: '#00f',
+  }
+};
+</pre>
+<p>这些根本不更改公共API，resolvers接受内部值而不是Schema值，如下所示：</p>
+<pre>
+const resolvers = {
+  AllowedColor: {
+    RED: '#f00',
+    GREEN: '#0f0',
+    BLUE: '#00f',
+  },
+  Query: {
+    favoriteColor: () => '#f00',
+    avatar: (parent, args) => {
+      // args.borderColor is '#f00', '#0f0', or '#00f'
+    },
+  }
+};
+</pre>
+<p>在大多数情况下，除非有另一个库进行互操作期望值有不同的表现形式，否则不会使用枚举的此功能。</p>
+<h4 id="Unions-和-interfaces"><a href="#Unions-和-interfaces" class="headerlink" title="Unions 和 interfaces"></a>Unions 和 interfaces</h4><p>如何在Schema中添加 Unions 和 interfaces </p>
+<p>当同一字段拥有不同类型是，Unions 和 interfaces是非常强大的</p>
+<h5 id="Unions"><a href="#Unions" class="headerlink" title="Unions"></a>Unions</h5><p><code>Unions</code>类型认为一个字段可以返回至少一个对象类型，但是字段本身没有准确的类型。<code>Unions</code>类型对从单个字段返回的不相关数据类型非常有用。<br>类型定义如下所示</p>
+<pre>
+const { gql } = require('apollo-server');
+
+const typeDefs = gql`
+  union Result = Book | Author
+
+  type Book {
+    title: String
+  }
+
+  type Author {
+    name: String
+  }
+
+  type Query {
+    search: [Result]
+  }
+`;
+</pre>
+<p>由于查询请求联合字段，因此对联合类型的字段进行的查询必须指定包含所需字段的对象类型。通过__resolveType解析器图中的一个额外字段解决了这种歧义。<br>__resolveType定义结果的类型超出GraphQL执行环境的可用选项。</p>
+<pre>
+const resolvers = {
+  Result: {
+    __resolveType(obj, context, info){
+      if(obj.name){
+        return 'Author';
+      }
+
+      if(obj.title){
+        return 'Book';
+      }
+
+      return null;
+    },
+  },
+  Query: {
+    search: () => { ... }
+  },
+};
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`)
+});
+</pre>
+<p>对于这些结果的可能查询如下所示。该查询表明需要使用__resolveType，因为它会根据类型请求不同的数据，</p>
+<pre>
+{
+  search(contains: "") {
+    ... on Book {
+      title
+    }
+    ... on Author {
+      name
+    }
+  }
+}
+</pre>
+<h5 id="interface-类型"><a href="#interface-类型" class="headerlink" title="interface 类型"></a>interface 类型</h5><p>interface 类型是当使用抽象类型来构建和使用GraphQL Schemas 的有效方法。抽象类型不能直接在Schema中使用，但可以用构建块来创建显式类型。<br>想想当其中不同类型的书共享一组共同的属性，例如课本和涂色书。这些书可以用 interface 类型来构建：</p>
+<pre>
+interface Book {
+  title: String
+  author: Author
+}
+</pre>
+<p>当然，我们不能直接使用此interface类型来查询书籍，但可以使用它来实现具体类型。想象一下应用程序中页面，该页面要显示所有书籍的提要，而无需关心具体<br>类型。要创建此类功能，我们可以定义以下内容：</p>
+<pre>
+type TextBook implements Book {
+  title: String
+  author: Author
+  classes: [Class]
+}
+
+type ColoringBook implements Book {
+  title: String
+  author: Author
+  colors: [Color]
+}
+
+type Query {
+  schoolBooks: [Book]
+}
+</pre>
+<p>在此示例中，我们已使用<code>Book</code> interface 作为<code>TexBook</code> 和<code>ColoringBook</code>的基础类型。schoolBooks字段表示返回一个书列表（即[Book]）。</p>
+<p>与Union 类型类似，在resolver映射中Interface类型需要一个额外的<code>__resolveType</code>字段来确定需要处理为哪种类型。</p>
+<pre>
+const resolvers = {
+  Book: {
+    __resolveType(book, context, info){
+      if(book.classes){
+        return 'TextBook';
+      }
+
+      if(book.colors){
+        return 'ColoringBook';
+      }
+
+      return null;
+    },
+  },
+  Query: {
+    schoolBooks: () => { ... }
+  },
+};
+</pre>
+<p>现在，我们简化了实现Book的过程，是因为消除了返回何种类型Book的疑虑。根据Schema的查询可能返回以下内容：TextBook和ColoringBook</p>
+<pre>
+query GetBooks {
+  schoolBooks {
+    title
+    author
+  }
+}
+</pre>
+
+<p>这对于常见内容、用户角色系统等都非常有帮助!<br>此外，如果我们需要返回的字段仅由TextBooks或ColoringBooks（不是两者都提供）提供，则可以从查询中的抽象类型请求片段。这些片段要根据具体条件填写；<br>如下，仅会向ColoringBook返回colors，而只有TextBook具有classes：</p>
+<pre>
+query GetBooks {
+  schoolBooks {
+    title
+    ... on TextBook {
+      classes {
+        name
+      }
+    }
+    ... on ColoringBook {
+      colors {
+        name
+      }
+    }
+  }
+}
+</pre>
+<h4 id="使用schema指令"><a href="#使用schema指令" class="headerlink" title="使用schema指令"></a>使用schema指令</h4><p>使用schema指令可以转变Schema类型、字段、参数</p>
+<p>指令是由标识符<code>@</code>，命名参数可选，其后可出现任何符合GraphQL query或schema 语言的语法的形式。下面是 GraphQL规范草案的示例，说明了<br>其中几种可能性：</p>
+<pre>
+directive @deprecated(
+  reason: String = "No longer supported"
+) on FIELD_DEFINITION | ENUM_VALUE
+
+type ExampleType {
+  newField: String
+  oldField: String @deprecated(reason: "Use `newField`.")
+}
+</pre>
+<p>正如你所看到的，使用<code>@deprecated(reason: ...)</code> 属于（oldField），这个语法可能会让你想起其他语言中“装饰器”。<br>指令通过<code>directive @deprecated ... on ...</code>声明，使用@deprecated(reason: …)语法使用。</p>
+<h5 id="默认指令"><a href="#默认指令" class="headerlink" title="默认指令"></a>默认指令</h5><p>GraphQL提供数个指令：@deprecated，@skip，和@include。</p>
+<ul>
+<li>@deprecated(reason: String) -将字段标记为已弃用消息</li>
+<li>@skip(if: Boolean!) -GraphQL将通过不调用解析器来跳过该字段（如果为true）</li>
+<li>@include(if: Boolean!) -如果为true，则为带注释的字段调用解析器<h5 id="使用自定义Schema指令"><a href="#使用自定义Schema指令" class="headerlink" title="使用自定义Schema指令"></a>使用自定义Schema指令</h5>要使用自定义Schema指令，请通过<code>schemaDirectives</code>参数将执行类传递给Apollo Server，该参数是一个将指令名称映射到执行指令的对象：<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require('apollo-server');
+const { defaultFieldResolver } = require('graphql');
+
+</li>
+</ul>
+<p>// Create (or import) a custom schema directive<br>class UpperCaseDirective extends SchemaDirectiveVisitor {<br>  visitFieldDefinition(field) {<br>    const { resolve = defaultFieldResolver } = field;<br>    field.resolve = async function (…args) {<br>      const result = await resolve.apply(this, args);<br>      if (typeof result === ‘string’) {<br>        return result.toUpperCase();<br>      }<br>      return result;<br>    };<br>  }<br>}</p>
+<p>// Construct a schema, using GraphQL schema language<br>const typeDefs = gql`<br>  directive @upper on FIELD_DEFINITION</p>
+<p>  type Query {<br>    hello: String @upper<br>  }<br>`;</p>
+<p>// Provide resolver functions for your schema fields<br>const resolvers = {<br>  Query: {<br>    hello: (parent, args, context) =&gt; {<br>      return ‘Hello world!’;<br>    },<br>  },<br>};</p>
+<p>// Add directive to the ApolloServer constructor<br>const server = new ApolloServer({<br>  typeDefs,<br>  resolvers,<br>  schemaDirectives: {<br>    upper: UpperCaseDirective,<br>  }<br>});</p>
+<p>server.listen().then(({ url }) =&gt; {<br>  console.log(<code>🚀 Server ready at ${url}</code>)<br>});<br></pre><br>实现UpperCaseDirective负责更改解析器并在必要时修改schema。</p>
+<h5 id="创建自己的指令"><a href="#创建自己的指令" class="headerlink" title="创建自己的指令"></a>创建自己的指令</h5><p>先要了解应用自己Schema指令，请阅读下面文档</p>
+<h4 id="执行指令"><a href="#执行指令" class="headerlink" title="执行指令"></a>执行指令</h4><p>执行自定义指令去转换Schema类型，字段和参数<br>在学习如何执行schema指令之前，本节将提供关于Schema指令及其使用的必要背景。</p>
+<h4 id="Schema执行指令"><a href="#Schema执行指令" class="headerlink" title="Schema执行指令"></a>Schema执行指令</h4><p>由于GraphQL规范未讨论指令的任何特定执行策略，因此由每个GraphQL服务器框架暴露用于执行新指令的API。</p>
+<p>如果使用的是Apollo Server，则使用的是<code>graphql-tools</code>npm包，该包提供了一个方便而强大的工具来实现指令语法：SchemaDirectiveVisitor类。</p>
+<p>要使用<code>SchemaDirectiveVisitor</code>来执行Schema指令，只需创建一个SchemaDirectiveVisitor子类将覆盖以下一个或多个访问器方法：</p>
+<ul>
+<li>visitSchema(schema: GraphQLSchema)</li>
+<li>visitScalar(scalar: GraphQLScalarType)</li>
+<li>visitObject(object: GraphQLObjectType)</li>
+<li>visitFieldDefinition(field: GraphQLField&lt;any, any&gt;)</li>
+<li>visitArgumentDefinition(argument: GraphQLArgument)</li>
+<li>visitInterface(iface: GraphQLInterfaceType)</li>
+<li>visitUnion(union: GraphQLUnionType)</li>
+<li>visitEnum(type: GraphQLEnumType)</li>
+<li>visitEnumValue(value: GraphQLEnumValue)</li>
+<li>visitInputObject(object: GraphQLInputObjectType)</li>
+<li>visitInputFieldDefinition(field: GraphQLInputField)</li>
+</ul>
+<p>通过扩展<code>visitObject</code>的方法，SchemaDirectiveVisitor的子类表达了对某些schema类型（例如GraphQLObjectType的第一个参数类型visitObject）的兴趣。</p>
+<p>这些方法名称对应于schema中使用指令的所有可能位置。例如，<code>INPUT_FIELD_DEFINITION</code>位置由处理<code>visitInputFieldDefinition</code>。</p>
+<p>这是@deprecated我们在上面看到的一种执行指令：</p>
+<pre>
+const { SchemaDirectiveVisitor } = require("apollo-server");
+
+class DeprecatedDirective extends SchemaDirectiveVisitor {
+  public visitFieldDefinition(field: GraphQLField<any, any>) {
+    field.isDeprecated = true;
+    field.deprecationReason = this.args.reason;
+  }
+
+  public visitEnumValue(value: GraphQLEnumValue) {
+    value.isDeprecated = true;
+    value.deprecationReason = this.args.reason;
+  }
+}
+</pre>
+
+<p>为了将此执行应用于包含@deprecated指令的schema，只需DeprecatedDirective通过以下schemaDirectives选项将类传递给Apollo Server的构造函数即可：</p>
+<pre>
+const { ApolloServer, gql } = require("apollo-server");
+
+const typeDefs = gql`
+  type ExampleType {
+    newField: String
+    oldField: String @deprecated(reason: "Use \`newField\`.")
+  }
+`;
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  schemaDirectives: {
+    deprecated: DeprecatedDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+<p>另外，如果要修改现有的schema对象，则可以直接调用<code>SchemaDirectiveVisitor.visitSchemaDirectives</code>接口：</p>
+<pre>
+SchemaDirectiveVisitor.visitSchemaDirectives(schema, {
+  deprecated: DeprecatedDirective
+});
+</pre>
+<p>请注意，该<code>@deprecated</code>指令的不同次出现可能会使<code>SchemaDirectiveVisitor</code>的子类会被多次实例化。这就是为什么提供一个类而不是该类的实例的原因。</p>
+<p>如果由于某种原因您有使用schema中该<code>@deprecated</code>指令的其他名名称，但又想使用相同的执行，则可以！DeprecatedDirective只需更改schemaDirectives传递给<br>Apollo Server 构造函数的对象中的键，即可使用不同的名称传递相同的类。换句话说，SchemaDirectiveVisitor实现实际上是匿名的，因此由使用它们来为其分配名称的人来决定。</p>
+<h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><p>为了了解带来的各种可能性SchemaDirectiveVisitor，让我们研究各种实际示例</p>
+<h6 id="大写字符串"><a href="#大写字符串" class="headerlink" title="大写字符串"></a>大写字符串</h6><p>假设您要将字符串值字段转换为大写。尽管此用例很简单，但它是通过包装字段的<code>resolve</code>函数执行指令的一个很好的例子：</p>
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+const { defaultFieldResolver } = require("graphql");
+
+const typeDefs = gql`
+  directive @upper on FIELD_DEFINITION
+
+  type Query {
+    hello: String @upper
+  }
+`;
+
+class UpperCaseDirective extends SchemaDirectiveVisitor {
+  visitFieldDefinition(field) {
+    const { resolve = defaultFieldResolver } = field;
+    field.resolve = async function (...args) {
+      const result = await resolve.apply(this, args);
+      if (typeof result === "string") {
+        return result.toUpperCase();
+      }
+      return result;
+    };
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  schemaDirectives: {
+    upper: UpperCaseDirective,
+    upperCase: UpperCaseDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+<p>注意@upper，@upperCase使用相同的UpperCaseDirective实现来处理这两个过程非常容易。</p>
+<p>######从REST API获取数据<br>假设您已经定义了一个与REST资源相对应的对象类型，并且您想要避免为每个字段实现解析器功能：</p>
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+
+const typeDefs = gql`
+  directive @rest(url: String) on FIELD_DEFINITION
+
+  type Query {
+    people: [Person] @rest(url: "/api/v1/people")
+  }
+`;
+
+class RestDirective extends SchemaDirectiveVisitor {
+  public visitFieldDefinition(field) {
+    const { url } = this.args;
+    field.resolve = () => fetch(url);
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  schemaDirectives: {
+    rest: RestDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+<p>在REST端点上实现真正的GraphQL包装时，还有许多其他问题需要考虑（例如，如何进行缓存或分页），但是此示例演示了一个基本思路。</p>
+<h6 id="匹配日期字符串"><a href="#匹配日期字符串" class="headerlink" title="匹配日期字符串"></a>匹配日期字符串</h6><p>假设你的解析器返回的是一个 Date对象，但是在客户端需要返回字符串类型</p>
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+
+const typeDefs = gql`
+  directive @date(format: String) on FIELD_DEFINITION
+
+  scalar Date
+
+  type Post {
+    published: Date @date(format: "mmmm d, yyyy")
+  }
+`;
+
+class DateFormatDirective extends SchemaDirectiveVisitor {
+  visitFieldDefinition(field) {
+    const { resolve = defaultFieldResolver } = field;
+    const { format } = this.args;
+    field.resolve = async function (...args) {
+      const date = await resolve.apply(this, args);
+      return require('dateformat')(date, format);
+    };
+    // The formatted Date becomes a String, so the field type must change:
+    field.type = GraphQLString;
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  schemaDirectives: {
+    date: DateFormatDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+<p>当然，如果Schema的维护者并没有确定具体的Date类型，你可以把这个交给客户端处理会更好一些。为了做到这一点，我们为相应的字段的指令加上参数即可</p>
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+const formatDate = require("dateformat");
+const { defaultFieldResolver, GraphQLString } = require("graphql");
+
+const typeDefs = gql`
+  directive @date(
+    defaultFormat: String = "mmmm d, yyyy"
+  ) on FIELD_DEFINITION
+
+  scalar Date
+
+  type Query {
+    today: Date @date
+  }
+`;
+
+class FormattableDateDirective extends SchemaDirectiveVisitor {
+  public visitFieldDefinition(field) {
+    const { resolve = defaultFieldResolver } = field;
+    const { defaultFormat } = this.args;
+
+    field.args.push({
+      name: 'format',
+      type: GraphQLString
+    });
+
+    field.resolve = async function (
+      source,
+      { format, ...otherArgs },
+      context,
+      info,
+    ) {
+      const date = await resolve.call(this, source, otherArgs, context, info);
+      // If a format argument was not provided, default to the optional
+      // defaultFormat argument taken by the @date directive:
+      return formatDate(date, format || defaultFormat);
+    };
+
+    field.type = GraphQLString;
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  schemaDirectives: {
+    date: FormattableDateDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+<p>现在，当请求<code>Query.today</code>字段，客户端可以在Schema中指定<code>format</code>参数，或者使用默认<code>defaultFormat</code></p>
+<pre>
+
+const { request } = require("graphql-request");
+
+server.listen().then(({ url }) => {
+  request(url, `query { today }`).then(result => {
+    // Logs with the default "mmmm d, yyyy" format:
+    console.log(result.data.today);
+  });
+
+  request(url, `query {
+    today(format: "d mmm yyyy")
+  }`).then(result => {
+    // Logs with the requested "d mmm yyyy" format:
+    console.log(result.data.today);
+  });
+})
+</pre>
+
+<h6 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h6><p>假设你有一个``translate`函数，该函数需要一个字符串，一个标识该字符串在应用程序中角色路径，和需要转换的目标语言环境。</p>
+<p>您可以按照以下方式确定<code>translate</code>用于本地化类型的<code>greeting</code>字段<code>Query</code></p>
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+
+const typeDefs = gql`
+  directive @intl on FIELD_DEFINITION
+
+  type Query {
+    greeting: String @intl
+  }
+`;
+
+class IntlDirective extends SchemaDirectiveVisitor {
+  visitFieldDefinition(field, details) {
+    const { resolve = defaultFieldResolver } = field;
+    field.resolve = async function (...args) {
+      const context = args[2];
+      const defaultText = await resolve.apply(this, args);
+      // In this example, path would be ["Query", "greeting"]:
+      const path = [details.objectType.name, field.name];
+      return translate(defaultText, path, context.locale);
+    };
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  schemaDirectives: {
+    intl: IntlDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+<p>GraphQL很适合做国际化，因为GraphQL server 没有限制访问的翻译数据，客户端只要按需请求即可</p>
+<h6 id="访问权限"><a href="#访问权限" class="headerlink" title="访问权限"></a>访问权限</h6><p>假设我们有一个 @auth 指令，他接收<code>requires</code>参数是<code>Role</code>枚举类，默认类型是<code>ADMIN</code>。这个@auth指令作用于<code>OBJECT</code>（像<code>User</code>类型）<br>对所有的User类型 或者 特定的类型 设置访问权限。</p>
+<pre>
+directive @auth(
+  requires: Role = ADMIN,
+) on OBJECT | FIELD_DEFINITION
+
+enum Role {
+  ADMIN
+  REVIEWER
+  USER
+  UNKNOWN
+}
+
+type User @auth(requires: USER) {
+  name: String
+  banned: Boolean @auth(requires: ADMIN)
+  canPost: Boolean @auth(requires: REVIEWER)
+}
+</pre>
+
+<p>使这个示例棘手的是，指令需要<code>OBJECT</code>的版本包装着对象的所有字段，即使其中某些字段可能<code>@auth</code>在该<code>FIELD_DEFINITION</code>级别由指令单独包装，<br>并且如果我们可以自己处理的话，最好不要重新包装解析器：</p>
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+
+class AuthDirective extends SchemaDirectiveVisitor {
+  visitObject(type) {
+    this.ensureFieldsWrapped(type);
+    type._requiredAuthRole = this.args.requires;
+  }
+  // Visitor methods for nested types like fields and arguments
+  // also receive a details object that provides information about
+  // the parent and grandparent types.
+  visitFieldDefinition(field, details) {
+    this.ensureFieldsWrapped(details.objectType);
+    field._requiredAuthRole = this.args.requires;
+  }
+
+  ensureFieldsWrapped(objectType) {
+    // Mark the GraphQLObjectType object to avoid re-wrapping:
+    if (objectType._authFieldsWrapped) return;
+    objectType._authFieldsWrapped = true;
+
+    const fields = objectType.getFields();
+
+    Object.keys(fields).forEach(fieldName => {
+      const field = fields[fieldName];
+      const { resolve = defaultFieldResolver } = field;
+      field.resolve = async function (...args) {
+        // Get the required Role from the field first, falling back
+        // to the objectType if no Role is required by the field:
+        const requiredRole =
+          field._requiredAuthRole ||
+          objectType._requiredAuthRole;
+
+        if (! requiredRole) {
+          return resolve.apply(this, args);
+        }
+
+        const context = args[2];
+        const user = await getUser(context.headers.authToken);
+        if (! user.hasRole(requiredRole)) {
+          throw new Error("not authorized");
+        }
+
+        return resolve.apply(this, args);
+      };
+    });
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  schemaDirectives: {
+    auth: AuthDirective,
+    authorized: AuthDirective,
+    authenticated: AuthDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+<p>这种方法的一个缺点是，它不能保证如果在<code>AuthDirective</code>调用之后将字段添加到<code>Schema</code>中时，字段会被包装，并且整个<br><code>getUser(context.headers.authToken)</code>虚构的API仍需要充实。换句话说，虽然我们忽略了执行该指令可用于生产环境的所需要的一些细节，但是我们希望<br>此处显示的基本结构能够激发您找到解决现存问题解决方案。</p>
+<h6 id="值限制"><a href="#值限制" class="headerlink" title="值限制"></a>值限制</h6><p>假设您要为字符串值字段设置最大长度：</p>
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require('apollo-server');
+const { GraphQLScalarType, GraphQLNonNull } = require('graphql');
+
+const typeDefs = gql`
+  directive @length(max: Int) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+
+  type Query {
+    books: [Book]
+  }
+
+  type Book {
+    title: String @length(max: 50)
+  }
+
+  type Mutation {
+    createBook(book: BookInput): Book
+  }
+
+  input BookInput {
+    title: String! @length(max: 50)
+  }
+`;
+
+class LengthDirective extends SchemaDirectiveVisitor {
+  visitInputFieldDefinition(field) {
+    this.wrapType(field);
+  }
+
+  visitFieldDefinition(field) {
+    this.wrapType(field);
+  }
+
+  // Replace field.type with a custom GraphQLScalarType that enforces the
+  // length restriction.
+  wrapType(field) {
+    if (
+      field.type instanceof GraphQLNonNull &&
+      field.type.ofType instanceof GraphQLScalarType
+    ) {
+      field.type = new GraphQLNonNull(
+        new LimitedLengthType(field.type.ofType, this.args.max),
+      );
+    } else if (field.type instanceof GraphQLScalarType) {
+      field.type = new LimitedLengthType(field.type, this.args.max);
+    } else {
+      throw new Error(`Not a scalar type: ${field.type}`);
+    }
+  }
+}
+
+class LimitedLengthType extends GraphQLScalarType {
+  constructor(type, maxLength) {
+    super({
+      name: `LengthAtMost${maxLength}`,
+
+      // For more information about GraphQLScalar type (de)serialization,
+      // see the graphql-js implementation:
+      // https://github.com/graphql/graphql-js/blob/31ae8a8e8312/src/type/definition.js#L425-L446
+
+      serialize(value) {
+        value = type.serialize(value);
+        assert.isAtMost(value.length, maxLength);
+        return value;
+      },
+
+      parseValue(value) {
+        return type.parseValue(value);
+      },
+
+      parseLiteral(ast) {
+        return type.parseLiteral(ast);
+      },
+    });
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  schemaDirectives: {
+    length: LengthDirective,
+  },
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+
+<h6 id="生成唯一ID"><a href="#生成唯一ID" class="headerlink" title="生成唯一ID"></a>生成唯一ID</h6><p>假设您的数据库对每种资源类型都使用递增ID，而且ID在所有资源类型中都不都是唯一的。您可以通过以下方法合成一个名为的字段uid，该字段将对象类型与各<br>种字段值结合在一起，以产生一个在整个Schema中唯一的ID：</p>
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+const { GraphQLID } = require("graphql");
+const { createHash } = require("crypto");
+
+const typeDefs = gql`
+  directive @uniqueID(
+    # The name of the new ID field, "uid" by default:
+    name: String = "uid"
+
+    # Which fields to include in the new ID:
+    from: [String] = ["id"]
+  ) on OBJECT
+
+  # Since this type just uses the default values of name and from,
+  # we don't have to pass any arguments to the directive:
+  type Location @uniqueID {
+    id: Int
+    address: String
+  }
+
+  # This type uses both the person's name and the personID field,
+  # in addition to the "Person" type name, to construct the ID:
+  type Person @uniqueID(from: ["name", "personID"]) {
+    personID: Int
+    name: String
+  }
+`;
+
+class UniqueIdDirective extends SchemaDirectiveVisitor {
+  visitObject(type) {
+    const { name, from } = this.args;
+    const fields = type.getFields();
+    if (name in fields) {
+      throw new Error(`Conflicting field name ${name}`);
+    }
+    fields[name] = {
+      name,
+      type: GraphQLID,
+      description: 'Unique ID',
+      args: [],
+      resolve(object) {
+        const hash = createHash("sha1");
+        hash.update(type.name);
+        from.forEach(fieldName => {
+          hash.update(String(object[fieldName]));
+        });
+        return hash.digest("hex");
+      }
+    };
+  }
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  schemaDirectives: {
+    uniqueID: UniqueIdDirective
+  }
+});
+
+server.listen().then(({ url }) => {
+  console.log(`🚀 Server ready at ${url}`);
+});
+</pre>
+
+<h5 id="声明Schema指令"><a href="#声明Schema指令" class="headerlink" title="声明Schema指令"></a>声明Schema指令</h5><p>尽管上述例足以执行你在Schema中使用的任何<code>@directive</code>，但是SDL 预发还支持声明名称，参数类型，默认参数以及允许使用指令的位置</p>
+<pre>
+directive @auth(
+  requires: Role = ADMIN,
+) on OBJECT | FIELD_DEFINITION
+
+enum Role {
+  ADMIN
+  REVIEWER
+  USER
+  UNKNOWN
+}
+
+type User @auth(requires: USER) {
+  name: String
+  banned: Boolean @auth(requires: ADMIN)
+  canPost: Boolean @auth(requires: REVIEWER)
+}
+</pre>
+<p>该假设@auth指令参数为requires，参数类型为Role，如果<code>@auth</code>不传递显式requires参数默认值是ADMIN，。该@auth指令可以出现在像<code>User</code>这样<br>的<code>OBJECT</code>上，为所有User字段设置默认访问控制，也可以在单个字段上限制。</p>
+<p>从理论上讲满足声明的要求是<code>SchemaDirectiveVisitor</code>执行本身可以完成的事情，但是SDL语法更易于读写，即使没有使用SchemaDirectiveVisitor抽象也可以提供值。</p>
+<p>但是，如果要实现可重用SchemaDirectiveVisitor的公共用途，则可能不是编写SDL语法的人，因此您可能无法控制schema开发者决定声明哪些指令以及如何声明。<br>这就是为什么一个执行良好，可重用<code>SchemaDirectiveVisitor</code>的方法应该考虑重写<code>getDirectiveDeclaration</code>方法：</p>
+<pre>
+const { ApolloServer, gql, SchemaDirectiveVisitor } = require("apollo-server");
+const { DirectiveLocation, GraphQLDirective, GraphQLEnumType } = require("graphql");
+
+class AuthDirective extends SchemaDirectiveVisitor {
+  public visitObject(object: GraphQLObjectType) {...}
+  public visitFieldDefinition(field: GraphQLField<any, any>) {...}
+
+  public static getDirectiveDeclaration(
+    directiveName: string,
+    schema: GraphQLSchema,
+  ): GraphQLDirective {
+    const previousDirective = schema.getDirective(directiveName);
+    if (previousDirective) {
+      // If a previous directive declaration exists in the schema, it may be
+      // better to modify it than to return a new GraphQLDirective object.
+      previousDirective.args.forEach(arg => {
+        if (arg.name === 'requires') {
+          // Lower the default minimum Role from ADMIN to REVIEWER.
+          arg.defaultValue = 'REVIEWER';
+        }
+      });
+
+      return previousDirective;
+    }
+
+    // If a previous directive with this name was not found in the schema,
+    // there are several options:
+    //
+    // 1. Construct a new GraphQLDirective (see below).
+    // 2. Throw an exception to force the client to declare the directive.
+    // 3. Return null, and forget about declaring this directive.
+    //
+    // All three are valid options, since the visitor will still work without
+    // any declared directives. In fact, unless you're publishing a directive
+    // implementation for public consumption, you can probably just ignore
+    // getDirectiveDeclaration altogether.
+
+    return new GraphQLDirective({
+      name: directiveName,
+      locations: [
+        DirectiveLocation.OBJECT,
+        DirectiveLocation.FIELD_DEFINITION,
+      ],
+      args: {
+        requires: {
+          // Having the schema available here is important for obtaining
+          // references to existing type objects, such as the Role enum.
+          type: (schema.getType('Role') as GraphQLEnumType),
+          // Set the default minimum Role to REVIEWER.
+          defaultValue: 'REVIEWER',
+        }
+      }]
+    });
+  }
+}
+</pre>
+<p>由于<code>getDirectiveDeclaration</code>方法不仅接收指令的名称，而且还接收GraphQLSchema对象，因此它可以修改和/或重用在Schema中找到的先前的声明，作为替代方法返回<br>全新GraphQLDirective对象。无论哪种方式，如果访问者返回一个非空GraphQLDirective的getDirectiveDeclaration，该声明将被用来检查参<br>数和允许的位置。</p>
+<h5 id="查询指令"><a href="#查询指令" class="headerlink" title="查询指令"></a>查询指令</h5><p>顾名思义，该SchemaDirectiveVisitor抽象经过专门设计，可以根据SDL文本中显示的指令来转换GraphQL schema。</p>
+<p>虽然指令语法也可以出现在从客户端发送的GraphQL查询中，但是执行查询指令将需要查询文档的运行时转换。我们故意将这种实现方式限制为在服务器构造时进行转换。</p>
+<p>我们相信，将这种逻辑限制在您的schema中比负担您的客户更加可持续，尽管您可能会想到实现查询指令的类似抽象。如果这种可能性成为您的需要，请告诉我们，<br>我们可能会考虑在这些工具的未来版本中支持查询指令。</p>
+
             </article>
             <hr>
             <div>
@@ -704,7 +1754,7 @@ type LikePostMutationResponse implements MutationResponse {
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/07/algorithm/Function/curry/">
+                      <a href="/2020/08/13/algorithm/Function/curry/">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">algorithm/Function/curry</span>
                         <span class="visible-mobile">上一篇</span>
@@ -727,7 +1777,7 @@ type LikePostMutationResponse implements MutationResponse {
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div id="tocbot"></div>
 </div>
 
@@ -754,7 +1804,7 @@ type LikePostMutationResponse implements MutationResponse {
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -763,7 +1813,7 @@ type LikePostMutationResponse implements MutationResponse {
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">keyword</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
