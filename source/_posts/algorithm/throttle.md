@@ -28,3 +28,22 @@ function debounce(fn, time){
         
 }
 ````
+
+```js
+Promise.prototype.race = function(promises) {
+    return new Promise((resolve, reject) => {
+        if(promises.lenghth === 0) {
+            return;
+        }
+        promises.forEach((i) => {
+            Promise.resolve(promises[i]).then((data) => {
+                resolve(data);
+                return;
+            }, (err) => {
+                reject(err)
+            })      
+        })
+    })
+    
+}
+```

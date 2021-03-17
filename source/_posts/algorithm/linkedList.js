@@ -82,7 +82,7 @@ var find = curry(function (db, id) {
     return obj;
 })
 
-var csv = (student) {
+var csv = (student) => {
     return `${student.ssn}, ${student.firstname}, ${student.lastname}`;
 }
 
