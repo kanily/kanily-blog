@@ -75,7 +75,7 @@ Function.prototype.myBind = function() {
             let newArgs = args.concat(Array.prototype.slice(arguments));
             if (newArgs.length < fn.length) {
                 return curry.call(this, fn, newArgs)
-            } eles {
+            } else {
                 return fn.apply(this, newArgs)
             }
         }
@@ -127,9 +127,9 @@ Function.prototype.myBind = function() {
 JSON.parse(JSON.stringify(a)) 这种方法无法解决循环引用 无法拷贝特殊对象
 解决方案： 使用哈希表：检测当前对象，取该值
 ```js
-    function deepClone(source， hash = new WeakMap()) {
+    function deepClone(source, hash = new WeakMap()) {
         function isObject() {
-            return typeof obj === 'object' obj !== null;
+            return typeof obj === 'object' && obj !== null;
         }
         if(!isObject(source)) return source;
         if(hash.has(soucre)) return hash.get(source);
@@ -178,14 +178,14 @@ JSON.parse(JSON.stringify(a)) 这种方法无法解决循环引用 无法拷贝�
         let timer = null, last = 0;
         return function() {
             let now = +new Date();
-            if(now - last = delay && timer) {
+            if(now - last === delay && timer) {
                 clearTimer(timer);
                 timer = setTimeout(() => {
                     fn.apply(this, args)
                 }, delay)
             } else {
                 last = now;
-                fn.appy(this, args)
+                fn.apply(this, args)
             }
         }
     }
@@ -246,16 +246,16 @@ JSON.parse(JSON.stringify(a)) 这种方法无法解决循环引用 无法拷贝�
      
      add(observer) {
          this.observers.push(observer);
-         this.observers = [...new Set(this.oberservers)];
+         this.observers = [...new Set(this.observers)];
      }
 
-     notify(..agrs) {
+     notify(...agrs) {
          this.observers.forEach((observer) => observer.update(...agrs))
      }
 
     remove(observer) {
         let observers = this.observers;
-        for(let i= 0; i < observers.lenght; i++) {
+        for(let i= 0; i < observers.length; i++) {
             if(observer === observer[i]) {
                 observers.splice(i, 1)
             }
@@ -426,4 +426,52 @@ JSON.parse(JSON.stringify(a)) 这种方法无法解决循环引用 无法拷贝�
             return tail
         }
     }
+```
+### js树转换
+```js
+function array2Tree(arr){
+    if(!Array.isArray(arr) || !arr.length) return;
+    let map = {};
+    arr.forEach(item => map[item.id] = item);
+
+    let roots = [];
+    arr.forEach(item => {
+        const parent = map[item.parentId];
+        if(parent){
+            (parent.children || (parent.children=[])).push(item);
+        }
+        else{
+            roots.push(item);
+        }
+    })
+
+    return roots;
+}
+
+```
+#### 控制请求并发树
+```js
+//递归方式
+function handleFetchQueue(urls, max, callback) {
+    let urlsCopy = [... urls];//防止影响外部urls变量
+    function request() {
+        function Handle () {
+            count--;
+            console.log('end 当前并发数为: '+count);
+            if(urlsCopy.length) {//还有未请求的则递归
+                request();
+            } else if (count === 0) {//并发数为0则表示全部请求完成
+                callback()
+            }
+        }
+        count++;
+        console.log('start 当前并发数为: '+count);
+        //请求
+        fetch(urlsCopy.shift()).then(Handle).catch(Handle);
+        //并发数不足时递归
+        count < max && request();
+    }
+    let count = 0;//几率并发数
+    request();
+}
 ```
