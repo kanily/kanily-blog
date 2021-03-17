@@ -132,7 +132,7 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2021-03-17 07:44">
+                  <time datetime="2021-03-17 07:50">
                     2021年3月17日 早上
                   </time>
                 </div>
@@ -238,111 +238,305 @@
 <li>promise执行成功就走下一个then成功， promise执行失败就走下一个then的失败</li>
 <li>/</li>
 </ul>
-<p>``` js<br>const PENDING = “pending”;<br>const FULFILLED = “fulfilled”;<br>const REJECTED = ‘rejected’;</p>
-<p>function Promise(excutor) {<br>  let that = this; //缓存当前promise 实例对象<br>  that.status = PENDING; // 初始状态<br>  that.value = undefined; // fulfilled状态时 返回的信息<br>  that.reason = undefined; // rejected状态时 拒绝的原因<br>  that.onFulfilledCallbacks = []; //存储fulfilled 状态对应的onFulfilled函数<br>  that.onRejectedCallbacks = []; //存储rejected 状态对应的onRejected 函数</p>
-<p>  function resovle (value) { //value 成功态时接受的终值<br>    if(value instanceof Promise) {<br>      return value.then(resovle, reject)<br>    }<br>    //实践中要确保 onFulfilled 和 onRejected方法异步执行，<br>    //且应该在then 方法调用的时候那一轮事件循环的执行栈执行结束之后<br>    setTimeout(() =&gt; {<br>      // 调用resovle 回调对应的onFulfilled函数<br>      if (that.status === PENDING) {<br>        // 只能由pending状态 =》 fulfilled 状态（避免多次调用resovle reject）<br>        that.status = FULFILLED;<br>        that.value = value;<br>        that.onFulfilledCallbacks.forEach(callback =&gt; {<br>          callback(that.value)<br>        });<br>      }<br>    })<br>  }</p>
-<p>  function reject(reason) {<br>    setTimeout(() =&gt; {<br>      // 调用reject 回调对应onRejected 函数<br>        if (that.status === PENDING) {<br>          // 只能由 pending =》 rejected （避免多次调用resovle reject）<br>          that.status = REJECTED;<br>          that.reason = reason;<br>          that.onRejectedCallbacks.forEach(callback =&gt; {<br>            callback(that.reason)<br>          })<br>        }<br>    })<br>  }</p>
-<p>  //捕获在excutor执行期炮数的异常<br>  try {<br>    excutor(resovle, reject)<br>  } catch (error) {<br>    reject(e)<br>  }<br>}</p>
-<p>Promise.prototype.then = function(onFulfilled, onRejected) {<br>  const that = this;<br>  let newPromise;<br>  onFulfilled =<br>    typeof onFulfilled === “function” ? onFulfilled : value =&gt; value;<br>  onRejected =<br>   typeof onRejected === “function” ? onRejected : reason =&gt; {<br>     throw reason<br>   }</p>
-<p>   if(that.status === FULFILLED) {<br>     return newPromise = new Promise((resovle, reject) =&gt; {<br>       setTimeout(() =&gt; {<br>         try {<br>           let x = onFulfilled(that.value)<br>           resovlePromise(newPromise, x, resovle, reject);<br>         } catch (error) {<br>           reject(error)<br>         }<br>       })<br>     })<br>   }</p>
-<p>   if(that.status === REJECTED) {<br>     return newPromise = new Promise(() =&gt; {<br>       setTimeout(() =&gt; {<br>         try {<br>           let x = onRejected(that.reason)<br>           resovlePromise(newPromise, x, resovle, reject)<br>         } catch (error) {<br>           reject(error)<br>         }<br>       })<br>     })<br>   }</p>
-<p>   if(that.status === PENDING) {<br>     that.onFulfilledCallbacks.push(() =&gt; {<br>        setTimeout(() =&gt; {<br>          try {<br>            let x = onFulfilled(that.value)<br>            resovlePromise(newPromise, x, resovle, reject)<br>          } catch (error) {<br>            reject(error)<br>          }<br>        })<br>     })</p>
-<pre><code>that.onRejectedCallbacks.push(() =&gt;{
-  setTimeout(() =&gt; {
-    try {
-      let x = onRejected(that.reason)
-      resovlePromise(newPromise, x, resovle, reject)
-    } catch (error) {
-      reject(error)
+<pre><code class="js"><span class="keyword">const</span> PENDING = <span class="string">"pending"</span>;
+<span class="keyword">const</span> FULFILLED = <span class="string">"fulfilled"</span>;
+<span class="keyword">const</span> REJECTED = <span class="string">'rejected'</span>;
+
+<span class="function"><span class="keyword">function</span> <span class="title">Promise</span>(<span class="params">excutor</span>) </span>{
+  <span class="keyword">let</span> that = <span class="keyword">this</span>; <span class="comment">//缓存当前promise 实例对象</span>
+  that.status = PENDING; <span class="comment">// 初始状态</span>
+  that.value = <span class="literal">undefined</span>; <span class="comment">// fulfilled状态时 返回的信息</span>
+  that.reason = <span class="literal">undefined</span>; <span class="comment">// rejected状态时 拒绝的原因</span>
+  that.onFulfilledCallbacks = []; <span class="comment">//存储fulfilled 状态对应的onFulfilled函数</span>
+  that.onRejectedCallbacks = []; <span class="comment">//存储rejected 状态对应的onRejected 函数</span>
+
+  <span class="function"><span class="keyword">function</span> <span class="title">resovle</span> (<span class="params">value</span>) </span>{ <span class="comment">//value 成功态时接受的终值</span>
+    <span class="keyword">if</span>(value <span class="keyword">instanceof</span> <span class="built_in">Promise</span>) {
+      <span class="keyword">return</span> value.then(resovle, reject)
     }
-  })
-})</code></pre><p>  }</p>
-<p>}</p>
-<p>function resolvePromise (newPromise, x, resolve, reject) {<br>  let that = this;<br>  if(newPromise === x) {<br>    reject(new TypeError(‘Chaining cycle’));<br>  }<br>  if(x &amp; typeof x === ‘object’ || typeof x === ‘function’) {<br>    let used;<br>    try {<br>      let then = x.then;<br>      if(typeof then === ‘function’) {<br>        then.call(x, (y) =&gt; {<br>          if(used) return;<br>          used === true;<br>          resovlePromise(newPromise, y, resolve, reject);<br>        }, (reason) =&gt; {<br>          if(used) return;<br>          used === true;<br>          reject(reason);<br>        })<br>      }else {<br>        if(used) return;<br>        used = true;<br>        resolve(x);<br>      }<br>    } catch (error) {<br>      if(used) return;<br>      used = true;<br>      reject(error);<br>    }<br>  }else{<br>    resolve(x);<br>  }<br>}</p>
-<p>// promise.finally<br>// 不管成功 or 失败 最终都会走到finally 还可以继续 then 且可以把值原封不动的传给后面的then<br>Promise.prototype.finally = function (callback) {<br>  return this.then((value) =&gt; {<br>    return Promise.resolve(callback()).then(() =&gt; {<br>      return value<br>    })<br>  }, (err) =&gt; {<br>    return Promise.resolve(callback().then(() =&gt; {<br>      throw err<br>    }))<br>  })<br>}</p>
-<p>//promise.all（promises） 返回一个promise对象<br>/**</p>
-<ul>
-<li><ol>
-<li>如果传入的是一个空的可迭代对象，那么此promise对象回调完成（resolve），</li>
-</ol>
-</li>
-<li><p>只有这种情况是同步执行的，其他的都是返回一个异步完成</p>
-</li>
-<li><ol start="2">
-<li>如果传入参数不包含任何一个promise， 则返回一个异步完成</li>
-</ol>
-</li>
-<li><ol start="3">
-<li>promises 所有的promise都完成时，或参数中不包含promise时 回调完成</li>
-</ol>
-</li>
-<li><ol start="4">
-<li>如果一个 promise 失败，那么promise.all 返回的promise对象失败</li>
-</ol>
-</li>
-<li><ol start="5">
-<li>在任何情况下，promises返回的promise的完成状态结果都是一个数组</li>
-</ol>
-</li>
-<li><p>/</p>
-<p>Promise.prototype.all = function (promises) {<br> return new Promise((resolve, rejected) =&gt; {<br>  let index = 0;<br>  let result = [];<br>  if (promises.length === 0) {</p>
-<pre><code>resolve(result);</code></pre><p>  } else {</p>
-<pre><code>function processValue (idx, data) {
-  result[i] = data;
-  if (++index === promises.length) {
-    resolve(result)
+    <span class="comment">//实践中要确保 onFulfilled 和 onRejected方法异步执行，</span>
+    <span class="comment">//且应该在then 方法调用的时候那一轮事件循环的执行栈执行结束之后</span>
+    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> {
+      <span class="comment">// 调用resovle 回调对应的onFulfilled函数</span>
+      <span class="keyword">if</span> (that.status === PENDING) {
+        <span class="comment">// 只能由pending状态 =》 fulfilled 状态（避免多次调用resovle reject）</span>
+        that.status = FULFILLED;
+        that.value = value;
+        that.onFulfilledCallbacks.forEach(<span class="function"><span class="params">callback</span> =&gt;</span> {
+          callback(that.value)
+        });
+      }
+    })
+  }
+
+  <span class="function"><span class="keyword">function</span> <span class="title">reject</span>(<span class="params">reason</span>) </span>{
+    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> {
+      <span class="comment">// 调用reject 回调对应onRejected 函数</span>
+        <span class="keyword">if</span> (that.status === PENDING) {
+          <span class="comment">// 只能由 pending =》 rejected （避免多次调用resovle reject）</span>
+          that.status = REJECTED;
+          that.reason = reason;
+          that.onRejectedCallbacks.forEach(<span class="function"><span class="params">callback</span> =&gt;</span> {
+            callback(that.reason)
+          })
+        }
+    })
+  }
+
+  <span class="comment">//捕获在excutor执行期炮数的异常</span>
+  <span class="keyword">try</span> {
+    excutor(resovle, reject)
+  } <span class="keyword">catch</span> (error) {
+    reject(e)
   }
 }
-for (let i = 0; i &lt; promises.length; i++) {
-  //promises[i]可能是个普通值
-  Promise.resolve(promises[i]).then((data) =&gt; {
-    processValue(i, data)
+
+<span class="built_in">Promise</span>.prototype.then = <span class="function"><span class="keyword">function</span>(<span class="params">onFulfilled, onRejected</span>) </span>{
+  <span class="keyword">const</span> that = <span class="keyword">this</span>;
+  <span class="keyword">let</span> newPromise;
+  onFulfilled = 
+    <span class="keyword">typeof</span> onFulfilled === <span class="string">"function"</span> ? onFulfilled : <span class="function"><span class="params">value</span> =&gt;</span> value;
+  onRejected = 
+   <span class="keyword">typeof</span> onRejected === <span class="string">"function"</span> ? onRejected : <span class="function"><span class="params">reason</span> =&gt;</span> {
+     <span class="keyword">throw</span> reason
+   }
+
+   <span class="keyword">if</span>(that.status === FULFILLED) {
+     <span class="keyword">return</span> newPromise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resovle, reject</span>) =&gt;</span> {
+       setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> {
+         <span class="keyword">try</span> {
+           <span class="keyword">let</span> x = onFulfilled(that.value)
+           resovlePromise(newPromise, x, resovle, reject);
+         } <span class="keyword">catch</span> (error) {
+           reject(error)
+         }
+       })
+     })
+   }
+
+   <span class="keyword">if</span>(that.status === REJECTED) {
+     <span class="keyword">return</span> newPromise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">()</span> =&gt;</span> {
+       setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> {
+         <span class="keyword">try</span> {
+           <span class="keyword">let</span> x = onRejected(that.reason)
+           resovlePromise(newPromise, x, resovle, reject)
+         } <span class="keyword">catch</span> (error) {
+           reject(error)
+         }
+       })
+     })
+   }
+
+   <span class="keyword">if</span>(that.status === PENDING) {
+     that.onFulfilledCallbacks.push(<span class="function"><span class="params">()</span> =&gt;</span> {
+        setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> {
+          <span class="keyword">try</span> {
+            <span class="keyword">let</span> x = onFulfilled(that.value)
+            resovlePromise(newPromise, x, resovle, reject)
+          } <span class="keyword">catch</span> (error) {
+            reject(error)
+          }
+        })
+     })
+
+    that.onRejectedCallbacks.push(<span class="function"><span class="params">()</span> =&gt;</span>{
+      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> {
+        <span class="keyword">try</span> {
+          <span class="keyword">let</span> x = onRejected(that.reason)
+          resovlePromise(newPromise, x, resovle, reject)
+        } <span class="keyword">catch</span> (error) {
+          reject(error)
+        }
+      })
+    })
+  }
+
+}<span class="number">433635</span>
+
+<span class="function"><span class="keyword">function</span> <span class="title">resolvePromise</span> (<span class="params">newPromise, x, resolve, reject</span>) </span>{
+  <span class="keyword">let</span> that = <span class="keyword">this</span>;
+  <span class="keyword">if</span>(newPromise === x) {
+    reject(<span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">'Chaining cycle'</span>));
+  }
+  <span class="keyword">if</span>(x &amp; <span class="keyword">typeof</span> x === <span class="string">'object'</span> || <span class="keyword">typeof</span> x === <span class="string">'function'</span>) {
+    <span class="keyword">let</span> used;
+    <span class="keyword">try</span> {
+      <span class="keyword">let</span> then = x.then;
+      <span class="keyword">if</span>(<span class="keyword">typeof</span> then === <span class="string">'function'</span>) {
+        then.call(x, (y) =&gt; {
+          <span class="keyword">if</span>(used) <span class="keyword">return</span>;
+          used === <span class="literal">true</span>;
+          resovlePromise(newPromise, y, resolve, reject);
+        }, (reason) =&gt; {
+          <span class="keyword">if</span>(used) <span class="keyword">return</span>;
+          used === <span class="literal">true</span>;
+          reject(reason);
+        })
+      }<span class="keyword">else</span> {
+        <span class="keyword">if</span>(used) <span class="keyword">return</span>;
+        used = <span class="literal">true</span>;
+        resolve(x);
+      }
+    } <span class="keyword">catch</span> (error) {
+      <span class="keyword">if</span>(used) <span class="keyword">return</span>;
+      used = <span class="literal">true</span>;
+      reject(error);
+    }
+  }<span class="keyword">else</span>{
+    resolve(x);
+  }
+}
+
+<span class="comment">// promise.finally</span>
+<span class="comment">// 不管成功 or 失败 最终都会走到finally 还可以继续 then 且可以把值原封不动的传给后面的then</span>
+<span class="built_in">Promise</span>.prototype.finally = <span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>{
+  <span class="keyword">return</span> <span class="keyword">this</span>.then(<span class="function">(<span class="params">value</span>) =&gt;</span> {
+    <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(callback()).then(<span class="function"><span class="params">()</span> =&gt;</span> {
+      <span class="keyword">return</span> value
+    })
   }, (err) =&gt; {
-    rejected(err);
-    return;
+    <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(callback().then(<span class="function"><span class="params">()</span> =&gt;</span> {
+      <span class="keyword">throw</span> err
+    }))
   })
-}</code></pre><p>  }<br> })<br>}</p>
-</li>
-</ul>
-<p> //Promise.race()<br> /**</p>
-<ul>
-<li>返回一个promise函数，他将与第一个传递的promise相同的方式被完成，他可以是完成也可以是失败，</li>
-<li>取决于第一个完成的方式是两个中的哪一个</li>
-<li>如果传递的是一个空数组，那么primise将处于永远等待</li>
-<li>如果迭代中包含一个或多个 非promise/resolve/reject的promise，那么promise.race将解析为迭代中找到的第一个值</li>
-<li>/<br>Promise.prototype.race = function(promises) {<br>return new Promise((resovle, reject) =&gt; {<br> if(promises.length === 0) {<br>   return;<br> }else {<br>   for (let i = 0; i &lt; promises.length; i++) {<pre><code>Promise.resolve(promises[i]).then((data)=&gt; {
-  resolve(data);
-  return;
-}, (err) =&gt; {
-  reject(err);
-  return;
-})</code></pre>   }<br> }<br>})<br>}</li>
-</ul>
-<p>//Promise.allSettled<br>/**</p>
-<ul>
-<li><p>将一组promise实例作为参数，包装成一个新的promise实例，只有等到所有的promise都执行完成后</p>
-</li>
-<li><p>不管是fulfilled 或是 rejected 包装实例才会结束</p>
-</li>
-<li><p>/</p>
-<p>//Promise.any<br>/**</p>
-</li>
-<li><p>将一组promise实例作为参数，包装成一个新的promise实例，实例参数只要有一个promise是resolve状态</p>
-</li>
-<li><p>包装的实例则返回resolve状态，如果实例参数都返回rejected状态，实例才返回 rejected</p>
-</li>
-<li><p>/</p>
-</li>
-</ul>
-<p>// 防抖<br>function debounce(fn, wait) {<br>  let timer = null;<br>  return function (…args) {<br>    if(timer) clearTimeout(timer)<br>    timer = setTimeout(() =&gt; {<br>      fn.apply(this, args)<br>    }, wait)<br>  }<br>}</p>
-<p>// 节流<br>function throttle(fn, wait) {<br>  let previous = 0;<br>  return function(…args) {<br>    let now = +new Date();<br>    if(now - previous) {<br>      previous = now;<br>      fn.apply(this, args)<br>    }<br>  }<br>}</p>
-<p>var value = 2;<br>var foo = {<br>  value: 1<br>};</p>
-<p>function bar(name, age) {<br>  return {<br>    value: this.value,<br>    name: name,<br>    age: age<br>  }<br>}<br>bar.call(foo, ‘Jack’, ‘20)</p>
-<p>Function.prototype.bind = function(context) {<br>  if(typeof this !== “function”) {<br>    throw new Error(‘)<br>  }<br>  let self = this;<br>  var args = Array.prototype.slice.call(arguments, 1)<br>  const fBind = function() {<br>     var bindArgs = Array.prototype.slice.call(arguments)<br>     return self.apply(this instanceof fBind ? this : context, args.concat(bindArgs))<br>  }<br>  var fNOP = function () {};<br>  fNOP.prototype = this.prototype;<br>  fBind.prototype = new fNOP();<br>  return fBind;<br>}</p>
-<p>Function.prototype.myNew = function() {<br>  let ctor = [].shift.call(arguments);</p>
-<p>  let obj = Object.create(ctor.prototype);</p>
-<p>  let result = ctor.apply(obj, arguments);</p>
-<p>  return result instanceof Object ? result : obj;<br>}</p>
+}
+
+<span class="comment">//promise.all（promises） 返回一个promise对象</span>
+<span class="comment">/**</span>
+<span class="comment"> * 1. 如果传入的是一个空的可迭代对象，那么此promise对象回调完成（resolve），</span>
+<span class="comment"> *  只有这种情况是同步执行的，其他的都是返回一个异步完成</span>
+<span class="comment"> * 2. 如果传入参数不包含任何一个promise， 则返回一个异步完成</span>
+<span class="comment"> * 3. promises 所有的promise都完成时，或参数中不包含promise时 回调完成</span>
+<span class="comment"> * 4. 如果一个 promise 失败，那么promise.all 返回的promise对象失败</span>
+<span class="comment"> * 5. 在任何情况下，promises返回的promise的完成状态结果都是一个数组</span>
+<span class="comment"> */</span>
+
+ <span class="built_in">Promise</span>.prototype.all = <span class="function"><span class="keyword">function</span> (<span class="params">promises</span>) </span>{
+   <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, rejected</span>) =&gt;</span> {
+    <span class="keyword">let</span> index = <span class="number">0</span>;
+    <span class="keyword">let</span> result = [];
+    <span class="keyword">if</span> (promises.length === <span class="number">0</span>) {
+      resolve(result);
+    } <span class="keyword">else</span> {
+      <span class="function"><span class="keyword">function</span> <span class="title">processValue</span> (<span class="params">idx, data</span>) </span>{
+        result[i] = data;
+        <span class="keyword">if</span> (++index === promises.length) {
+          resolve(result)
+        }
+      }
+      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; promises.length; i++) {
+        <span class="comment">//promises[i]可能是个普通值</span>
+        <span class="built_in">Promise</span>.resolve(promises[i]).then(<span class="function">(<span class="params">data</span>) =&gt;</span> {
+          processValue(i, data)
+        }, (err) =&gt; {
+          rejected(err);
+          <span class="keyword">return</span>;
+        })
+      }
+    }
+   })
+ }
+
+
+ <span class="comment">//Promise.race()</span>
+ <span class="comment">/**</span>
+<span class="comment">  * 返回一个promise函数，他将与第一个传递的promise相同的方式被完成，他可以是完成也可以是失败，</span>
+<span class="comment">  * 取决于第一个完成的方式是两个中的哪一个</span>
+<span class="comment">  * 如果传递的是一个空数组，那么primise将处于永远等待</span>
+<span class="comment">  * 如果迭代中包含一个或多个 非promise/resolve/reject的promise，那么promise.race将解析为迭代中找到的第一个值</span>
+<span class="comment">  */</span>
+<span class="built_in">Promise</span>.prototype.race = <span class="function"><span class="keyword">function</span>(<span class="params">promises</span>) </span>{
+  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resovle, reject</span>) =&gt;</span> {
+    <span class="keyword">if</span>(promises.length === <span class="number">0</span>) {
+      <span class="keyword">return</span>;
+    }<span class="keyword">else</span> {
+      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; promises.length; i++) {
+        <span class="built_in">Promise</span>.resolve(promises[i]).then(<span class="function">(<span class="params">data</span>)=&gt;</span> {
+          resolve(data);
+          <span class="keyword">return</span>;
+        }, (err) =&gt; {
+          reject(err);
+          <span class="keyword">return</span>;
+        })
+      }
+    }
+  })
+}
+
+<span class="comment">//Promise.allSettled</span>
+<span class="comment">/**</span>
+<span class="comment"> * 将一组promise实例作为参数，包装成一个新的promise实例，只有等到所有的promise都执行完成后</span>
+<span class="comment"> * 不管是fulfilled 或是 rejected 包装实例才会结束</span>
+<span class="comment"> */</span>
+
+ <span class="comment">//Promise.any</span>
+<span class="comment">/**</span>
+<span class="comment"> * 将一组promise实例作为参数，包装成一个新的promise实例，实例参数只要有一个promise是resolve状态</span>
+<span class="comment"> * 包装的实例则返回resolve状态，如果实例参数都返回rejected状态，实例才返回 rejected</span>
+<span class="comment"> */</span>
+
+<span class="comment">// 防抖</span>
+<span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn, wait</span>) </span>{
+  <span class="keyword">let</span> timer = <span class="literal">null</span>;
+  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...args</span>) </span>{
+    <span class="keyword">if</span>(timer) clearTimeout(timer)
+    timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> {
+      fn.apply(<span class="keyword">this</span>, args)
+    }, wait)
+  }
+}
+
+<span class="comment">// 节流</span>
+<span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn, wait</span>) </span>{
+  <span class="keyword">let</span> previous = <span class="number">0</span>;
+  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>{
+    <span class="keyword">let</span> now = +<span class="keyword">new</span> <span class="built_in">Date</span>();
+    <span class="keyword">if</span>(now - previous) {
+      previous = now;
+      fn.apply(<span class="keyword">this</span>, args)
+    }
+  }
+}
+
+<span class="keyword">var</span> value = <span class="number">2</span>;
+<span class="keyword">var</span> foo = {
+  value: <span class="number">1</span>
+};
+
+<span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params">name, age</span>) </span>{
+  <span class="keyword">return</span> {
+    value: <span class="keyword">this</span>.value,
+    name: name,
+    age: age
+  }
+}
+bar.call(foo, <span class="string">'Jack'</span>, <span class="string">'20)</span>
+<span class="string"></span>
+<span class="string">Function.prototype.bind = function(context) {</span>
+<span class="string">  if(typeof this !== "function") {</span>
+<span class="string">    throw new Error('</span>)
+  }
+  <span class="keyword">let</span> self = <span class="keyword">this</span>;
+  <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>)
+  <span class="keyword">const</span> fBind = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+     <span class="keyword">var</span> bindArgs = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>)
+     <span class="keyword">return</span> self.apply(<span class="keyword">this</span> <span class="keyword">instanceof</span> fBind ? <span class="keyword">this</span> : context, args.concat(bindArgs))
+  }
+  <span class="keyword">var</span> fNOP = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>{};
+  fNOP.prototype = <span class="keyword">this</span>.prototype;
+  fBind.prototype = <span class="keyword">new</span> fNOP();
+  <span class="keyword">return</span> fBind;
+}
+
+<span class="built_in">Function</span>.prototype.myNew = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="keyword">let</span> ctor = [].shift.call(<span class="built_in">arguments</span>);
+
+  <span class="keyword">let</span> obj = <span class="built_in">Object</span>.create(ctor.prototype);
+
+  <span class="keyword">let</span> result = ctor.apply(obj, <span class="built_in">arguments</span>);
+
+  <span class="keyword">return</span> result <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? result : obj;
+}</code></pre>
 
             </article>
             <hr>

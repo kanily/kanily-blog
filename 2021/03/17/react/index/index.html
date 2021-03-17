@@ -132,7 +132,7 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2021-03-17 07:44">
+                  <time datetime="2021-03-17 07:50">
                     2021年3月17日 早上
                   </time>
                 </div>
@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    1.6k 字
+                    1.8k 字
                   </span>
                 
 
@@ -153,7 +153,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    27
+                    30
                      分钟
                   </span>
                 
@@ -239,7 +239,7 @@
         <span class="hljs-keyword">let</span> newArgs = args.concat(<span class="hljs-built_in">Array</span>.prototype.slice(<span class="hljs-built_in">arguments</span>));
         <span class="hljs-keyword">if</span> (newArgs.length &lt; fn.length) &#123;
             <span class="hljs-keyword">return</span> curry.call(<span class="hljs-keyword">this</span>, fn, newArgs)
-        &#125; eles &#123;
+        &#125; <span class="hljs-keyword">else</span> &#123;
             <span class="hljs-keyword">return</span> fn.apply(<span class="hljs-keyword">this</span>, newArgs)
         &#125;
     &#125;
@@ -275,9 +275,9 @@
     &#125;
 &#125;
 <span class="hljs-keyword">return</span> target;</code></pre>
-<h5 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h5>JSON.parse(JSON.stringify(a)) 这种方法无法解决循环引用 无法拷贝特殊对象<br>解决方案： 使用哈希表：检测当前对象，取该值<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deepClone</span>(<span class="hljs-params">source， hash = new WeakMap(</span>)) </span>&#123;
+<h5 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h5>JSON.parse(JSON.stringify(a)) 这种方法无法解决循环引用 无法拷贝特殊对象<br>解决方案： 使用哈希表：检测当前对象，取该值<pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deepClone</span>(<span class="hljs-params">source, hash = new WeakMap(</span>)) </span>&#123;
     <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isObject</span>(<span class="hljs-params"></span>) </span>&#123;
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> obj === <span class="hljs-string">'object'</span> obj !== <span class="hljs-literal">null</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> obj === <span class="hljs-string">'object'</span> &amp;&amp; obj !== <span class="hljs-literal">null</span>;
     &#125;
     <span class="hljs-keyword">if</span>(!isObject(source)) <span class="hljs-keyword">return</span> source;
     <span class="hljs-keyword">if</span>(hash.has(soucre)) <span class="hljs-keyword">return</span> hash.get(source);
@@ -316,14 +316,14 @@
     <span class="hljs-keyword">let</span> timer = <span class="hljs-literal">null</span>, last = <span class="hljs-number">0</span>;
     <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
         <span class="hljs-keyword">let</span> now = +<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
-        <span class="hljs-keyword">if</span>(now - last = delay &amp;&amp; timer) &#123;
+        <span class="hljs-keyword">if</span>(now - last === delay &amp;&amp; timer) &#123;
             clearTimer(timer);
             timer = setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
                 fn.apply(<span class="hljs-keyword">this</span>, args)
             &#125;, delay)
         &#125; <span class="hljs-keyword">else</span> &#123;
             last = now;
-            fn.appy(<span class="hljs-keyword">this</span>, args)
+            fn.apply(<span class="hljs-keyword">this</span>, args)
         &#125;
     &#125;
 &#125;</code></pre>
@@ -373,16 +373,16 @@
     
     add(observer) &#123;
         <span class="hljs-keyword">this</span>.observers.push(observer);
-        <span class="hljs-keyword">this</span>.observers = [...new <span class="hljs-built_in">Set</span>(<span class="hljs-keyword">this</span>.oberservers)];
+        <span class="hljs-keyword">this</span>.observers = [...new <span class="hljs-built_in">Set</span>(<span class="hljs-keyword">this</span>.observers)];
     &#125;
 
-    notify(..agrs) &#123;
+    notify(...agrs) &#123;
         <span class="hljs-keyword">this</span>.observers.forEach(<span class="hljs-function">(<span class="hljs-params">observer</span>) =&gt;</span> observer.update(...agrs))
     &#125;
 
    remove(observer) &#123;
        <span class="hljs-keyword">let</span> observers = <span class="hljs-keyword">this</span>.observers;
-       <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i= <span class="hljs-number">0</span>; i &lt; observers.lenght; i++) &#123;
+       <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i= <span class="hljs-number">0</span>; i &lt; observers.length; i++) &#123;
            <span class="hljs-keyword">if</span>(observer === observer[i]) &#123;
                observers.splice(i, <span class="hljs-number">1</span>)
            &#125;
@@ -544,6 +544,48 @@
         <span class="hljs-keyword">return</span> tail
     &#125;
 &#125;</code></pre>
+<h3 id="js树转换"><a href="#js树转换" class="headerlink" title="js树转换"></a>js树转换</h3><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">array2Tree</span>(<span class="hljs-params">arr</span>)</span>&#123;
+    <span class="hljs-keyword">if</span>(!<span class="hljs-built_in">Array</span>.isArray(arr) || !arr.length) <span class="hljs-keyword">return</span>;
+    <span class="hljs-keyword">let</span> map = &#123;&#125;;
+    arr.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> map[item.id] = item);
+
+    <span class="hljs-keyword">let</span> roots = [];
+    arr.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+        <span class="hljs-keyword">const</span> parent = map[item.parentId];
+        <span class="hljs-keyword">if</span>(parent)&#123;
+            (parent.children || (parent.children=[])).push(item);
+        &#125;
+        <span class="hljs-keyword">else</span>&#123;
+            roots.push(item);
+        &#125;
+    &#125;)
+
+    <span class="hljs-keyword">return</span> roots;
+&#125;</code></pre>
+<h4 id="控制请求并发树"><a href="#控制请求并发树" class="headerlink" title="控制请求并发树"></a>控制请求并发树</h4><pre><code class="hljs js"><span class="hljs-comment">//递归方式</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleFetchQueue</span>(<span class="hljs-params">urls, max, callback</span>) </span>&#123;
+    <span class="hljs-keyword">let</span> urlsCopy = [... urls];<span class="hljs-comment">//防止影响外部urls变量</span>
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">request</span>(<span class="hljs-params"></span>) </span>&#123;
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Handle</span> (<span class="hljs-params"></span>) </span>&#123;
+            count--;
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'end 当前并发数为: '</span>+count);
+            <span class="hljs-keyword">if</span>(urlsCopy.length) &#123;<span class="hljs-comment">//还有未请求的则递归</span>
+                request();
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (count === <span class="hljs-number">0</span>) &#123;<span class="hljs-comment">//并发数为0则表示全部请求完成</span>
+                callback()
+            &#125;
+        &#125;
+        count++;
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'start 当前并发数为: '</span>+count);
+        <span class="hljs-comment">//请求</span>
+        fetch(urlsCopy.shift()).then(Handle).catch(Handle);
+        <span class="hljs-comment">//并发数不足时递归</span>
+        count &lt; max &amp;&amp; request();
+    &#125;
+    <span class="hljs-keyword">let</span> count = <span class="hljs-number">0</span>;<span class="hljs-comment">//几率并发数</span>
+    request();
+&#125;</code></pre>
+
             </article>
             <hr>
             <div>
@@ -569,8 +611,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2021/03/17/algorithm/Array/index/">
-                        <span class="hidden-mobile">algorithm/Array/index</span>
+                      <a href="/2021/03/17/algorithm/Function/index/">
+                        <span class="hidden-mobile">algorithm/Function/index</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
