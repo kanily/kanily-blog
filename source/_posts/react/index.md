@@ -568,3 +568,56 @@ var isValidBST = function (node) {
     return  inorder(node)
 }
 ```
+#### 深度优先
+```js
+function deepTraversal(node) {  
+    var nodeList = [];  
+    if (node) {  
+        var stack = [];  
+        stack.push(node);  
+        while (stack.length != 0) {  
+            var childrenItem = stack.pop();  
+            nodeList.push(childrenItem);  
+            var childrenList = childrenItem.children;  
+            for (var i = childrenList.length - 1; i >= 0; i--)  
+                stack.push(childrenList[i]);  
+        }  
+    }    
+    return nodeList;  
+}   
+```
+##### 前序遍历
+```js
+var inorderTraversal = function(root) {
+    const res = [];
+    const inorder = (root) => {
+        if (!root) {
+            return;
+        }
+        inorder(root.left);
+        res.push(root.val);
+        inorder(root.right);
+    }
+    inorder(root);
+    return res;
+};
+```
+##### dict
+```js
+function getWords(keys, dict) {
+  const result = [];
+  const loop = (suffix = '', depth = 0 ) => {
+    let letters = dict[keys[depth]];
+    for(let i = 0; i < letters.length; i++) {
+       const nextSuffix = letters[i] + suffix;
+       if(depth !== keys.length - 1) {
+          loop(nextSuffix, depth++)
+        } else {
+            result.push(nextSuffix)
+        }
+    }
+   }
+  loop()
+  return result;
+}
+```
