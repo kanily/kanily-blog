@@ -475,3 +475,96 @@ function handleFetchQueue(urls, max, callback) {
     request();
 }
 ```
+#### 实现一个计算器
+```js
+var calculate = function(s) {
+    let sign = '+', n = 0, c, stack = [];
+    for (let i = 0; i <= s.length; i++) {
+        c = s.charAt(i);
+        if(c === ' ') continue;
+        if(c <= '9' && c >= '0') {
+            n = n * 10 + parseInt(c);
+            continue;
+        }
+        if(sign === '+') {
+            stack.push(n)
+        } else if (sign === '-') {
+             stack.push(-n)
+        } else if(sign === '*') {
+            stack.push(stack.pop() * n)
+        } else if(sign === '/') {
+            stack.push(Math.trunc(stack.pop() / n))
+        }
+        sign = c;
+        n = 0
+    }
+    return stack.reduce((prev, cur) => prev + cur, 0)
+};
+```
+#### 层序遍历
+```js
+var levelOrder = function(root) {
+    const ret = [];
+    if (!root) {
+        return ret;
+    }
+
+    const q = [];
+    q.push(root);
+    while (q.length !== 0) {
+        const currentLevelSize = q.length;
+        ret.push([]);
+        for (let i = 1; i <= currentLevelSize; ++i) {
+            const node = q.shift();
+            ret[ret.length - 1].push(node.val);
+            if (node.left) q.push(node.left);
+            if (node.right) q.push(node.right);
+        }
+    }
+        
+    return ret;
+};
+```
+#### 最大深度
+```js
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var maxDepth = function(root) {
+    if(!root) {
+        return 0;
+    } else {
+        const left = maxDepth(root.left);
+        const right = maxDepth(root.right);
+        return Math.max(left, right) + 1;
+    }
+};
+```
+##### 验证二叉搜索树
+```js
+var isValidBST = function (node) {
+    var prev = -Infinity
+
+    function inorder(node) {
+        if (!node) {
+            return true
+        }
+
+        var preResult = inorder(node.left)
+        var inResult = node.val > prev
+        prev = node.val
+        var postResult = inorder(node.right)
+        return preResult && inResult && postResult
+    }
+
+    return  inorder(node)
+}
+```
